@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import logoSrc from '../assets/logo.png';
+
 interface Props {
   variant?: 'dark' | 'light';
   class?: string;
@@ -8,19 +11,16 @@ const textColor = variant === 'dark' ? '#0B0B0B' : '#F7F5F0';
 const accent = '#F2C200';
 ---
 <a href="/" aria-label="Climbing Chile — Inicio" class={`inline-flex items-center gap-3 ${className}`}>
-  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <!-- Carabiner silhouette -->
-    <path
-      d="M14 6 C 8 6, 6 12, 6 20 L 6 36 C 6 42, 10 44, 14 44 L 20 44 C 24 44, 26 42, 26 38 L 26 32 C 26 28, 28 26, 32 26 L 38 26 C 42 26, 44 24, 44 20 C 44 16, 42 14, 38 14 L 22 14 C 18 14, 16 12, 16 10 C 16 8, 15 6, 14 6 Z"
-      stroke={textColor}
-      stroke-width="3"
-      fill="none"
-      stroke-linejoin="round"
-    />
-    <!-- Gate -->
-    <line x1="16" y1="14" x2="38" y2="14" stroke={accent} stroke-width="3" stroke-linecap="round" />
-    <circle cx="14" cy="14" r="2" fill={accent} />
-  </svg>
+  <Image
+    src={logoSrc}
+    alt="Climbing Chile logo"
+    width={44}
+    height={44}
+    quality={90}
+    format="webp"
+    loading="eager"
+    class="w-11 h-11 object-contain"
+  />
   <span class="flex flex-col leading-[0.9]">
     <span class="display text-[1.05rem]" style={`color:${textColor}`}>Climbing</span>
     <span class="display text-[1.05rem]" style={`color:${accent}`}>Chile</span>
