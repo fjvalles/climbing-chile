@@ -1,0 +1,18 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+import { r } from '../i18n/routes';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section class="bg-[var(--color-brand-yellow)] text-[var(--color-ink)]">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-20 md:py-28 grid md:grid-cols-2 gap-10 items-center">
+    <h2 class="display text-4xl md:text-6xl whitespace-pre-line leading-none">
+      {t('section.cta.title')}
+    </h2>
+    <div>
+      <p class="text-lg max-w-md">{t('section.cta.subtitle')}</p>
+      <a href={r(lang, 'contact')} class="btn btn-dark mt-8">{t('nav.contact')} →</a>
+    </div>
+  </div>
+</section>

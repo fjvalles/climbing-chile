@@ -1,0 +1,59 @@
+---
+import Logo from './Logo.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+import { r } from '../i18n/routes';
+import { getEntry } from 'astro:content';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const site = await getEntry('site', 'config');
+const s = site?.data;
+const year = new Date().getFullYear();
+
+const nav = [
+  { key: 'nav.expeditions' as const, href: r(lang, 'expeditions') },
+  { key: 'nav.training' as const, href: r(lang, 'training') },
+  { key: 'nav.about' as const, href: r(lang, 'about') },
+  { key: 'nav.contact' as const, href: r(lang, 'contact') },
+];
+---
+<footer class="bg-[var(--color-ink)] text-[var(--color-bone)] mt-24">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-5">
+      <Logo variant="light" />
+      <p class="mt-6 text-sm text-[var(--color-stone-light)] whitespace-pre-line max-w-xs">
+        {t('footer.tagline')}
+      </p>
+    </div>
+    <div class="md:col-span-3">
+      <p class="eyebrow text-[var(--color-brand-yellow)] mb-4">{t('footer.nav')}</p>
+      <ul class="space-y-2">
+        {nav.map(({ key, href }) => (
+          <li><a class="text-sm link-underline" href={href}>{t(key)}</a></li>
+        ))}
+      </ul>
+    </div>
+    <div class="md:col-span-4">
+      <p class="eyebrow text-[var(--color-brand-yellow)] mb-4">{t('footer.contact')}</p>
+      {s && (
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href={`https://wa.me/${s.whatsapp.replace(/\D/g, '')}`} class="link-underline" target="_blank" rel="noopener">
+              WhatsApp · {s.whatsappDisplay}
+            </a>
+          </li>
+          <li><a href={`mailto:${s.email}`} class="link-underline">{s.email}</a></li>
+          <li><a href={s.instagram} class="link-underline" target="_blank" rel="noopener">Instagram · @climbingchile_cl</a></li>
+          <li class="text-[var(--color-stone-light)]">{s.address[lang]}</li>
+        </ul>
+      )}
+    </div>
+  </div>
+  <div class="border-t border-[var(--color-ink-soft)]">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[var(--color-stone-light)]">
+      <p>© {year} Climbing Chile. {t('footer.rights')}</p>
+      <p class="eyebrow">Santiago · Andes · Patagonia · Perú</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="granite" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8a7a60"/>
+      <stop offset="1" stop-color="#3a2e1e"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#granite)"/>
+  <g stroke="#0B0B0B" stroke-width="2" fill="none" opacity="0.4">
+    <path d="M100 50 Q 200 400 150 900"/>
+    <path d="M300 0 Q 350 500 400 1000"/>
+    <path d="M550 80 Q 500 450 600 950"/>
+    <path d="M700 0 Q 750 400 720 900"/>
+  </g>
+  <circle cx="400" cy="500" r="12" fill="#F2C200"/>
+</svg>

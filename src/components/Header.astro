@@ -1,0 +1,71 @@
+---
+import Logo from './Logo.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+import { r, altLang } from '../i18n/routes';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const alt = altLang(lang);
+const current = Astro.url.pathname;
+
+const nav = [
+  { key: 'nav.expeditions' as const, href: r(lang, 'expeditions') },
+  { key: 'nav.training' as const, href: r(lang, 'training') },
+  { key: 'nav.about' as const, href: r(lang, 'about') },
+  { key: 'nav.contact' as const, href: r(lang, 'contact') },
+];
+
+const langAltHref = current === '/' ? r(alt, 'home') : current.startsWith('/en') ? current.replace(/^\/en/, '') || '/' : `/en${current === '/' ? '' : current}`;
+---
+<header class="sticky top-0 z-40 bg-[var(--color-bone)]/90 backdrop-blur border-b border-[var(--color-line)]">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 md:h-20 flex items-center justify-between">
+    <Logo />
+    <nav class="hidden md:flex items-center gap-8" aria-label="Primary">
+      {nav.map(({ key, href }) => (
+        <a
+          href={href}
+          class:list={[
+            'display text-sm text-[var(--color-ink)] link-underline',
+            current === href && 'text-[var(--color-brand-yellow-dark)]',
+          ]}
+        >
+          {t(key)}
+        </a>
+      ))}
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href={langAltHref} class="eyebrow text-[var(--color-stone)] hover:text-[var(--color-ink)]" aria-label={t('lang.switch')}>
+        {alt.toUpperCase()}
+      </a>
+      <a href={r(lang, 'contact')} class="btn btn-primary hidden sm:inline-flex">
+        {t('nav.book')}
+      </a>
+      <button id="nav-toggle" class="md:hidden p-2" aria-label="Menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="4" y1="7" x2="20" y2="7" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="17" x2="20" y2="17" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-nav" class="md:hidden hidden border-t border-[var(--color-line)] bg-[var(--color-bone)]">
+    <div class="px-5 py-4 flex flex-col gap-3">
+      {nav.map(({ key, href }) => (
+        <a href={href} class="display text-lg py-1">{t(key)}</a>
+      ))}
+      <a href={r(lang, 'contact')} class="btn btn-primary w-full mt-2">{t('nav.book')}</a>
+    </div>
+  </div>
+</header>
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('mobile-nav');
+  toggle?.addEventListener('click', () => {
+    const open = nav?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+</script>

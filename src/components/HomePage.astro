@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from './Hero.astro';
+import SectionHeader from './SectionHeader.astro';
+import ServiceTile from './ServiceTile.astro';
+import ExpeditionCard from './ExpeditionCard.astro';
+import CTABanner from './CTABanner.astro';
+import WhatsAppBubble from './WhatsAppBubble.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+import { r } from '../i18n/routes';
+import { getCollection } from 'astro:content';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const expeditions = (await getCollection('expeditions'))
+  .filter((e) => e.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 6);
+
+const services = lang === 'es'
+  ? [
+      { icon: 'mountain' as const, title: 'Expediciones', body: 'Cumbres clásicas y técnicas en Chile, Argentina, Bolivia y Perú.', href: r(lang, 'expeditions') },
+      { icon: 'rope' as const, title: 'Escalada', body: 'Roca, hielo y mixto. Desde Arrayán hasta Cochamó.', href: r(lang, 'expeditions') },
+      { icon: 'book' as const, title: 'Formación', body: 'Cursos técnicos con metodología práctica y progresiva.', href: r(lang, 'training') },
+      { icon: 'truck' as const, title: 'Logística', body: 'Contacta con el plan. Nosotros nos encargamos del resto.', href: r(lang, 'contact') },
+      { icon: 'flag' as const, title: 'Viajes a medida', body: 'Para ti o tu equipo. Itinerarios 100% personalizados.', href: r(lang, 'contact') },
+      { icon: 'calendar' as const, title: 'Eventos', body: 'Charlas, proyecciones y meetups en la comunidad climber.', href: r(lang, 'contact') },
+    ]
+  : [
+      { icon: 'mountain' as const, title: 'Expeditions', body: 'Classic and technical summits in Chile, Argentina, Bolivia and Peru.', href: r(lang, 'expeditions') },
+      { icon: 'rope' as const, title: 'Climbing', body: 'Rock, ice and mixed. From Arrayán to Cochamó.', href: r(lang, 'expeditions') },
+      { icon: 'book' as const, title: 'Training', body: 'Technical courses with a hands-on, progressive method.', href: r(lang, 'training') },
+      { icon: 'truck' as const, title: 'Logistics', body: 'Bring us the plan. We handle the rest.', href: r(lang, 'contact') },
+      { icon: 'flag' as const, title: 'Tailor-made', body: 'For you or your team. 100% custom itineraries.', href: r(lang, 'contact') },
+      { icon: 'calendar' as const, title: 'Events', body: 'Talks, screenings and meetups with the climber community.', href: r(lang, 'contact') },
+    ];
+
+const title = lang === 'es' ? 'Climbing Chile · Guías de montaña' : 'Climbing Chile · Mountain Guides';
+---
+<Base lang={lang} title={title}>
+  <Hero lang={lang} />
+
+  <section class="py-20 md:py-28 bg-[var(--color-bone)]">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <SectionHeader eyebrow={t('section.services')} title={t('section.services.title')} />
+      <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {services.map((s) => <ServiceTile {...s} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-28 bg-white border-y border-[var(--color-line)]">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <div class="flex items-end justify-between flex-wrap gap-6">
+        <SectionHeader eyebrow={t('section.expeditions')} title={t('section.expeditions.title')} />
+        <a href={r(lang, 'expeditions')} class="btn btn-outline">{t('section.expeditions.all')} →</a>
+      </div>
+      <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {expeditions.map((e) => <ExpeditionCard entry={e} lang={lang} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-28 bg-[var(--color-bone)]">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-10 items-start">
+      <div class="lg:col-span-5">
+        <SectionHeader eyebrow={t('section.about')} title={t('section.about.title')} />
+        <a href={r(lang, 'about')} class="btn btn-outline mt-8">{t('nav.about')} →</a>
+      </div>
+      <div class="lg:col-span-7 grid sm:grid-cols-3 gap-5">
+        <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
+          <p class="display text-3xl">{t('about.value1.title')}</p>
+          <p class="text-sm text-[var(--color-stone)] mt-3">{t('about.value1.body')}</p>
+        </div>
+        <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
+          <p class="display text-3xl">{t('about.value2.title')}</p>
+          <p class="text-sm text-[var(--color-stone)] mt-3">{t('about.value2.body')}</p>
+        </div>
+        <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
+          <p class="display text-3xl">{t('about.value3.title')}</p>
+          <p class="text-sm text-[var(--color-stone)] mt-3">{t('about.value3.body')}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner lang={lang} />
+  <WhatsAppBubble />
+</Base>

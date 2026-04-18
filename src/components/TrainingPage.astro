@@ -1,0 +1,60 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import CTABanner from './CTABanner.astro';
+import WhatsAppBubble from './WhatsAppBubble.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+import { r } from '../i18n/routes';
+import { getCollection, getEntry } from 'astro:content';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const courses = (await getCollection('courses')).sort((a, b) => a.data.order - b.data.order);
+const levelLabel = {
+  es: { intro: 'Inicial', intermediate: 'Intermedio', advanced: 'Avanzado' },
+  en: { intro: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' },
+} as const;
+const site = await getEntry('site', 'config');
+const wa = (title: string) => site ? `https://wa.me/${site.data.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`Hola, me interesa el curso "${title}".`)}` : '#';
+---
+<Base lang={lang} title={t('section.training.title')}>
+  <section class="bg-[var(--color-ink)] text-[var(--color-bone)] py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <p class="eyebrow text-[var(--color-brand-yellow)]">{t('section.training')}</p>
+      <h1 class="display text-5xl md:text-7xl mt-6 max-w-3xl">{t('section.training.title')}</h1>
+      <p class="mt-8 max-w-xl text-lg text-[var(--color-stone-light)]">
+        {lang === 'es'
+          ? 'Formaciones técnicas 100% prácticas en terreno real. Grupos reducidos, material incluido.'
+          : 'Hands-on technical training in real terrain. Small groups, gear included.'}
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 grid md:grid-cols-2 gap-5">
+      {courses.map((c) => (
+        <article class="group bg-white border border-[var(--color-line)] overflow-hidden flex flex-col md:flex-row">
+          <div class="md:w-2/5 aspect-[4/3] md:aspect-auto relative overflow-hidden bg-[var(--color-ink)]">
+            <Image src={c.data.cover} alt={c.data.title[lang]} widths={[400, 600]} sizes="(min-width: 768px) 40vw, 90vw" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-6 md:p-8 flex-1 flex flex-col">
+            <p class="eyebrow text-[var(--color-brand-yellow-dark)]">{levelLabel[lang][c.data.level]} · {c.data.durationDays}D</p>
+            <h3 class="display text-2xl md:text-3xl mt-3">{c.data.title[lang]}</h3>
+            <p class="text-sm text-[var(--color-stone)] mt-3 flex-1">{c.data.summary[lang]}</p>
+            <div class="flex items-center justify-between mt-6 pt-6 border-t border-[var(--color-line)]">
+              {c.data.priceFrom && (
+                <p class="display text-lg">{c.data.currency} ${c.data.priceFrom.toLocaleString()}</p>
+              )}
+              <a href={wa(c.data.title[lang])} target="_blank" rel="noopener" class="btn btn-primary">{t('card.book')} →</a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <CTABanner lang={lang} />
+  <WhatsAppBubble />
+</Base>

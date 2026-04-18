@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-yellow: #F2C200;
+  --color-brand-yellow-dark: #D9AE00;
+  --color-brand-yellow-light: #FFDA3A;
+  --color-ink: #0B0B0B;
+  --color-ink-soft: #1A1A1A;
+  --color-bone: #F7F5F0;
+  --color-stone: #6B6B6B;
+  --color-stone-light: #A8A8A8;
+  --color-line: #E5E2DA;
+
+  --font-display: "Archivo Black", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  --tracking-display: -0.02em;
+  --tracking-caps: 0.08em;
+
+  --radius-card: 4px;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--color-bone);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+}
+
+.display {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-display);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  transition: background-size 0.25s ease;
+}
+.link-underline:hover {
+  background-size: 0 1px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  font-size: 0.8125rem;
+  border-radius: 2px;
+  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: var(--color-brand-yellow); color: var(--color-ink); }
+.btn-primary:hover { background: var(--color-brand-yellow-light); }
+.btn-dark { background: var(--color-ink); color: var(--color-brand-yellow); }
+.btn-dark:hover { background: var(--color-ink-soft); }
+.btn-outline { border: 1px solid var(--color-ink); color: var(--color-ink); }
+.btn-outline:hover { background: var(--color-ink); color: var(--color-brand-yellow); }
+
+.tape {
+  background: var(--color-brand-yellow);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
+  display: inline-block;
+}
+
+.divider-ticks {
+  background-image: repeating-linear-gradient(90deg, var(--color-ink) 0 8px, transparent 8px 16px);
+  height: 2px;
+}

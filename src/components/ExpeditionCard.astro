@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { useTranslations, type Lang } from '../i18n/ui';
+import { r } from '../i18n/routes';
+
+interface Props {
+  entry: CollectionEntry<'expeditions'>;
+  lang: Lang;
+}
+const { entry, lang } = Astro.props;
+const t = useTranslations(lang);
+const d = entry.data;
+const href = `${r(lang, 'expeditions')}/${entry.id}`;
+const difficultyLabel = {
+  es: { easy: 'Fácil', moderate: 'Moderada', demanding: 'Exigente', difficult: 'Difícil', expedition: 'Expedición' },
+  en: { easy: 'Easy', moderate: 'Moderate', demanding: 'Demanding', difficult: 'Difficult', expedition: 'Expedition' },
+} as const;
+const statusLabel = d.status === 'soon' ? t('card.soon') : t('card.open');
+---
+<a href={href} class="group block bg-white border border-[var(--color-line)] overflow-hidden hover:-translate-y-1 transition-transform duration-300">
+  <div class="relative aspect-[4/5] overflow-hidden bg-[var(--color-ink)]">
+    <Image
+      src={d.cover}
+      alt={d.title[lang]}
+      widths={[400, 600, 900]}
+      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+    />
+    <span class="tape absolute top-4 left-4">{statusLabel}</span>
+    <div class="absolute inset-x-0 bottom-0 p-5 text-white bg-gradient-to-t from-black/80 via-black/30 to-transparent">
+      <p class="eyebrow text-[var(--color-brand-yellow)]">{d.location[lang]}</p>
+      <h3 class="display text-2xl md:text-3xl mt-2">{d.title[lang]}</h3>
+    </div>
+  </div>
+  <div class="p-5 grid grid-cols-3 gap-3 text-xs">
+    <div>
+      <p class="eyebrow text-[var(--color-stone)]">{t('card.duration')}</p>
+      <p class="display text-sm mt-1">{d.durationDays}D</p>
+    </div>
+    <div>
+      <p class="eyebrow text-[var(--color-stone)]">{t('card.difficulty')}</p>
+      <p class="display text-sm mt-1">{difficultyLabel[lang][d.difficulty]}</p>
+    </div>
+    <div>
+      <p class="eyebrow text-[var(--color-stone)]">{t('card.season')}</p>
+      <p class="display text-sm mt-1">{d.season[lang]}</p>
+    </div>
+  </div>
+</a>

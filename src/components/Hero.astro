@@ -1,0 +1,39 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+import { r } from '../i18n/routes';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section class="relative overflow-hidden bg-[var(--color-ink)] text-[var(--color-bone)]">
+  <div class="absolute inset-0 opacity-40" aria-hidden="true">
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" class="w-full h-full">
+      <defs>
+        <linearGradient id="heroSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0B0B0B"/>
+          <stop offset="1" stop-color="#2a3e55"/>
+        </linearGradient>
+      </defs>
+      <rect width="1600" height="900" fill="url(#heroSky)"/>
+      <polygon points="0,700 180,450 320,560 500,300 680,520 860,380 1040,580 1240,400 1420,540 1600,450 1600,900 0,900" fill="#0B0B0B"/>
+      <polygon points="500,300 540,250 600,380 680,520" fill="#F7F5F0" opacity="0.85"/>
+      <polygon points="860,380 900,330 970,430 1040,580" fill="#F7F5F0" opacity="0.75"/>
+      <polygon points="1240,400 1290,340 1360,460 1420,540" fill="#F7F5F0" opacity="0.8"/>
+      <circle cx="1300" cy="180" r="90" fill="#F2C200" opacity="0.35"/>
+    </svg>
+  </div>
+  <div class="relative max-w-7xl mx-auto px-5 md:px-8 pt-20 md:pt-32 pb-24 md:pb-40">
+    <p class="eyebrow text-[var(--color-brand-yellow)]">{t('hero.eyebrow')}</p>
+    <h1 class="display text-5xl md:text-7xl lg:text-8xl mt-6 whitespace-pre-line max-w-4xl">
+      {t('hero.title')}
+    </h1>
+    <p class="mt-8 max-w-xl text-base md:text-lg text-[var(--color-stone-light)] leading-relaxed">
+      {t('hero.subtitle')}
+    </p>
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a href={r(lang, 'expeditions')} class="btn btn-primary">{t('hero.cta.primary')} →</a>
+      <a href={r(lang, 'contact')} class="btn btn-outline" style="border-color: var(--color-bone); color: var(--color-bone)">{t('hero.cta.secondary')}</a>
+    </div>
+  </div>
+  <div class="divider-ticks absolute bottom-0 inset-x-0" style="background-image: repeating-linear-gradient(90deg, var(--color-brand-yellow) 0 12px, transparent 12px 24px);"></div>
+</section>

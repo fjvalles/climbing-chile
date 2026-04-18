@@ -1,0 +1,174 @@
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: editorial_workflow
+media_folder: "public/uploads"
+public_folder: "/uploads"
+locale: "es"
+
+collections:
+  - name: "expeditions"
+    label: "Expediciones"
+    label_singular: "Expedición"
+    folder: "src/content/expeditions"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "title.es"
+    summary: "{{title.es}}"
+    fields:
+      - { label: "Destacada", name: "featured", widget: "boolean", default: false }
+      - label: "Título"
+        name: "title"
+        widget: "object"
+        fields:
+          - { label: "Español", name: "es", widget: "string" }
+          - { label: "English", name: "en", widget: "string" }
+      - label: "Resumen"
+        name: "summary"
+        widget: "object"
+        fields:
+          - { label: "Español", name: "es", widget: "text" }
+          - { label: "English", name: "en", widget: "text" }
+      - label: "Ubicación"
+        name: "location"
+        widget: "object"
+        fields:
+          - { label: "Español", name: "es", widget: "string" }
+          - { label: "English", name: "en", widget: "string" }
+      - { label: "País", name: "country", widget: "select", options: ["CL","PE","AR","BO"], default: "CL" }
+      - { label: "Duración (días)", name: "durationDays", widget: "number", value_type: "int", min: 1 }
+      - { label: "Dificultad", name: "difficulty", widget: "select", options: ["easy","moderate","demanding","difficult","expedition"] }
+      - label: "Temporada"
+        name: "season"
+        widget: "object"
+        fields:
+          - { label: "Español", name: "es", widget: "string" }
+          - { label: "English", name: "en", widget: "string" }
+      - { label: "Precio desde", name: "priceFrom", widget: "number", required: false, value_type: "int" }
+      - { label: "Moneda", name: "currency", widget: "select", options: ["USD","CLP"], default: "USD" }
+      - { label: "Estado", name: "status", widget: "select", options: ["open","soon","closed"], default: "open" }
+      - { label: "Imagen portada", name: "cover", widget: "image" }
+      - { label: "Galería", name: "gallery", widget: "list", required: false, field: { label: "Imagen", name: "image", widget: "image" } }
+      - label: "Fechas disponibles"
+        name: "dates"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Inicio", name: "start", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+          - { label: "Fin", name: "end", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+          - { label: "Cupos", name: "spots", widget: "number", required: false, value_type: "int" }
+      - label: "Incluye"
+        name: "includes"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Español", name: "es", widget: "list", field: { label: "Item", name: "item", widget: "string" } }
+          - { label: "English", name: "en", widget: "list", field: { label: "Item", name: "item", widget: "string" } }
+      - label: "No incluye"
+        name: "excludes"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Español", name: "es", widget: "list", field: { label: "Item", name: "item", widget: "string" } }
+          - { label: "English", name: "en", widget: "list", field: { label: "Item", name: "item", widget: "string" } }
+      - label: "Itinerario"
+        name: "itinerary"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Día", name: "day", widget: "number", value_type: "int", min: 1 }
+          - label: "Título"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Descripción"
+            name: "body"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+      - { label: "Orden", name: "order", widget: "number", value_type: "int", default: 100 }
+      - { label: "Contenido", name: "body", widget: "markdown", required: false }
+
+  - name: "courses"
+    label: "Cursos"
+    label_singular: "Curso"
+    folder: "src/content/courses"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "title.es"
+    summary: "{{title.es}}"
+    fields:
+      - { label: "Destacado", name: "featured", widget: "boolean", default: false }
+      - label: "Título"
+        name: "title"
+        widget: "object"
+        fields:
+          - { label: "Español", name: "es", widget: "string" }
+          - { label: "English", name: "en", widget: "string" }
+      - label: "Resumen"
+        name: "summary"
+        widget: "object"
+        fields:
+          - { label: "Español", name: "es", widget: "text" }
+          - { label: "English", name: "en", widget: "text" }
+      - { label: "Nivel", name: "level", widget: "select", options: ["intro","intermediate","advanced"] }
+      - { label: "Duración (días)", name: "durationDays", widget: "number", value_type: "int", min: 1 }
+      - label: "Ubicación"
+        name: "location"
+        widget: "object"
+        fields:
+          - { label: "Español", name: "es", widget: "string" }
+          - { label: "English", name: "en", widget: "string" }
+      - { label: "Precio desde", name: "priceFrom", widget: "number", required: false, value_type: "int" }
+      - { label: "Moneda", name: "currency", widget: "select", options: ["CLP","USD"], default: "CLP" }
+      - { label: "Imagen portada", name: "cover", widget: "image" }
+      - { label: "Orden", name: "order", widget: "number", value_type: "int", default: 100 }
+      - { label: "Contenido", name: "body", widget: "markdown", required: false }
+
+  - name: "team"
+    label: "Equipo"
+    label_singular: "Persona"
+    folder: "src/content/team"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "name"
+    fields:
+      - { label: "Nombre", name: "name", widget: "string" }
+      - label: "Rol"
+        name: "role"
+        widget: "object"
+        fields:
+          - { label: "Español", name: "es", widget: "string" }
+          - { label: "English", name: "en", widget: "string" }
+      - label: "Bio"
+        name: "bio"
+        widget: "object"
+        fields:
+          - { label: "Español", name: "es", widget: "text" }
+          - { label: "English", name: "en", widget: "text" }
+      - { label: "Foto", name: "photo", widget: "image" }
+      - { label: "Certificaciones", name: "certifications", widget: "list", field: { label: "Cert", name: "cert", widget: "string" } }
+      - { label: "Orden", name: "order", widget: "number", value_type: "int", default: 100 }
+
+  - name: "site"
+    label: "Configuración del sitio"
+    files:
+      - file: "src/content/site/config.md"
+        label: "Datos de contacto"
+        name: "config"
+        fields:
+          - { label: "WhatsApp (E.164)", name: "whatsapp", widget: "string", hint: "Ej: +56912345678" }
+          - { label: "WhatsApp visible", name: "whatsappDisplay", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Instagram URL", name: "instagram", widget: "string" }
+          - label: "Dirección"
+            name: "address"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - { label: "Endpoint formulario (Formspree/Web3Forms)", name: "formEndpoint", widget: "string", required: false }

@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionHeader from './SectionHeader.astro';
+import ExpeditionCard from './ExpeditionCard.astro';
+import CTABanner from './CTABanner.astro';
+import WhatsAppBubble from './WhatsAppBubble.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+import { getCollection } from 'astro:content';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const all = (await getCollection('expeditions')).sort((a, b) => a.data.order - b.data.order);
+const byCountry = {
+  CL: all.filter((e) => e.data.country === 'CL'),
+  PE: all.filter((e) => e.data.country === 'PE'),
+  AR: all.filter((e) => e.data.country === 'AR'),
+  BO: all.filter((e) => e.data.country === 'BO'),
+};
+const countryNames = {
+  es: { CL: 'Chile', PE: 'Perú', AR: 'Argentina', BO: 'Bolivia' },
+  en: { CL: 'Chile', PE: 'Peru', AR: 'Argentina', BO: 'Bolivia' },
+} as const;
+---
+<Base lang={lang} title={t('section.expeditions.title')}>
+  <section class="bg-[var(--color-ink)] text-[var(--color-bone)] py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <p class="eyebrow text-[var(--color-brand-yellow)]">{t('section.expeditions')}</p>
+      <h1 class="display text-5xl md:text-7xl mt-6 max-w-3xl">{t('section.expeditions.title')}</h1>
+    </div>
+  </section>
+  {(['CL','PE','AR','BO'] as const).map((c) => byCountry[c].length > 0 && (
+    <section class="py-16 md:py-24 border-b border-[var(--color-line)]">
+      <div class="max-w-7xl mx-auto px-5 md:px-8">
+        <p class="eyebrow text-[var(--color-brand-yellow-dark)]">{countryNames[lang][c]}</p>
+        <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {byCountry[c].map((e) => <ExpeditionCard entry={e} lang={lang} />)}
+        </div>
+      </div>
+    </section>
+  ))}
+  <CTABanner lang={lang} />
+  <WhatsAppBubble />
+</Base>

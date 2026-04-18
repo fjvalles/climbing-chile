@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.instagram.com)",
+      "WebSearch",
+      "WebFetch(domain:www.andeanpeaks.com)",
+      "Bash(brew list *)",
+      "Bash(brew install *)",
+      "Bash(pdftotext -layout \"/Users/fjvalles/Downloads/climbin_chile_insta.pdf\" \"/tmp/climbing_chile_insta.txt\")",
+      "Read(//tmp/**)",
+      "Bash(pdfinfo \"/Users/fjvalles/Downloads/climbin_chile_insta.pdf\")",
+      "Bash(mkdir -p /tmp/climbing_pages)",
+      "Bash(pdftoppm -r 100 \"/Users/fjvalles/Downloads/climbin_chile_insta.pdf\" /tmp/climbing_pages/page -png)",
+      "Bash(pdftoppm -r 200 \"/Users/fjvalles/Downloads/climbin_chile_insta.pdf\" /tmp/climbing_pages/hires -png)",
+      "Read(//private/tmp/climbing_pages/**)",
+      "Bash(npm --version)",
+      "Bash(npm create *)",
+      "Bash(npx astro *)",
+      "Bash(npm run *)"
+    ]
+  }
+}
