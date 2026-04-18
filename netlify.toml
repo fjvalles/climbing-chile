@@ -5,10 +5,49 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Admin CMS
 [[redirects]]
   from = "/admin"
   to = "/admin/index.html"
   status = 200
+
+# English routes — explicit 200 rewrites so Netlify serves
+# the pre-rendered HTML without any language-detection redirect
+[[redirects]]
+  from = "/en"
+  to = "/en/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/en/expeditions"
+  to = "/en/expeditions/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/en/expeditions/:slug"
+  to = "/en/expeditions/:slug/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/en/training"
+  to = "/en/training/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/en/about"
+  to = "/en/about/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/en/contact"
+  to = "/en/contact/index.html"
+  status = 200
+
+# SPA-style 404 fallback — serve index for any unmatched route
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404
 
 [[headers]]
   for = "/admin/*"
