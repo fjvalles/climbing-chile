@@ -5,6 +5,8 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# ─── Redirects ────────────────────────────────────────────────────────────────
+
 # Admin CMS
 [[redirects]]
   from = "/admin"
@@ -43,19 +45,51 @@
   to = "/en/contact/index.html"
   status = 200
 
-# SPA-style 404 fallback — serve index for any unmatched route
+# 404 fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 404
 
+# ─── Security headers (all pages) ─────────────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Prevent clickjacking
+    X-Frame-Options = "DENY"
+    # Stop MIME sniffing
+    X-Content-Type-Options = "nosniff"
+    # Force HTTPS for 1 year, include subdomains
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # Control referrer info sent to third parties
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Restrict browser features not needed by this site
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    # Basic XSS protection for older browsers
+    X-XSS-Protection = "1; mode=block"
+    # Content Security Policy:
+    # - default: same origin
+    # - scripts: same origin + Netlify Identity widget + Google Fonts
+    # - styles: same origin + Google Fonts + inline (needed by Tailwind)
+    # - images: same origin + uploaded assets + placeholder SVGs
+    # - fonts: Google Fonts
+    # - forms: same origin (Netlify Forms posts to /)
+    # - frames: Netlify Identity needs it for the login popup
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://identity.netlify.com https://unpkg.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://res.cloudinary.com; connect-src 'self' https://*.netlify.com https://*.netlify.app; frame-src https://identity.netlify.com; object-src 'none'; base-uri 'self'; form-action 'self'"
+
+# ─── Admin: no indexing ───────────────────────────────────────────────────────
 [[headers]]
   for = "/admin/*"
   [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-Robots-Tag = "noindex"
+    X-Robots-Tag = "noindex, nofollow"
 
+# ─── Static assets: aggressive caching ───────────────────────────────────────
 [[headers]]
-  for = "/assets/*"
+  for = "/_astro/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/uploads/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
