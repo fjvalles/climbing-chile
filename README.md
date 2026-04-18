@@ -1,5 +1,7 @@
 # Climbing Chile
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e1e90a43-6c29-4a74-b6fb-271b607df6c9/deploy-status)](https://app.netlify.com/projects/climbing-chile/deploys)
+
 Sitio web oficial de [Climbing Chile](https://www.instagram.com/climbingchile_cl) — guías de montaña, expediciones, escalada y formación técnica en los Andes.
 
 Stack:
