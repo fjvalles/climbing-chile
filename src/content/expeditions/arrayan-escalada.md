@@ -18,7 +18,7 @@ priceFrom: 120
 currency: "USD"
 featured: false
 status: "open"
-cover: "../assets/placeholder-rock.svg"
+cover: "../assets/alfalfal-cover.webp"
 itinerary:
   - day: 1
     title:

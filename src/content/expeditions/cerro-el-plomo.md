@@ -18,7 +18,7 @@ priceFrom: 800
 currency: "USD"
 featured: false
 status: "open"
-cover: "../assets/placeholder-mountain.svg"
+cover: "../assets/logistica-cover.webp"
 itinerary:
   - day: 1
     title:

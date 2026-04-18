@@ -18,7 +18,9 @@ priceFrom: 380
 currency: "USD"
 featured: true
 status: "open"
-cover: "../assets/placeholder-ice.svg"
+cover: "../assets/hielo-cover.webp"
+gallery:
+  - "../assets/hielo-guia.webp"
 itinerary:
   - day: 1
     title:

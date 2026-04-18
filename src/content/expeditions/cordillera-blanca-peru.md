@@ -18,7 +18,13 @@ priceFrom: 2800
 currency: "USD"
 featured: true
 status: "open"
-cover: "../assets/placeholder-expedition.svg"
+cover: "../assets/cordillera-blanca-cover.webp"
+gallery:
+  - "../assets/cordillera-blanca-noche.webp"
+  - "../assets/cordillera-blanca-cumbre.webp"
+  - "../assets/cordillera-blanca-campo.webp"
+  - "../assets/cordillera-blanca-roca.webp"
+  - "../assets/cordillera-blanca-equipo.webp"
 itinerary:
   - day: 1
     title:

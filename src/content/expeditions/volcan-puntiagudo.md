@@ -18,7 +18,7 @@ priceFrom: 1200
 currency: "USD"
 featured: true
 status: "open"
-cover: "../assets/placeholder-volcano.svg"
+cover: "../assets/puntiagudo-cover.webp"
 itinerary:
   - day: 1
     title:

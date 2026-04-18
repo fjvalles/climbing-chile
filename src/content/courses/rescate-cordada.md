@@ -13,7 +13,7 @@ location:
 priceFrom: 320000
 currency: "CLP"
 featured: true
-cover: "../assets/placeholder-ice.svg"
+cover: "../assets/hielo-cover.webp"
 order: 3
 ---
 

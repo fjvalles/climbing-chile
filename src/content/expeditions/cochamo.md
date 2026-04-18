@@ -18,7 +18,7 @@ priceFrom: 1600
 currency: "USD"
 featured: true
 status: "soon"
-cover: "../assets/placeholder-rock.svg"
+cover: "../assets/cochamo-cover.webp"
 itinerary:
   - day: 1
     title:

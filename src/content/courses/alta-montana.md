@@ -13,7 +13,7 @@ location:
 priceFrom: 480000
 currency: "CLP"
 featured: true
-cover: "../assets/placeholder-ice.svg"
+cover: "../assets/puntiagudo-cover.webp"
 order: 2
 ---
 

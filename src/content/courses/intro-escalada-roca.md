@@ -13,7 +13,7 @@ location:
 priceFrom: 180000
 currency: "CLP"
 featured: true
-cover: "../assets/placeholder-rock.svg"
+cover: "../assets/alfalfal-cover.webp"
 order: 1
 ---
 
