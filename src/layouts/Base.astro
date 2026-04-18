@@ -46,40 +46,15 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     </main>
     <Footer lang={lang} />
     <script>
+      // If the URL contains an identity token, send it to /admin/ where
+      // Decap CMS handles it natively — no need for the widget here.
       const hash = window.location.hash;
-      const isIdentityToken =
+      if (
         hash.includes('invite_token') ||
         hash.includes('recovery_token') ||
-        hash.includes('confirmation_token');
-
-      function initIdentity() {
-        const identity = (window as any).netlifyIdentity;
-        if (!identity) return;
-
-        // Force open the modal when an invite/recovery token is present
-        if (isIdentityToken) {
-          identity.open();
-        }
-
-        identity.on('init', (user: unknown) => {
-          if (!user && isIdentityToken) {
-            identity.open();
-          }
-        });
-
-        identity.on('login', () => {
-          document.location.href = '/admin/';
-        });
-      }
-
-      // Widget may already be loaded or still loading
-      if ((window as any).netlifyIdentity) {
-        initIdentity();
-      } else {
-        const script = document.querySelector(
-          'script[src*="netlify-identity-widget"]'
-        );
-        script?.addEventListener('load', initIdentity);
+        hash.includes('confirmation_token')
+      ) {
+        window.location.replace('/admin/' + hash);
       }
     </script>
   </body>
