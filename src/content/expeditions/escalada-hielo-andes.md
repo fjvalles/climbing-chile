@@ -1,19 +1,19 @@
 ---
 title:
-  es: "Escalada en hielo · Andes Centrales"
-  en: "Ice climbing · Central Andes"
+  es: "Escalada en hielo · Paso Los Libertadores"
+  en: "Ice climbing · Paso Los Libertadores"
 summary:
-  es: "Cascadas y couloirs de hielo en los Andes centrales, a menos de 2h de Santiago."
-  en: "Ice falls and couloirs in the Central Andes, less than 2h from Santiago."
+  es: "Cascadas de hielo técnico en el corazón de los Andes: las míticas cascadas Mantito y Manto de Hielo, a 2h de Santiago."
+  en: "Technical ice falls in the heart of the Andes: the iconic Mantito and Manto de Hielo cascades, 2h from Santiago."
 location:
-  es: "Cajón del Maipo, Chile"
-  en: "Cajón del Maipo, Chile"
+  es: "Paso Los Libertadores, Chile"
+  en: "Paso Los Libertadores, Chile"
 country: "CL"
-durationDays: 2
+durationDays: 3
 difficulty: "moderate"
 season:
-  es: "Jun – Sep"
-  en: "Jun – Sep"
+  es: "Jun – Jul"
+  en: "Jun – Jul"
 priceFrom: 380
 currency: "USD"
 featured: true
@@ -22,35 +22,46 @@ cover: "../assets/placeholder-ice.svg"
 itinerary:
   - day: 1
     title:
-      es: "Aproximación y primera cascada"
-      en: "Approach and first climb"
+      es: "Cascada Mantito — introducción al hielo"
+      en: "Mantito cascade — ice introduction"
     body:
-      es: "Salida desde Santiago, aproximación y primera cascada."
-      en: "Departure from Santiago, approach and first ice fall."
+      es: "Técnica básica de crampones y piolet. Primeras rutas en cascada Mantito."
+      en: "Basic crampon and ice axe technique. First routes on Mantito cascade."
   - day: 2
     title:
-      es: "Rutas técnicas"
-      en: "Technical routes"
+      es: "Manto de Hielo — rutas técnicas"
+      en: "Manto de Hielo — technical routes"
     body:
-      es: "Rutas según nivel del grupo y retorno."
-      en: "Routes based on group level and return."
+      es: "Rutas de mayor dificultad en Manto de Hielo según nivel del grupo."
+      en: "More demanding routes on Manto de Hielo based on group level."
+  - day: 3
+    title:
+      es: "Perfeccionamiento y retorno"
+      en: "Refinement and return"
+    body:
+      es: "Práctica libre, evaluación técnica y retorno a Santiago."
+      en: "Free practice, technical assessment and return to Santiago."
 includes:
   es:
-    - "Guía de escalada en hielo"
+    - "Guía UIAGM/ANGM certificado"
     - "Piolets, crampones y cuerdas"
-    - "Transporte desde Santiago"
+    - "Transporte ida y vuelta desde Santiago"
+    - "Equipamiento grupal completo"
   en:
-    - "Ice climbing guide"
+    - "UIAGM/ANGM certified guide"
     - "Ice axes, crampons and ropes"
-    - "Transport from Santiago"
+    - "Round-trip transport from Santiago"
+    - "Full group equipment"
 excludes:
   es:
-    - "Ropa técnica personal"
+    - "Ropa técnica personal (capa base, softshell, guantes)"
     - "Alimentación en ruta"
+    - "Seguro de montaña"
   en:
-    - "Personal technical clothing"
+    - "Personal technical clothing (base layer, softshell, gloves)"
     - "Meals on route"
+    - "Mountain insurance"
 order: 4
 ---
 
-Un fin de semana perfecto para iniciarse o perfeccionar la técnica de escalada en hielo. Cascadas accesibles, buena roca y mucho sol.
+El Paso Los Libertadores concentra algunas de las mejores cascadas de hielo de Chile, accesibles desde Santiago en pocas horas. Las cascadas Mantito y Manto de Hielo ofrecen rutas para todos los niveles, guiadas por instructores UIAGM/ANGM certificados. Temporada de operación: junio y julio.

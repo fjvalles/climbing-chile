@@ -1,6 +1,6 @@
 ---
-whatsapp: "+56912345678"
-whatsappDisplay: "+56 9 1234 5678"
+whatsapp: "+56961426870"
+whatsappDisplay: "+56 9 6142 6870"
 email: "hola@climbingchile.cl"
 instagram: "https://www.instagram.com/climbingchile_cl"
 address:

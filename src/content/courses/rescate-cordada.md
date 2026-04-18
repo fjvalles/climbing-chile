@@ -1,20 +1,26 @@
 ---
 title:
-  es: "Rescate en cordada"
-  en: "Self-rescue in rope teams"
+  es: "Curso de escalada en hielo · UIAGM/ANGM"
+  en: "Ice climbing course · UIAGM/ANGM"
 summary:
-  es: "Sistemas de polipasto, rescate en grieta, maniobras con cuerda fija. Para escaladores con base."
-  en: "Haul systems, crevasse rescue, fixed-rope maneuvers. For climbers with a base."
-level: "advanced"
-durationDays: 2
+  es: "Aprende técnica de hielo con instructores UIAGM/ANGM certificados. Dos fechas disponibles en junio 2026. Grupos reducidos."
+  en: "Learn ice technique with UIAGM/ANGM certified instructors. Two dates available in June 2026. Small groups."
+level: "intermediate"
+durationDays: 3
 location:
-  es: "Farellones"
-  en: "Farellones"
-priceFrom: 220000
+  es: "Paso Los Libertadores, Chile"
+  en: "Paso Los Libertadores, Chile"
+priceFrom: 320000
 currency: "CLP"
-featured: false
-cover: "../assets/placeholder-mountain.svg"
+featured: true
+cover: "../assets/placeholder-ice.svg"
 order: 3
 ---
 
-Formación técnica avanzada para equipos autónomos. Práctica intensiva en terreno real.
+Formación técnica en cascadas de hielo con instructores UIAGM/ANGM. El curso cubre uso de crampones y piolets, técnica de escalada en hielo, instalación de seguros y rápel en hielo.
+
+**Fechas 2026:**
+- 12, 13 y 14 de junio
+- 26, 27 y 28 de junio
+
+Cupos limitados. Inscripción por WhatsApp o formulario de contacto.

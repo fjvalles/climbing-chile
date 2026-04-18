@@ -1,77 +1,67 @@
 ---
 title:
-  es: "Cerro El Plomo"
-  en: "Cerro El Plomo"
+  es: "Logística & Expediciones a medida"
+  en: "Custom Logistics & Expeditions"
 summary:
-  es: "La montaña visible desde Santiago. Un clásico de altitud (5.424 m) con aclimatación completa."
-  en: "The peak visible from Santiago. An altitude classic (5,424 m) with full acclimatization."
+  es: "Organizamos tu expedición completa: permisos, transporte, equipo, logística de alta montaña. Tú eliges el objetivo; nosotros lo hacemos posible."
+  en: "We organize your full expedition: permits, transport, gear, high-altitude logistics. You choose the objective; we make it happen."
 location:
-  es: "Cajón del Maipo, Chile"
-  en: "Cajón del Maipo, Chile"
+  es: "Andes, Chile y Sudamérica"
+  en: "Andes, Chile and South America"
 country: "CL"
-durationDays: 5
+durationDays: 7
 difficulty: "demanding"
 season:
-  es: "Nov – Mar"
-  en: "Nov – Mar"
-priceFrom: 950
+  es: "Todo el año"
+  en: "All year"
+priceFrom: 800
 currency: "USD"
-featured: true
+featured: false
 status: "open"
 cover: "../assets/placeholder-mountain.svg"
 itinerary:
   - day: 1
     title:
-      es: "Piedra Numerada"
-      en: "Piedra Numerada"
+      es: "Consulta y diseño de itinerario"
+      en: "Consultation and itinerary design"
     body:
-      es: "Aproximación y primer campamento (3.350 m)."
-      en: "Approach and first camp (3,350 m)."
+      es: "Definimos el objetivo, los plazos, el presupuesto y los requisitos técnicos del grupo."
+      en: "We define the objective, timeline, budget and technical requirements of the group."
   - day: 2
     title:
-      es: "Federación"
-      en: "Federación"
+      es: "Logística completa"
+      en: "Full logistics"
     body:
-      es: "Ascenso al refugio Federación (4.100 m)."
-      en: "Ascent to Federación refuge (4,100 m)."
+      es: "Gestionamos permisos, transporte, alojamiento en ruta y aprovisionamiento de alta montaña."
+      en: "We handle permits, transport, route lodging and high-mountain provisioning."
   - day: 3
     title:
-      es: "Campamento alto"
-      en: "High camp"
+      es: "Ejecución de la expedición"
+      en: "Expedition execution"
     body:
-      es: "Traslado a campamento alto (4.800 m)."
-      en: "Move to high camp (4,800 m)."
-  - day: 4
-    title:
-      es: "Cumbre"
-      en: "Summit"
-    body:
-      es: "Día de cumbre y descenso a Federación."
-      en: "Summit day and descent to Federación."
-  - day: 5
-    title:
-      es: "Retorno"
-      en: "Return"
-    body:
-      es: "Descenso a valle y retorno a Santiago."
-      en: "Descent to valley and return to Santiago."
+      es: "Acompañamiento logístico o con guía según el requerimiento del equipo."
+      en: "Logistical or guided support depending on team requirements."
 includes:
   es:
-    - "Guía AGMP"
-    - "Arriero y mulas"
-    - "Carpas y equipo grupal"
-    - "Alimentación en montaña"
+    - "Diseño personalizado del itinerario"
+    - "Gestión de permisos y trámites"
+    - "Coordinación de transporte y alojamiento"
+    - "Apoyo logístico en campo"
   en:
-    - "AGMP guide"
-    - "Muleteer and mules"
-    - "Tents and group gear"
-    - "Mountain meals"
+    - "Custom itinerary design"
+    - "Permits and paperwork management"
+    - "Transport and lodging coordination"
+    - "Field logistics support"
 excludes:
   es:
-    - "Equipo personal de alta montaña"
+    - "Equipo personal"
+    - "Guía de cordada (cotizable aparte)"
+    - "Seguro de montaña"
   en:
-    - "Personal high-altitude gear"
-order: 2
+    - "Personal gear"
+    - "Rope guide (quotable separately)"
+    - "Mountain insurance"
+order: 6
 ---
 
-El Plomo es el cerro que todo santiaguino mira cada día. Una cumbre de 5.000+ accesible y perfecta como preparación para proyectos mayores.
+Contamos con la experiencia y las redes para organizar expediciones a cualquier objetivo de los Andes, desde la logística básica hasta el apoyo técnico completo con guía. Si ya tienes experiencia y solo necesitas que alguien gestione la parte operativa, este servicio es para ti.

@@ -1,15 +1,16 @@
 ---
-name: "Equipo Climbing Chile"
+name: "José Rosen"
 role:
-  es: "Guías de montaña"
-  en: "Mountain guides"
+  es: "Guía de montaña · Director"
+  en: "Mountain guide · Director"
 bio:
-  es: "Nuestro equipo de guías combina décadas de experiencia en los Andes con certificaciones internacionales y un enfoque obsesivo en la seguridad."
-  en: "Our guide team combines decades of experience in the Andes with international certifications and an obsessive focus on safety."
+  es: "Guía de montaña con certificación ANGM y formación UIAGM. Años de experiencia guiando en los Andes, Patagonia y Cordillera Blanca. Comprometido con la seguridad, el desarrollo local y las experiencias que marcan."
+  en: "Mountain guide with ANGM certification and UIAGM training. Years of experience guiding in the Andes, Patagonia and Cordillera Blanca. Committed to safety, local development and experiences that leave a mark."
+instagram: "jose_rosen_chile"
 photo: "../assets/placeholder-team.svg"
 certifications:
-  - "AGMP"
-  - "UIAGM en proceso"
+  - "ANGM"
+  - "UIAGM"
   - "WFR"
 order: 1
 ---

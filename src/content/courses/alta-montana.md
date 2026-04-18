@@ -1,20 +1,22 @@
 ---
 title:
-  es: "Curso de alta montaña"
-  en: "Mountaineering course"
+  es: "ACF · Aptitud en Condiciones de Frío"
+  en: "ACF · Cold Conditions Aptitude"
 summary:
-  es: "Técnica de progresión en nieve y hielo, autodetención, uso de piolet y crampones, cordadas."
-  en: "Snow and ice progression, self-arrest, axe and crampons, rope teams."
+  es: "Curso ACF en alianza con @andesrope: progresión en nieve y hielo, autodetención, uso de piolet y crampones, y manejo de cordadas."
+  en: "ACF course in partnership with @andesrope: snow and ice progression, self-arrest, axe and crampons, rope team management."
 level: "intermediate"
 durationDays: 4
 location:
   es: "Cajón del Maipo / Glaciar Loma Larga"
   en: "Cajón del Maipo / Loma Larga Glacier"
-priceFrom: 450000
+priceFrom: 480000
 currency: "CLP"
 featured: true
 cover: "../assets/placeholder-ice.svg"
 order: 2
 ---
 
-Cuatro días de formación intensiva para quienes quieren proyectar cumbres de 5.000+ y manejarse con autonomía en terreno glaciar.
+Cuatro días de formación intensiva en nieve y hielo, diseñados para escalar en los Andes con seguridad. El programa ACF (Aptitud en Condiciones de Frío) cubre todos los fundamentos necesarios para proyectos de montaña de 5.000+ m.
+
+Desarrollado en alianza con **@andesrope**, referente en formación alpina en Chile.

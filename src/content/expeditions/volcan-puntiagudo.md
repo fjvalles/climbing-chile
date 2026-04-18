@@ -3,17 +3,17 @@ title:
   es: "Volcán Puntiagudo"
   en: "Puntiagudo Volcano"
 summary:
-  es: "Ascenso técnico al Volcán Puntiagudo, uno de los más estéticos y exigentes del sur de Chile."
-  en: "Technical ascent of Puntiagudo Volcano, one of the most aesthetic and demanding peaks in southern Chile."
+  es: "Ascenso técnico al Volcán Puntiagudo (2.493 m), uno de los volcanes más estéticos y exigentes del sur de Chile. Base en Puerto Varas."
+  en: "Technical ascent of Puntiagudo Volcano (2,493 m), one of the most aesthetic and demanding peaks in southern Chile. Base in Puerto Varas."
 location:
-  es: "Región de Los Lagos, Chile"
-  en: "Los Lagos Region, Chile"
+  es: "Puerto Varas, Región de Los Lagos, Chile"
+  en: "Puerto Varas, Los Lagos Region, Chile"
 country: "CL"
-durationDays: 4
+durationDays: 3
 difficulty: "difficult"
 season:
-  es: "Nov – Mar"
-  en: "Nov – Mar"
+  es: "Ago – Sep 2026"
+  en: "Aug – Sep 2026"
 priceFrom: 1200
 currency: "USD"
 featured: true
@@ -22,51 +22,48 @@ cover: "../assets/placeholder-volcano.svg"
 itinerary:
   - day: 1
     title:
-      es: "Aproximación"
-      en: "Approach"
+      es: "Puerto Varas → Aproximación"
+      en: "Puerto Varas → Approach"
     body:
-      es: "Traslado y campamento base al pie del volcán."
-      en: "Transfer and base camp at the foot of the volcano."
+      es: "Traslado desde Puerto Varas, trekking de aproximación y montaje del campamento base al pie del volcán."
+      en: "Transfer from Puerto Varas, approach trek and base camp setup at the foot of the volcano."
   - day: 2
-    title:
-      es: "Aclimatación y técnica"
-      en: "Acclimatization & technique"
-    body:
-      es: "Repaso de técnica de hielo y revisión de equipo."
-      en: "Ice technique review and gear check."
-  - day: 3
     title:
       es: "Cumbre"
       en: "Summit"
     body:
-      es: "Ascenso a cumbre y retorno al campamento base."
-      en: "Summit push and return to base camp."
-  - day: 4
+      es: "Ascenso por pendientes de hielo y roca mixta a la cumbre. Retorno al campamento base."
+      en: "Ascent via ice slopes and mixed rock to the summit. Return to base camp."
+  - day: 3
     title:
-      es: "Retorno"
-      en: "Return"
+      es: "Desmontaje y retorno"
+      en: "Pack-down and return"
     body:
-      es: "Desmontaje y traslado a Puerto Varas."
-      en: "Packing and transfer to Puerto Varas."
+      es: "Desmontaje del campamento y traslado de regreso a Puerto Varas."
+      en: "Break camp and transfer back to Puerto Varas."
 includes:
   es:
-    - "Guía AGMP certificado"
+    - "Guía ANGM/UIAGM certificado"
     - "Permisos CONAF"
-    - "Equipo técnico grupal"
+    - "Equipo técnico grupal (cuerdas, protecciones de hielo)"
     - "Alimentación en montaña"
+    - "Transporte interno desde Puerto Varas"
   en:
-    - "Certified AGMP guide"
+    - "ANGM/UIAGM certified guide"
     - "CONAF permits"
-    - "Group technical gear"
+    - "Group technical gear (ropes, ice protection)"
     - "Mountain meals"
+    - "Local transport from Puerto Varas"
 excludes:
   es:
-    - "Traslado desde Santiago"
-    - "Equipo personal"
+    - "Vuelo o bus Santiago ↔ Puerto Varas"
+    - "Equipo personal (crampones, piolet, arnés)"
+    - "Seguro de montaña"
   en:
-    - "Transfer from Santiago"
-    - "Personal gear"
+    - "Flight or bus Santiago ↔ Puerto Varas"
+    - "Personal gear (crampons, ice axe, harness)"
+    - "Mountain insurance"
 order: 2
 ---
 
-El Puntiagudo es una de las montañas más bellas de la Patagonia chilena. Una ruta corta pero técnicamente exigente, con pendientes de hielo y roca mixta.
+El Puntiagudo es uno de los volcanes más bellos y técnicamente exigentes de la Patagonia chilena. Su característica aguja de roca y hielo lo convierte en un objetivo codiciado. Ruta corta pero intensa, con pendientes de hielo de hasta 50°. Salida agosto–septiembre 2026, con base en Puerto Varas.
