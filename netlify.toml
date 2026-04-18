@@ -5,6 +5,12 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# ─── Edge functions ───────────────────────────────────────────────────────────
+
+[[edge_functions]]
+  path = "/"
+  function = "lang-redirect"
+
 # ─── Redirects ────────────────────────────────────────────────────────────────
 
 # Admin CMS

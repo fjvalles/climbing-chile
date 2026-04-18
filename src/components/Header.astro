@@ -37,7 +37,7 @@ const langAltHref = current === '/' ? r(alt, 'home') : current.startsWith('/en')
       ))}
     </nav>
     <div class="flex items-center gap-3">
-      <a href={langAltHref} class="eyebrow text-[var(--color-stone)] hover:text-[var(--color-ink)]" aria-label={t('lang.switch')}>
+      <a href={langAltHref} id="lang-switch" class="eyebrow text-[var(--color-stone)] hover:text-[var(--color-ink)]" aria-label={t('lang.switch')}>
         {alt.toUpperCase()}
       </a>
       <a href={r(lang, 'contact')} class="btn btn-primary hidden sm:inline-flex">
@@ -67,5 +67,11 @@ const langAltHref = current === '/' ? r(alt, 'home') : current.startsWith('/en')
   toggle?.addEventListener('click', () => {
     const open = nav?.classList.toggle('hidden') === false;
     toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  // When user manually switches language, remember their choice for 1 year
+  // so the auto-redirect edge function won't override it.
+  document.getElementById('lang-switch')?.addEventListener('click', () => {
+    document.cookie = 'lang-pref=manual; max-age=31536000; path=/; SameSite=Lax';
   });
 </script>
