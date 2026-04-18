@@ -46,15 +46,40 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     </main>
     <Footer lang={lang} />
     <script>
-      // Netlify Identity: redirect to /admin after login from invite link
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', (user: unknown) => {
-          if (!user) {
-            window.netlifyIdentity.on('login', () => {
-              document.location.href = '/admin/';
-            });
+      const hash = window.location.hash;
+      const isIdentityToken =
+        hash.includes('invite_token') ||
+        hash.includes('recovery_token') ||
+        hash.includes('confirmation_token');
+
+      function initIdentity() {
+        const identity = (window as any).netlifyIdentity;
+        if (!identity) return;
+
+        // Force open the modal when an invite/recovery token is present
+        if (isIdentityToken) {
+          identity.open();
+        }
+
+        identity.on('init', (user: unknown) => {
+          if (!user && isIdentityToken) {
+            identity.open();
           }
         });
+
+        identity.on('login', () => {
+          document.location.href = '/admin/';
+        });
+      }
+
+      // Widget may already be loaded or still loading
+      if ((window as any).netlifyIdentity) {
+        initIdentity();
+      } else {
+        const script = document.querySelector(
+          'script[src*="netlify-identity-widget"]'
+        );
+        script?.addEventListener('load', initIdentity);
       }
     </script>
   </body>
