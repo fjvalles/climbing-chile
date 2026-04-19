@@ -13,6 +13,10 @@ location:
 priceFrom: 480000
 currency: "CLP"
 maxStudents: 6
+dates:
+  - start: "2026-12-01"
+    end: "2026-12-04"
+    spots: 6
 requirements:
   es:
     - "Salud física compatible con actividad de alta montaña"

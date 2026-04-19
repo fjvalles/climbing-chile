@@ -73,19 +73,34 @@ const title =
         >
       </div>
 
-      <div
-        class="mt-8 mobile-carousel md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5"
-        id="expeditions-grid"
-        data-carousel-track
-      >
-        {expeditions.map((e) => (
-          <div class="carousel-slide">
-            <ExpeditionCard entry={e} lang={lang} />
-          </div>
-        ))}
+      <div class="relative group/carousel mt-8">
+        <div
+          class={`mobile-carousel ${expeditions.length > 3 ? 'carousel--desktop' : 'md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5'}`}
+          id="expeditions-grid"
+          data-carousel-track
+          data-auto-carousel
+        >
+          {expeditions.map((e) => (
+            <div class="carousel-slide">
+              <ExpeditionCard entry={e} lang={lang} />
+            </div>
+          ))}
+        </div>
+
+        {expeditions.length > 3 && (
+          <>
+            <button class="carousel-arrow carousel-arrow--prev md:flex" data-carousel-prev aria-label="Anterior">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+            </button>
+            <button class="carousel-arrow carousel-arrow--next md:flex" data-carousel-next aria-label="Siguiente">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+            </button>
+          </>
+        )}
       </div>
+
       <div
-        class="carousel-dots mt-5 md:hidden"
+        class={`carousel-dots mt-8 ${expeditions.length > 3 ? '' : 'md:hidden'}`}
         data-carousel-dots
         aria-label={lang === "es" ? "Paginación de expediciones" : "Expeditions pagination"}
       ></div>
@@ -99,19 +114,38 @@ const title =
           eyebrow={t("section.training")}
           title={t("section.training.title")}
         />
+        <a href={r(lang, "calendar")} class="btn btn-outline whitespace-nowrap"
+          >{t("section.expeditions.all")} →</a
+        >
       </div>
-      <div
-        class="mt-14 mobile-carousel md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5"
-        data-carousel-track
-      >
-        {courses.map((e) => (
-          <div class="carousel-slide">
-            <CourseCard entry={e} lang={lang} />
-          </div>
-        ))}
+      
+      <div class="relative group/carousel mt-14">
+        <div
+          class={`mobile-carousel ${courses.length > 3 ? 'carousel--desktop' : 'md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5'}`}
+          data-carousel-track
+          data-auto-carousel
+        >
+          {courses.map((e) => (
+            <div class="carousel-slide">
+              <CourseCard entry={e} lang={lang} />
+            </div>
+          ))}
+        </div>
+
+        {courses.length > 3 && (
+          <>
+            <button class="carousel-arrow carousel-arrow--prev md:flex" data-carousel-prev aria-label="Anterior">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+            </button>
+            <button class="carousel-arrow carousel-arrow--next md:flex" data-carousel-next aria-label="Siguiente">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+            </button>
+          </>
+        )}
       </div>
+
       <div
-        class="carousel-dots mt-5 md:hidden"
+        class={`carousel-dots mt-8 ${courses.length > 3 ? '' : 'md:hidden'}`}
         data-carousel-dots
         aria-label={lang === "es" ? "Paginación de cursos" : "Courses pagination"}
       ></div>
@@ -189,9 +223,8 @@ const title =
 
 <script>
   const btns = document.querySelectorAll(".filter-btn");
-  const cards = document.querySelectorAll(
-    ".expedition-card",
-  ) as NodeListOf<HTMLElement>;
+  const expeditionSlides = document.querySelectorAll("#expeditions-grid .carousel-slide") as NodeListOf<HTMLElement>;
+  const expeditionTrack = document.querySelector("#expeditions-grid") as HTMLElement;
 
   btns.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -204,33 +237,27 @@ const title =
 
       const filter = btn.getAttribute("data-filter");
 
-      cards.forEach((card) => {
+      expeditionSlides.forEach((slide) => {
+        const card = slide.querySelector(".expedition-card");
+        if (!card) return;
+
+        let isVisible = false;
         if (filter === "all") {
-          card.style.display = "";
-        } else if (
-          filter === "status-open" &&
-          card.getAttribute("data-status") === "open"
-        ) {
-          card.style.display = "";
-        } else if (
-          filter === "status-soon" &&
-          card.getAttribute("data-status") === "soon"
-        ) {
-          card.style.display = "";
-        } else if (
-          filter === "region-chile" &&
-          card.getAttribute("data-region") === "chile"
-        ) {
-          card.style.display = "";
-        } else if (
-          filter === "region-internacional" &&
-          card.getAttribute("data-region") === "internacional"
-        ) {
-          card.style.display = "";
-        } else {
-          card.style.display = "none";
+          isVisible = true;
+        } else if (filter === "region-chile" && card.getAttribute("data-region") === "chile") {
+          isVisible = true;
+        } else if (filter === "region-internacional" && card.getAttribute("data-region") === "internacional") {
+          isVisible = true;
         }
+
+        slide.style.display = isVisible ? "" : "none";
       });
+
+      // Reset scroll and update carousel state
+      if (expeditionTrack) {
+        expeditionTrack.scrollTo({ left: 0, behavior: 'instant' });
+        expeditionTrack.dispatchEvent(new CustomEvent('carousel:update'));
+      }
     });
   });
 
@@ -238,10 +265,14 @@ const title =
   const allCarousels = document.querySelectorAll<HTMLElement>("[data-carousel-track]");
 
   const setupCarousel = (carousel: HTMLElement) => {
+    const isDesktopCarousel = carousel.classList.contains("carousel--desktop");
+    const container = carousel.parentElement as HTMLElement;
     const slides = Array.from(
       carousel.querySelectorAll<HTMLElement>(".carousel-slide"),
     ).filter((slide) => slide.offsetParent !== null);
-    const dotsContainer = carousel.nextElementSibling as HTMLElement | null;
+    const dotsContainer = container.nextElementSibling as HTMLElement | null;
+    const prevBtn = container.querySelector("[data-carousel-prev]");
+    const nextBtn = container.querySelector("[data-carousel-next]");
     const autoPlay = carousel.hasAttribute("data-auto-carousel");
 
     if (slides.length < 1) {
@@ -250,9 +281,10 @@ const title =
 
     let timer: number | undefined;
     let resumeTimer: number | undefined;
+    let isPaused = false;
 
     const getVisibleSlides = () =>
-      slides.filter((slide) => slide.offsetParent !== null);
+      Array.from(carousel.querySelectorAll<HTMLElement>(".carousel-slide")).filter((slide) => slide.style.display !== "none");
 
     const getCurrentIndex = (visibleSlides = getVisibleSlides()) => {
       if (visibleSlides.length === 0) {
@@ -263,7 +295,8 @@ const title =
         const isLast = index === visibleSlides.length - 1;
         const slideStart = slide.offsetLeft - carousel.offsetLeft;
         const slideEnd = slideStart + slide.offsetWidth;
-        const point = carousel.scrollLeft + carousel.clientWidth * 0.35;
+        const factor = isDesktopCarousel && !mobileCarouselQuery.matches ? 0.1 : 0.4;
+        const point = carousel.scrollLeft + carousel.clientWidth * factor;
 
         if (isLast) {
           return point >= slideStart;
@@ -273,6 +306,16 @@ const title =
       });
 
       return currentIndex < 0 ? 0 : currentIndex;
+    };
+
+    const scrollToSlide = (index: number) => {
+      const visibleSlides = getVisibleSlides();
+      if (!visibleSlides[index]) return;
+      
+      carousel.scrollTo({
+        left: visibleSlides[index].offsetLeft - carousel.offsetLeft,
+        behavior: "smooth",
+      });
     };
 
     const updateDots = () => {
@@ -292,35 +335,41 @@ const title =
     };
 
     const renderDots = () => {
-      if (!dotsContainer) {
+      if (!dotsContainer || !dotsContainer.hasAttribute('data-carousel-dots')) {
         return;
       }
 
       const visibleSlides = getVisibleSlides();
       dotsContainer.innerHTML = "";
 
-      if (visibleSlides.length < 2 || !mobileCarouselQuery.matches) {
+      const isCarouselActive = mobileCarouselQuery.matches || isDesktopCarousel;
+      if (visibleSlides.length < 2 || !isCarouselActive) {
         return;
       }
 
-      visibleSlides.forEach((_, index) => {
+      // Calculate how many positions are actually reachable
+      const itemsPerPage = (isDesktopCarousel && !mobileCarouselQuery.matches) ? 3 : 1;
+      const numDots = Math.max(0, visibleSlides.length - itemsPerPage + 1);
+
+      if (numDots < 2) {
+        return;
+      }
+
+      for (let i = 0; i < numDots; i++) {
         const dot = document.createElement("button");
         dot.type = "button";
         dot.className = "carousel-dot";
         dot.setAttribute("data-carousel-dot", "");
         dot.setAttribute(
           "aria-label",
-          `${index + 1} / ${visibleSlides.length}`,
+          `${i + 1} / ${numDots}`,
         );
         dot.addEventListener("click", () => {
           pauseAndResume();
-          carousel.scrollTo({
-            left: visibleSlides[index].offsetLeft - carousel.offsetLeft,
-            behavior: "smooth",
-          });
+          scrollToSlide(i);
         });
         dotsContainer.append(dot);
-      });
+      }
 
       updateDots();
     };
@@ -337,7 +386,8 @@ const title =
     };
 
     const start = () => {
-      if (!autoPlay || !mobileCarouselQuery.matches || document.hidden) {
+      const isCarouselActive = mobileCarouselQuery.matches || isDesktopCarousel;
+      if (!autoPlay || !isCarouselActive || document.hidden || isPaused) {
         return;
       }
 
@@ -349,27 +399,50 @@ const title =
         }
 
         const currentIndex = getCurrentIndex(visibleSlides);
-        const nextIndex =
-          currentIndex < 0 || currentIndex >= visibleSlides.length - 1
-            ? 0
-            : currentIndex + 1;
+        const nextIndex = currentIndex >= visibleSlides.length - 1 ? 0 : currentIndex + 1;
 
-        carousel.scrollTo({
-          left: visibleSlides[nextIndex].offsetLeft - carousel.offsetLeft,
-          behavior: "smooth",
-        });
-      }, 3800);
+        scrollToSlide(nextIndex);
+      }, 4000);
     };
 
     const pauseAndResume = () => {
       clearTimers();
-
-      if (!autoPlay || !mobileCarouselQuery.matches) {
+      const isCarouselActive = mobileCarouselQuery.matches || isDesktopCarousel;
+      if (!autoPlay || !isCarouselActive || isPaused) {
         return;
       }
-
-      resumeTimer = window.setTimeout(start, 5500);
+      resumeTimer = window.setTimeout(start, 6000);
     };
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        const visibleSlides = getVisibleSlides();
+        const currentIndex = getCurrentIndex(visibleSlides);
+        const nextIndex = currentIndex <= 0 ? visibleSlides.length - 1 : currentIndex - 1;
+        pauseAndResume();
+        scrollToSlide(nextIndex);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        const visibleSlides = getVisibleSlides();
+        const currentIndex = getCurrentIndex(visibleSlides);
+        const nextIndex = currentIndex >= visibleSlides.length - 1 ? 0 : currentIndex + 1;
+        pauseAndResume();
+        scrollToSlide(nextIndex);
+      });
+    }
+
+    carousel.addEventListener("mouseenter", () => {
+      isPaused = true;
+      clearTimers();
+    });
+
+    carousel.addEventListener("mouseleave", () => {
+      isPaused = false;
+      start();
+    });
 
     carousel.addEventListener("pointerdown", pauseAndResume, { passive: true });
     carousel.addEventListener("touchstart", pauseAndResume, { passive: true });
@@ -381,6 +454,12 @@ const title =
       },
       { passive: true },
     );
+
+    // Listen for external updates (e.g. after filtering)
+    carousel.addEventListener('carousel:update', () => {
+      renderDots();
+      start();
+    });
 
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {

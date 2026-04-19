@@ -7,6 +7,7 @@ const expeditions = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/expeditions' }),
   schema: ({ image }) =>
     z.object({
+      slug: z.string().optional(),
       title: localized,
       summary: localized,
       location: localized,
@@ -49,6 +50,7 @@ const courses = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/courses' }),
   schema: ({ image }) =>
     z.object({
+      slug: z.string().optional(),
       title: localized,
       summary: localized,
       level: z.enum(['intro', 'intermediate', 'advanced']),
@@ -71,6 +73,15 @@ const courses = defineCollection({
         .default([]),
       cover: image(),
       gallery: z.array(image()).default([]),
+      dates: z
+        .array(
+          z.object({
+            start: z.string(),
+            end: z.string(),
+            spots: z.number().int().nonnegative().optional(),
+          })
+        )
+        .default([]),
       featured: z.boolean().default(false),
       order: z.number().default(100),
     }),

@@ -15,11 +15,15 @@ season:
   es: "21 Jul – 14 Ago 2026"
   en: "Jul 21 – Aug 14, 2026"
 maxSpots: 6
-priceFrom: 2800
+priceFrom: 2200
 currency: "USD"
 featured: true
 status: "open"
 cover: "../assets/cordillera-blanca-cover.webp"
+dates:
+  - start: "2026-07-21"
+    end: "2026-08-14"
+    spots: 4
 gallery:
   - "../assets/cordillera-blanca-noche.webp"
   - "../assets/cordillera-blanca-cumbre.webp"

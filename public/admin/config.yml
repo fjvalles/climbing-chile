@@ -23,6 +23,7 @@ collections:
         fields:
           - { label: "Español", name: "es", widget: "string" }
           - { label: "English", name: "en", widget: "string" }
+      - { label: "Slug personalizado (opcional)", name: "slug", widget: "string", required: false, hint: "Ej: mi-aventura-especial. Si se deja vacío se usa el nombre del archivo." }
       - label: "Resumen"
         name: "summary"
         widget: "object"
@@ -109,6 +110,7 @@ collections:
         fields:
           - { label: "Español", name: "es", widget: "string" }
           - { label: "English", name: "en", widget: "string" }
+      - { label: "Slug personalizado (opcional)", name: "slug", widget: "string", required: false, hint: "Ej: mi-aventura-especial. Si se deja vacío se usa el nombre del archivo." }
       - label: "Resumen"
         name: "summary"
         widget: "object"
@@ -167,6 +169,14 @@ collections:
               - { label: "English", name: "en", widget: "text" }
       - { label: "Imagen portada", name: "cover", widget: "image" }
       - { label: "Galería", name: "gallery", widget: "list", required: false, field: { label: "Imagen", name: "image", widget: "image" } }
+      - label: "Fechas disponibles"
+        name: "dates"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Inicio", name: "start", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+          - { label: "Fin", name: "end", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+          - { label: "Cupos", name: "spots", widget: "number", required: false, value_type: "int" }
       - { label: "Orden", name: "order", widget: "number", value_type: "int", default: 100 }
       - { label: "Contenido", name: "body", widget: "markdown", required: false }
 

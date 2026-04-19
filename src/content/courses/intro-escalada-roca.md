@@ -13,6 +13,10 @@ location:
 priceFrom: 180000
 currency: "CLP"
 maxStudents: 12
+dates:
+  - start: "2026-10-17"
+    end: "2026-10-18"
+    spots: 12
 requirements:
   es:
     - "No se requiere experiencia previa"

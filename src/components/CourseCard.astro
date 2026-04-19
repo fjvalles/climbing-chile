@@ -11,7 +11,7 @@ const { entry, lang } = Astro.props;
 const t = useTranslations(lang);
 const d = entry.data;
 
-const href = lang === 'es' ? `/formacion/${entry.id}` : `/en/training/${entry.id}`;
+const href = lang === 'es' ? `/formacion/${d.slug || entry.id}` : `/en/training/${d.slug || entry.id}`;
 
 const levelLabel: Record<Lang, Record<string, string>> = {
   es: { intro: 'Introducción', intermediate: 'Intermedio', advanced: 'Avanzado' },

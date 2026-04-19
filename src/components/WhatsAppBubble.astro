@@ -1,8 +1,8 @@
 ---
 import { getEntry } from 'astro:content';
-const site = await getEntry('site', 'config');
-if (!site) return null;
-const phone = site.data.whatsapp.replace(/\D/g, '');
+const footerEntry = await getEntry('site', 'footer');
+if (!footerEntry || footerEntry.data.type !== 'footer') return null;
+const phone = footerEntry.data.whatsapp.replace(/\D/g, '');
 const msg = encodeURIComponent('Hola Climbing Chile 👋, me gustaría saber más.');
 ---
 <a

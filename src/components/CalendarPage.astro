@@ -1,32 +1,54 @@
 ---
 import Base from '../layouts/Base.astro';
 import { type Lang } from '../i18n/ui';
-
-import { getEntry } from 'astro:content';
+import { getEntry, getCollection } from 'astro:content';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const title = lang === 'es' ? 'Calendario de Actividades' : 'Activities Calendar';
 
-const site = await getEntry('site', 'config');
+const site = await getEntry('site', 'footer');
 const waNumber = site?.data?.whatsapp.replace(/\D/g, '') || '';
 
-const activities = [
-  { date: '15.11.2026', title: 'Ascensión Cerro Plomo', price: '$250.000', spots: 6, available: 2, href: lang === 'es' ? '/expediciones/cerro-el-plomo' : '/en/expeditions/cerro-el-plomo' },
-  { date: '01.12.2026', title: 'Curso Alta Montaña (ACF)', price: '$480.000', spots: 8, available: 4, href: lang === 'es' ? '/formacion/alta-montana' : '/en/training/alta-montana' },
-  { date: '12.01.2027', title: 'Expedición Ojos del Salado', price: '$1.200.000', spots: 5, available: 0, href: '#' },
-];
+// Fetch all activities
+const expeditions = await getCollection('expeditions');
+const courses = await getCollection('courses');
 
-const parseDate = (d: string) => {
-  const parts = d.split('.');
-  if (parts.length !== 3) return new Date();
-  return new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
-};
+// Combine and extract dates
+const allActivitiesRaw = [...expeditions, ...courses].flatMap(entry => {
+  const dates = entry.data.dates || [];
+  return dates.map(date => ({
+    date: date.start, // Keep for sorting/grouping
+    startDate: date.start,
+    endDate: date.end,
+    title: entry.data.title[lang],
+    price: `${entry.data.currency} $${entry.data.priceFrom?.toLocaleString()}`,
+    spots: date.spots || entry.data.maxSpots || entry.data.maxStudents || 0,
+    available: date.spots !== undefined ? date.spots : (entry.data.maxSpots || entry.data.maxStudents || 0),
+    href: lang === 'es' 
+      ? `/${'durationDays' in entry.data && 'level' in entry.data ? 'formacion' : 'expediciones'}/${entry.data.slug || entry.id}`
+      : `/en/${'durationDays' in entry.data && 'level' in entry.data ? 'training' : 'expeditions'}/${entry.data.slug || entry.id}`
+  }));
+});
 
-activities.sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
+// Deduplicate by date + base title
+const seen = new Set();
+const allActivities = allActivitiesRaw.filter(a => {
+  // Normalize title for deduplication (e.g., "Escalada en hielo..." -> "Escalada en hielo")
+  const baseTitle = a.title.split('·')[0].trim().toLowerCase();
+  const key = `${a.startDate}-${a.endDate}-${baseTitle}`;
+  
+  if (seen.has(key)) return false;
+  seen.add(key);
+  return true;
+});
 
-const groupedActivities = activities.reduce((acc, curr) => {
-  const dateObj = parseDate(curr.date);
+// Sort by date
+allActivities.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+// Group by Month Year
+const groupedActivities = allActivities.reduce((acc, curr) => {
+  const dateObj = new Date(curr.date);
   let monthYear = dateObj.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { month: 'long', year: 'numeric' });
   monthYear = monthYear.charAt(0).toUpperCase() + monthYear.slice(1);
   if (!acc[monthYear]) {
@@ -34,7 +56,25 @@ const groupedActivities = activities.reduce((acc, curr) => {
   }
   acc[monthYear].push(curr);
   return acc;
-}, {} as Record<string, typeof activities>);
+}, {} as Record<string, typeof allActivities>);
+
+const parseDate = (dateStr: string) => {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  return new Date(year, month - 1, day);
+};
+
+const formatDateRange = (startStr: string, endStr: string) => {
+  const start = parseDate(startStr);
+  const end = parseDate(endStr);
+  const locale = lang === 'es' ? 'es-ES' : 'en-US';
+  const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
+
+  if (startStr === endStr) {
+    return start.toLocaleDateString(locale, options);
+  }
+
+  return `${start.toLocaleDateString(locale, options)} - ${end.toLocaleDateString(locale, options)}`;
+};
 
 ---
 <Base lang={lang} title={title}>
@@ -58,19 +98,20 @@ const groupedActivities = activities.reduce((acc, curr) => {
                   <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Fecha' : 'Date'}</th>
                   <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Actividad' : 'Activity'}</th>
                   <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Precio' : 'Price'}</th>
-                  <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Cupos Libres' : 'Spots'}</th>
+                  <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Cupos' : 'Spots'}</th>
                   <th class="py-4 px-4 font-bold text-center">{lang === 'es' ? 'Acción' : 'Action'}</th>
                 </tr>
               </thead>
               <tbody>
                 {acts.map((a) => {
+                  const displayDate = formatDateRange(a.startDate, a.endDate);
                   const msg = lang === 'es' 
-                    ? `Hola! Me gustaría reservar un cupo para la actividad: ${a.title} con fecha ${a.date}.`
-                    : `Hi! I would like to book a spot for the activity: ${a.title} on ${a.date}.`;
+                    ? `Hola! Me gustaría reservar un cupo para la actividad: ${a.title} con fecha ${displayDate}.`
+                    : `Hi! I would like to book a spot for the activity: ${a.title} on ${displayDate}.`;
                   const waHref = waNumber ? `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}` : '#';
                   return (
                     <tr class="border-b border-[var(--color-line)] hover:bg-white transition-colors">
-                      <td class="py-4 px-4 whitespace-nowrap text-[var(--color-ink)]">{a.date}</td>
+                      <td class="py-4 px-4 whitespace-nowrap text-[var(--color-ink)]">{displayDate}</td>
                       <td class="py-4 px-4 font-medium text-[var(--color-ink)]">
                         {a.href && a.href !== '#' ? (
                           <a href={a.href} class="group inline-flex items-center gap-1.5 hover:text-[var(--color-brand-yellow-dark)] transition-colors underline decoration-[var(--color-line)] underline-offset-4 hover:decoration-[var(--color-brand-yellow-dark)]">
@@ -82,7 +123,7 @@ const groupedActivities = activities.reduce((acc, curr) => {
                         )}
                       </td>
                       <td class="py-4 px-4">{a.price}</td>
-                      <td class="py-4 px-4">{a.available}/{a.spots}</td>
+                      <td class="py-4 px-4">{a.available > 0 ? a.available : (lang === 'es' ? 'Agotado' : 'Full')}</td>
                       <td class="py-4 px-4 text-center">
                         {a.available > 0 ? (
                           <a href={waHref} target="_blank" rel="noopener" class="inline-block bg-[#25D366] text-white px-4 py-2 text-xs font-bold uppercase tracking-widest hover:bg-[#1ea855] transition-colors rounded-sm">

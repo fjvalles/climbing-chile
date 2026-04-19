@@ -9,8 +9,10 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const site = await getEntry("site", "config");
-const s = site?.data;
+const footerEntry = await getEntry("site", "footer");
+const headerEntry = await getEntry("site", "header");
+const f = footerEntry?.data;
+const h = headerEntry?.data;
 const year = new Date().getFullYear();
 
 const nav = [
@@ -26,11 +28,15 @@ const nav = [
   <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 grid md:grid-cols-12 gap-10">
     <div class="md:col-span-5">
       <Logo variant="light" />
-      <p
-        class="mt-6 text-sm text-[var(--color-stone-light)] whitespace-pre-line max-w-xs"
-      >
-        {s?.footer.tagline[lang]}
-      </p>
+      {
+        f && f.type === 'footer' && (
+          <p
+            class="mt-6 text-sm text-[var(--color-stone-light)] whitespace-pre-line max-w-xs"
+          >
+            {f.tagline[lang]}
+          </p>
+        )
+      }
     </div>
     <div class="md:col-span-3">
       <p class="eyebrow text-[var(--color-brand-yellow)] mb-4">
@@ -56,26 +62,34 @@ const nav = [
         {t("footer.contact")}
       </p>
       {
-        s && (
+        f && f.type === 'footer' && (
           <ul class="space-y-2 text-sm">
             <li>
               <a
-                href={`https://wa.me/${s.whatsapp.replace(/\D/g, "")}`}
+                href={`https://wa.me/${f.whatsapp.replace(/\D/g, "")}`}
                 class="transition-colors hover:text-[#25D366]"
                 target="_blank"
                 rel="noopener"
               >
-                WhatsApp · {s.whatsappDisplay}
+                WhatsApp · {f.whatsappDisplay}
               </a>
             </li>
             <li>
               <a
-                href={s.instagram}
+                href={f.instagram}
                 class="transition-colors hover:text-[var(--color-brand-yellow)]"
                 target="_blank"
                 rel="noopener"
               >
                 Instagram · @climbingchile_cl
+              </a>
+            </li>
+            <li>
+              <a
+                href={`mailto:${f.email}`}
+                class="transition-colors hover:text-[var(--color-brand-yellow)]"
+              >
+                Email · {f.email}
               </a>
             </li>
           </ul>
@@ -87,8 +101,8 @@ const nav = [
     <div
       class="max-w-7xl mx-auto px-5 md:px-8 py-6 pb-20 md:pb-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[var(--color-stone-light)]"
     >
-      <p>© {year} {s?.logoText.top} {s?.logoText.bottom}. {t("footer.rights")}</p>
-      <p class="eyebrow">{s?.footer.locations[lang]}</p>
+      <p>© {year} {h && h.type === 'header' ? `${h.logoText.top} ${h.logoText.bottom}` : 'Climbing Chile'}. {t("footer.rights")}</p>
+      <p class="eyebrow">{f && f.type === 'footer' ? f.locations[lang] : ''}</p>
     </div>
   </div>
 </footer>

@@ -19,6 +19,10 @@ currency: "USD"
 featured: false
 status: "open"
 cover: "../assets/alfalfal-cover.webp"
+dates:
+  - start: "2026-09-12"
+    end: "2026-09-12"
+    spots: 4
 itinerary:
   - day: 1
     title:

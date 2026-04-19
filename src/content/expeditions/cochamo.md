@@ -20,6 +20,10 @@ currency: "USD"
 featured: true
 status: "soon"
 cover: "../assets/cochamo.webp"
+dates:
+  - start: "2027-01-15"
+    end: "2027-01-22"
+    spots: 4
 itinerary:
   - day: 1
     title:

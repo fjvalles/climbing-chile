@@ -20,6 +20,10 @@ season:
 priceFrom: 380000
 currency: CLP
 status: open
+dates:
+  - start: "2026-06-12"
+    end: "2026-06-14"
+    spots: 4
 includes:
   es:
     - Guía UIAGM/ANGM certificado

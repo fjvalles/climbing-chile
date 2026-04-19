@@ -4,7 +4,7 @@ import CourseDetail from '../../components/CourseDetail.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('courses');
-  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+  return entries.map((entry) => ({ params: { slug: entry.data.slug || entry.id }, props: { entry } }));
 }
 
 const { entry } = Astro.props;

@@ -15,8 +15,8 @@ const { entry, lang } = Astro.props;
 const t = useTranslations(lang);
 const d = entry.data;
 const { Content } = await render(entry);
-const site = await getEntry('site', 'config');
-const wa = site ? `https://wa.me/${site.data.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`Hola, me interesa el curso "${d.title[lang]}".`)}` : '#';
+const footerEntry = await getEntry('site', 'footer');
+const wa = footerEntry && footerEntry.type === 'footer' ? `https://wa.me/${footerEntry.data.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`Hola, me interesa el curso "${d.title[lang]}".`)}` : '#';
 
 const levelLabel: any = {
   es: { intro: 'Principiante', intermediate: 'Intermedio', advanced: 'Avanzado' },

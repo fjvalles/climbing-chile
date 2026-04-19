@@ -4,7 +4,7 @@ import ExpeditionDetail from '../../components/ExpeditionDetail.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('expeditions');
-  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+  return entries.map((entry) => ({ params: { slug: entry.data.slug || entry.id }, props: { entry } }));
 }
 
 const { entry } = Astro.props;

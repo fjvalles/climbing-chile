@@ -20,6 +20,10 @@ currency: "USD"
 featured: true
 status: "open"
 cover: "../assets/puntiagudo-cover.webp"
+dates:
+  - start: "2026-08-20"
+    end: "2026-08-22"
+    spots: 3
 itinerary:
   - day: 1
     title:

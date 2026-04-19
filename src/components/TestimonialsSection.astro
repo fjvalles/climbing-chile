@@ -24,33 +24,49 @@ if (!config) return null;
       </h2>
     </div>
 
-    <div
-      class="mobile-carousel md:grid md:grid-cols-3 md:gap-5"
-      data-carousel-track
-      data-auto-carousel
-    >
-      {testimonials.map((t) => (
-        <article class="carousel-slide flex h-full flex-col bg-[var(--color-bone)] text-[var(--color-ink)] p-7 border border-[var(--color-ink-soft)]">
-          <span class="display text-6xl leading-none text-[var(--color-brand-yellow)] select-none mb-4">"</span>
-          <p class="text-sm leading-relaxed flex-1">{t.data.text[lang]}</p>
-          <div class="flex items-center gap-4 mt-8 pt-6 border-t border-[var(--color-line)]">
-            <div
-              class="shrink-0 w-12 h-12 rounded-full flex items-center justify-center"
-              style={`background-color: ${t.data.color}`}
-              aria-hidden="true"
-            >
-              <span class="display text-sm text-white">{t.data.initials}</span>
-            </div>
-            <div>
-              <p class="display text-base leading-tight">{t.data.name}</p>
-              <p class="eyebrow text-[10px] text-[var(--color-stone)] mt-1">{t.data.expedition[lang]}</p>
-            </div>
+    <div class="relative group/carousel">
+      <div
+        class={`mobile-carousel ${testimonials.length > 3 ? 'carousel--desktop' : 'md:grid md:grid-cols-3 md:gap-5'}`}
+        data-carousel-track
+        data-auto-carousel
+      >
+        {testimonials.map((t) => (
+          <div class="carousel-slide">
+            <article class="flex flex-1 flex-col bg-[var(--color-bone)] text-[var(--color-ink)] p-7 border border-[var(--color-ink-soft)] shadow-sm">
+              <span class="display text-6xl leading-none text-[var(--color-brand-yellow)] select-none mb-4">"</span>
+              <p class="text-sm leading-relaxed flex-1 italic">{t.data.text[lang]}</p>
+              <div class="flex items-center gap-4 mt-8 pt-6 border-t border-[var(--color-line)]">
+                <div
+                  class="shrink-0 w-12 h-12 rounded-full flex items-center justify-center shadow-inner"
+                  style={`background-color: ${t.data.color}`}
+                  aria-hidden="true"
+                >
+                  <span class="display text-sm text-white">{t.data.initials}</span>
+                </div>
+                <div>
+                  <p class="display text-base leading-tight">{t.data.name}</p>
+                  <p class="eyebrow text-[10px] text-[var(--color-stone)] mt-1">{t.data.expedition[lang]}</p>
+                </div>
+              </div>
+            </article>
           </div>
-        </article>
-      ))}
+        ))}
+      </div>
+
+      {testimonials.length > 3 && (
+        <>
+          <button class="carousel-arrow carousel-arrow--prev md:flex" data-carousel-prev aria-label="Anterior">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+          </button>
+          <button class="carousel-arrow carousel-arrow--next md:flex" data-carousel-next aria-label="Siguiente">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+          </button>
+        </>
+      )}
     </div>
+
     <div
-      class="carousel-dots mt-5 md:hidden"
+      class={`carousel-dots mt-10 ${testimonials.length > 3 ? '' : 'md:hidden'}`}
       data-carousel-dots
       aria-label={lang === 'es' ? 'Paginación de testimonios' : 'Testimonials pagination'}
     ></div>

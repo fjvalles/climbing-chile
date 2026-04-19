@@ -12,7 +12,7 @@ const { entry, lang } = Astro.props;
 const t = useTranslations(lang);
 const d = entry.data;
 
-const href = lang === 'es' ? `/expediciones/${entry.id}` : `/en/expeditions/${entry.id}`;
+const href = lang === 'es' ? `/expediciones/${d.slug || entry.id}` : `/en/expeditions/${d.slug || entry.id}`;
 const difficultyLabel = {
   es: { easy: 'Fácil', moderate: 'Moderada', demanding: 'Exigente', difficult: 'Difícil', expedition: 'Expedición' },
   en: { easy: 'Easy', moderate: 'Moderate', demanding: 'Demanding', difficult: 'Difficult', expedition: 'Expedition' },

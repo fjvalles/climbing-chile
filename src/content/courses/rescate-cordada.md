@@ -1,72 +1,67 @@
 ---
 title:
-  es: "Escalada en hielo"
-  en: "Ice climbing"
+  es: "Rescate en cordada"
+  en: "Self-rescue in rope teams"
 summary:
-  es: "Aprende la técnica más pura de la montaña: el uso de piolets técnicos y crampones en cascadas de hielo vertical."
-  en: "Learn the purest mountain technique: using technical ice axes and crampons on vertical ice falls."
-level: "intermediate"
-durationDays: 3
+  es: "Sistemas de polipasto, rescate en grieta, maniobras con cuerda fija. Para escaladores que buscan autonomía y seguridad."
+  en: "Haul systems, crevasse rescue, fixed-rope maneuvers. For climbers seeking autonomy and safety."
+level: "advanced"
+durationDays: 2
 location:
-  es: "Paso Los Libertadores, Chile"
-  en: "Paso Los Libertadores, Chile"
-priceFrom: 320000
+  es: "Farellones, Chile"
+  en: "Farellones, Chile"
+priceFrom: 220000
 currency: "CLP"
-maxStudents: 8
+maxStudents: 6
+dates:
+  - start: "2026-07-11"
+    end: "2026-07-12"
+    spots: 6
 requirements:
   es:
-    - "Deseable experiencia previa en escalada en roca o montaña"
-    - "Salud física compatible con frío extremo"
-    - "Vestimenta técnica adecuada (3 capas)"
+    - "Base sólida de escalada en roca o montaña"
+    - "Conocimiento de nudos básicos"
+    - "Equipo personal de escalada (arnés, casco, asegurador)"
   en:
-    - "Desirable previous experience in rock or mountain climbing"
-    - "Physical health compatible with extreme cold"
-    - "Proper technical clothing (3-layer system)"
+    - "Solid base in rock or mountain climbing"
+    - "Knowledge of basic knots"
+    - "Personal climbing gear (harness, helmet, belay device)"
 includes:
   es:
-    - "Instructor UIAGM / ANGM certificado"
-    - "Equipo técnico de hielo (piolets técnicos, crampones, cuerdas, tornillos)"
-    - "Seguro de montaña"
-    - "Equipo personal (arnés y casco)"
+    - "Guía de montaña certificado"
+    - "Equipo técnico grupal (cuerdas, poleas, cordinos)"
+    - "Material didáctico de apoyo"
   en:
-    - "Certified UIAGM / ANGM instructor"
-    - "Technical ice gear (technical axes, crampons, ropes, screws)"
-    - "Mountain insurance"
-    - "Personal gear (harness and helmet)"
+    - "Certified mountain guide"
+    - "Group technical gear (ropes, pulleys, cords)"
+    - "Support educational material"
 excludes:
   es:
-    - "Transporte (se coordina viaje compartido)"
-    - "Alimentación en ruta"
-    - "Botas de montaña rígidas (necesarias para crampones automáticos)"
+    - "Transporte"
+    - "Alimentación"
+    - "Equipo personal de escalada"
   en:
-    - "Transportation (carpooling is coordinated)"
-    - "Meals on the route"
-    - "Rigid mountaineering boots (required for automatic crampons)"
+    - "Transportation"
+    - "Meals"
+    - "Personal climbing gear"
 itinerary:
   - day: 1
     title:
-      es: "Introducción y Cascada Mantito"
-      en: "Introduction and Mantito Cascade"
+      es: "Sistemas de Polipasto"
+      en: "Haul Systems"
     body:
-      es: "Revisión de equipo, técnica de cramponaje y primeros golpes de piolet en la Cascada Mantito. Enfoque en la triangulación y equilibrio."
-      en: "Gear check, cramponing technique, and first ice axe swings at Mantito Cascade. Focus on triangulation and balance."
+      es: "Teoría y práctica de sistemas de ventaja mecánica (3:1, 5:1). Transferencia de cargas y bloqueos."
+      en: "Theory and practice of mechanical advantage systems (3:1, 5:1). Load transfers and blocking."
   - day: 2
     title:
-      es: "Manto de Hielo y Progresión"
-      en: "Ice Mantle and Progression"
+      es: "Rescate en Grietas y Auto-rescate"
+      en: "Crevasse and Self-Rescue"
     body:
-      es: "Rutas de mayor verticalidad en el Manto de Hielo. Introducción al uso de tornillos de hielo y montaje de reuniones en hielo."
-      en: "Steeper routes on the Manto de Hielo (Ice Mantle). Introduction to ice screws and ice anchor setup."
-  - day: 3
-    title:
-      es: "Perfeccionamiento y Rappel"
-      en: "Refinement and Rappelling"
-    body:
-      es: "Práctica de escalada supervisada, técnica de Rappel en hielo (Abalakov) y evaluación final antes del retorno."
-      en: "Supervised climbing practice, ice rappelling technique (Abalakov), and final assessment before return."
-featured: true
-cover: "../assets/hielo.webp"
+      es: "Maniobras de ascenso por cuerda fija y protocolos de rescate en grietas en terreno real."
+      en: "Fixed-rope ascent maneuvers and crevasse rescue protocols on real terrain."
+featured: false
+cover: "../assets/roca.webp"
 order: 3
 ---
 
-Las cascadas del Paso Los Libertadores son el laboratorio perfecto para este curso. Con el apoyo de instructores certificados por la UIAGM/ANGM, aprenderás las técnicas más modernas de progresión en hielo vertical, priorizando siempre la seguridad y la eficiencia en el movimiento.
+El curso de Rescate en Cordada es fundamental para quienes quieren dejar de depender del guía y empezar a gestionar sus propios riesgos en montaña. Nos enfocamos en maniobras eficientes con el mínimo equipo necesario, priorizando la resolución de problemas en situaciones críticas.
