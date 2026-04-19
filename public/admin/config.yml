@@ -205,10 +205,72 @@ collections:
           - { label: "WhatsApp (E.164)", name: "whatsapp", widget: "string", hint: "Ej: +56912345678" }
           - { label: "WhatsApp visible", name: "whatsappDisplay", widget: "string" }
           - { label: "Email", name: "email", widget: "string" }
-          - { label: "Instagram URL", name: "instagram", widget: "string" }
+          - { label: "instagram URL", name: "instagram", widget: "string" }
           - label: "Dirección"
             name: "address"
             widget: "object"
             fields:
               - { label: "Español", name: "es", widget: "string" }
               - { label: "English", name: "en", widget: "string" }
+
+          - label: "Sección Nosotros (Valores)"
+            name: "about"
+            widget: "object"
+            fields:
+              - label: "Título de la sección"
+                name: "title"
+                widget: "object"
+                fields:
+                  - { label: "Español", name: "es", widget: "string" }
+                  - { label: "English", name: "en", widget: "string" }
+              - label: "Valores"
+                name: "values"
+                widget: "list"
+                fields:
+                  - label: "Título"
+                    name: "title"
+                    widget: "object"
+                    fields:
+                      - { label: "Español", name: "es", widget: "string" }
+                      - { label: "English", name: "en", widget: "string" }
+                  - label: "Cuerpo"
+                    name: "body"
+                    widget: "object"
+                    fields:
+                      - { label: "Español", name: "es", widget: "text" }
+                      - { label: "English", name: "en", widget: "text" }
+
+          - label: "Sección Testimonios"
+            name: "testimonials"
+            widget: "object"
+            fields:
+              - label: "Ceja (Eyebrow)"
+                name: "eyebrow"
+                widget: "object"
+                fields:
+                  - { label: "Español", name: "es", widget: "string" }
+                  - { label: "English", name: "en", widget: "string" }
+              - label: "Título"
+                name: "title"
+                widget: "object"
+                fields:
+                  - { label: "Español", name: "es", widget: "string" }
+                  - { label: "English", name: "en", widget: "string" }
+
+          - label: "Sección CTA (Tienes un plan?)"
+            name: "cta"
+            widget: "object"
+            fields:
+              - label: "Título"
+                name: "title"
+                widget: "object"
+                hint: "Usa \\n para saltos de línea"
+                fields:
+                  - { label: "Español", name: "es", widget: "text" }
+                  - { label: "English", name: "en", widget: "text" }
+              - label: "Subtítulo"
+                name: "subtitle"
+                widget: "object"
+                fields:
+                  - { label: "Español", name: "es", widget: "text" }
+                  - { label: "English", name: "en", widget: "text" }

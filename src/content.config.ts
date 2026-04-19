@@ -97,6 +97,21 @@ const site = defineCollection({
     email: z.string().email(),
     instagram: z.string().url(),
     address: localized,
+    about: z.object({
+      title: localized,
+      values: z.array(z.object({
+        title: localized,
+        body: localized,
+      })).max(3),
+    }),
+    testimonials: z.object({
+      eyebrow: localized,
+      title: localized,
+    }),
+    cta: z.object({
+      title: localized,
+      subtitle: localized,
+    }),
   }),
 });
 

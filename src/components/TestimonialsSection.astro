@@ -1,8 +1,12 @@
 ---
 import type { Lang } from '../i18n/ui';
 
+import { getEntry } from 'astro:content';
+
 interface Props { lang: Lang }
 const { lang } = Astro.props;
+
+const site = await getEntry('site', 'config');
 
 const testimonials = lang === 'es' ? [
   {
@@ -56,10 +60,10 @@ const testimonials = lang === 'es' ? [
 
     <div class="mb-14">
       <p class="eyebrow text-[var(--color-brand-yellow)]">
-        {lang === 'es' ? 'Lo que dicen' : 'What they say'}
+        {site?.data.testimonials.eyebrow[lang]}
       </p>
       <h2 class="display mt-3 text-[clamp(2rem,4.4vw,4.1rem)] leading-[0.9]">
-        {lang === 'es' ? 'Quienes ya estuvieron ahí.' : 'Those who\'ve been there.'}
+        {site?.data.testimonials.title[lang]}
       </h2>
     </div>
 

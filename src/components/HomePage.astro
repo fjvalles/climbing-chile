@@ -124,30 +124,20 @@ const title =
       <div class="max-w-5xl">
         <SectionHeader
           eyebrow={t("section.about")}
-          title={t("section.about.title")}
+          title={site.data.about.title[lang]}
         />
       </div>
 
       <div class="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
         <div class="space-y-8">
-          <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
-            <p class="display text-3xl">{t("about.value1.title")}</p>
-            <p class="text-sm text-[var(--color-stone)] mt-2">
-              {t("about.value1.body")}
-            </p>
-          </div>
-          <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
-            <p class="display text-3xl">{t("about.value2.title")}</p>
-            <p class="text-sm text-[var(--color-stone)] mt-2">
-              {t("about.value2.body")}
-            </p>
-          </div>
-          <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
-            <p class="display text-3xl">{t("about.value3.title")}</p>
-            <p class="text-sm text-[var(--color-stone)] mt-2">
-              {t("about.value3.body")}
-            </p>
-          </div>
+          {site.data.about.values.map((v) => (
+            <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
+              <p class="display text-3xl">{v.title[lang]}</p>
+              <p class="text-sm text-[var(--color-stone)] mt-2">
+                {v.body[lang]}
+              </p>
+            </div>
+          ))}
         </div>
 
         <div class="space-y-6 self-start">
