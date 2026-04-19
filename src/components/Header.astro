@@ -28,15 +28,29 @@ const langAltHref = current === '/' ? r(alt, 'home') : current.startsWith('/en')
     <Logo />
     <nav class="hidden md:flex items-center gap-8 h-full" aria-label="Primary">
       {nav.map(({ key, href }) => (
-        <a
-          href={href}
-          class:list={[
-            'nav-link',
-            current === href && 'nav-link--active',
-          ]}
-        >
-          {t(key)}
-        </a>
+        key === 'nav.calendar' ? (
+          <a
+            href={href}
+            class:list={[
+              'eyebrow text-xs px-3 py-1.5 border transition-colors',
+              current === href
+                ? 'border-[var(--color-brand-yellow-dark)] bg-[var(--color-brand-yellow)] text-[var(--color-ink)]'
+                : 'border-[var(--color-brand-yellow-dark)] text-[var(--color-brand-yellow-dark)] hover:bg-[var(--color-brand-yellow)] hover:text-[var(--color-ink)]',
+            ]}
+          >
+            {t(key)}
+          </a>
+        ) : (
+          <a
+            href={href}
+            class:list={[
+              'nav-link',
+              current === href && 'nav-link--active',
+            ]}
+          >
+            {t(key)}
+          </a>
+        )
       ))}
     </nav>
     <div class="flex items-center gap-3">
@@ -60,7 +74,11 @@ const langAltHref = current === '/' ? r(alt, 'home') : current.startsWith('/en')
   <div id="mobile-nav" class="md:hidden hidden border-t border-[var(--color-line)] bg-[var(--color-bone)]">
     <div class="px-5 py-4 flex flex-col gap-3">
       {nav.map(({ key, href }) => (
-        <a href={href} class="display text-lg py-1 transition-colors hover:text-[var(--color-brand-yellow-dark)]">{t(key)}</a>
+        key === 'nav.calendar' ? (
+          <a href={href} class="eyebrow text-xs self-start px-3 py-1.5 border border-[var(--color-brand-yellow-dark)] text-[var(--color-brand-yellow-dark)] hover:bg-[var(--color-brand-yellow)] hover:text-[var(--color-ink)] transition-colors">{t(key)}</a>
+        ) : (
+          <a href={href} class="display text-lg py-1 transition-colors hover:text-[var(--color-brand-yellow-dark)]">{t(key)}</a>
+        )
       ))}
       <a href={waHref} target="_blank" rel="noopener" class="btn btn-primary w-full mt-2 bg-[#25D366] hover:bg-[#1ea855] border-transparent text-white">{t('nav.book')}</a>
     </div>
