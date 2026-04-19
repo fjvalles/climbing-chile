@@ -1,20 +1,4 @@
 ---
-import Base from '../../layouts/Base.astro';
-import { getEntry } from 'astro:content';
-import { marked } from 'marked';
-
-const lang = 'en';
-const entry = await getEntry('site', 'privacy');
-if (!entry) throw new Error('Privacy content not found');
-
-const { title, content } = entry.data;
-const htmlContent = marked.parse(content[lang]);
+import LegalPage from '../../components/LegalPage.astro';
 ---
-<Base lang={lang} title={title[lang]}>
-  <section class="py-16 md:py-24 bg-[var(--color-bone)]">
-    <div class="max-w-3xl mx-auto px-5 md:px-8">
-      <h1 class="display text-4xl md:text-6xl mb-10 text-[var(--color-ink)]">{title[lang]}</h1>
-      <div class="prose prose-stone max-w-none text-[var(--color-stone)] leading-relaxed" set:html={htmlContent} />
-    </div>
-  </section>
-</Base>
+<LegalPage lang="en" type="privacy" />

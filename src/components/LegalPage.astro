@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import { type Lang } from '../i18n/ui';
+import { getEntry } from 'astro:content';
+import { marked } from 'marked';
+
+interface Props { 
+  lang: Lang;
+  type: 'terms' | 'privacy';
+}
+const { lang, type } = Astro.props;
+const entry = await getEntry('site', type);
+if (!entry) throw new Error(`${type} content not found`);
+
+const { title, content } = entry.data;
+const htmlContent = marked.parse(content[lang]);
+---
+<Base lang={lang} title={title[lang]}>
+  <!-- Simple Header with background -->
+  <header class="bg-[var(--color-ink)] text-[var(--color-bone)] pt-32 pb-20 md:pt-44 md:pb-28">
+    <div class="max-w-4xl mx-auto px-5 md:px-8">
+      <div class="tape mb-6">Legal</div>
+      <h1 class="display text-5xl md:text-8xl">{title[lang]}</h1>
+    </div>
+  </header>
+
+  <section class="py-16 md:py-24 bg-[var(--color-bone)] relative overflow-hidden">
+    <!-- Decorative background element -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-[var(--color-brand-yellow)] opacity-5 blur-3xl pointer-events-none -mr-32 -mt-32"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-[var(--color-ink)] opacity-[0.02] blur-3xl pointer-events-none -ml-48 -mb-48"></div>
+
+    <div class="max-w-4xl mx-auto px-5 md:px-8">
+      <!-- Content wrapper with custom prose -->
+      <div 
+        class="prose prose-stone prose-lg md:prose-xl max-w-none 
+               prose-headings:font-display prose-headings:uppercase prose-headings:tracking-tighter prose-headings:text-[var(--color-ink)]
+               prose-p:text-[var(--color-stone)] prose-p:leading-relaxed
+               prose-a:text-[var(--color-brand-yellow-dark)] prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
+               prose-strong:text-[var(--color-ink)] prose-strong:font-bold
+               prose-hr:border-[var(--color-line)]
+               prose-li:text-[var(--color-stone)]" 
+        set:html={htmlContent} 
+      />
+      
+      <!-- Footer-like sign-off -->
+      <div class="mt-20 pt-10 border-t border-[var(--color-line)] flex items-center gap-4 text-[var(--color-stone-light)]">
+        <div class="w-8 h-[2px] bg-[var(--color-brand-yellow)]"></div>
+        <p class="text-xs uppercase font-display tracking-widest">Climbing Chile · {new Date().getFullYear()}</p>
+      </div>
+    </div>
+  </section>
+</Base>
