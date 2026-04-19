@@ -16,6 +16,7 @@ export const ui = {
     'nav.contact': 'Contacto',
     'nav.book': 'Hablar con un guía',
     'nav.terms': 'Términos y Condiciones',
+    'nav.privacy': 'Privacidad',
     'nav.calendar': 'Calendario',
 
     'hero.eyebrow': 'Guías de montaña · Santiago de Chile',
@@ -88,6 +89,7 @@ export const ui = {
     'nav.contact': 'Contact',
     'nav.book': 'Talk to a guide',
     'nav.terms': 'Terms & Conditions',
+    'nav.privacy': 'Privacy',
     'nav.calendar': 'Calendar',
 
     'hero.eyebrow': 'Mountain Guides · Santiago de Chile',

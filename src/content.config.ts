@@ -158,6 +158,11 @@ const site = defineCollection({
         instagram: z.string().url(),
         address: localized,
       }),
+      z.object({
+        type: z.union([z.literal('terms'), z.literal('privacy')]),
+        title: localized,
+        content: localized,
+      }),
     ]),
 });
 

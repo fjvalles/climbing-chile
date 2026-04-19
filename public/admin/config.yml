@@ -232,6 +232,45 @@ collections:
           - { label: "English", name: "en", widget: "string" }
       - { label: "Orden", name: "order", widget: "number", value_type: "int", default: 100 }
 
+  - name: "legal"
+    label: "Páginas Legales"
+    files:
+      - file: "src/content/site/terms.md"
+        label: "Términos y Condiciones"
+        name: "terms"
+        fields:
+          - { label: "Tipo", name: "type", widget: "hidden", default: "terms" }
+          - label: "Título"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Contenido"
+            name: "content"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "markdown" }
+              - { label: "English", name: "en", widget: "markdown" }
+
+      - file: "src/content/site/privacy.md"
+        label: "Política de Privacidad"
+        name: "privacy"
+        fields:
+          - { label: "Tipo", name: "type", widget: "hidden", default: "privacy" }
+          - label: "Título"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Contenido"
+            name: "content"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "markdown" }
+              - { label: "English", name: "en", widget: "markdown" }
+
   - name: "site"
     label: "Personalización del sitio"
     files:

@@ -1,40 +1,24 @@
 ---
 import Base from '../layouts/Base.astro';
 import { type Lang } from '../i18n/ui';
+import { getEntry } from 'astro:content';
+import { marked } from 'marked';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const title = lang === 'es' ? 'Términos y Condiciones' : 'Terms and Conditions';
+const entry = await getEntry('site', 'terms');
+if (!entry) throw new Error('Terms content not found');
+
+const { title, content } = entry.data;
+const htmlContent = marked.parse(content[lang]);
 ---
-<Base lang={lang} title={title}>
+<Base lang={lang} title={title[lang]}>
   <section class="bg-[var(--color-ink)] text-[var(--color-bone)] py-20 md:py-28">
     <div class="max-w-4xl mx-auto px-5 md:px-8">
-      <h1 class="display text-5xl md:text-7xl">{title}</h1>
+      <h1 class="display text-5xl md:text-7xl">{title[lang]}</h1>
     </div>
   </section>
   <section class="py-16 md:py-24 bg-[var(--color-bone)]">
-    <div class="max-w-4xl mx-auto px-5 md:px-8 prose prose-stone lg:prose-xl text-[var(--color-stone)]">
-      {lang === 'es' ? (
-        <>
-          <p class="mb-4">Estos son los términos y condiciones generales aplicables a nuestras expediciones, cursos y otros servicios. Al contratar nuestros servicios, aceptas estos términos.</p>
-          <h2 class="display text-2xl mt-8 mb-4">1. Reservas y Pagos</h2>
-          <p class="mb-4">Para confirmar tu participación, se requiere el pago adelantado estipulado en el plan.</p>
-          <h2 class="display text-2xl mt-8 mb-4">2. Cancelaciones</h2>
-          <p class="mb-4">Nuestras políticas de cancelación se detallan a la hora de contratar el servicio. Nos reservamos el derecho de cancelar o modificar la actividad por razones climáticas o de seguridad.</p>
-          <h2 class="display text-2xl mt-8 mb-4">3. Seguridad</h2>
-          <p class="mb-4">La montaña exige respeto. Seguir las instrucciones de los guías es obligatorio para garantizar la seguridad de todo el grupo.</p>
-        </>
-      ) : (
-        <>
-          <p class="mb-4">These are the general terms and conditions applicable to our expeditions, courses, and other services. By booking our services, you accept these terms.</p>
-          <h2 class="display text-2xl mt-8 mb-4">1. Bookings and Payments</h2>
-          <p class="mb-4">An upfront payment as stipulated in the plan is required to confirm your spot.</p>
-          <h2 class="display text-2xl mt-8 mb-4">2. Cancellations</h2>
-          <p class="mb-4">Our cancellation policies are detailed at the time of booking. We reserve the right to cancel or modify activities due to weather or safety concerns.</p>
-          <h2 class="display text-2xl mt-8 mb-4">3. Safety</h2>
-          <p class="mb-4">The mountain demands respect. Following the guides' instructions is mandatory to ensure the safety of the entire group.</p>
-        </>
-      )}
-    </div>
+    <div class="max-w-4xl mx-auto px-5 md:px-8 prose prose-stone lg:prose-xl text-[var(--color-stone)]" set:html={htmlContent} />
   </section>
 </Base>

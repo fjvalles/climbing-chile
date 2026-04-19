@@ -9,6 +9,7 @@ export const routes: Record<Lang, Record<string, string>> = {
     contact: '#contact',
     terms: '/terminos-y-condiciones',
     calendar: '/calendario',
+    privacy: '/privacidad',
   },
   en: {
     home: '/en',
@@ -18,6 +19,7 @@ export const routes: Record<Lang, Record<string, string>> = {
     contact: '#contact',
     terms: '/en/terms-and-conditions',
     calendar: '/en/calendar',
+    privacy: '/en/privacy',
   },
 };
 

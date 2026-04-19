@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import { useTranslations } from '../i18n/ui';
+
+const lang = 'es';
+const t = useTranslations(lang);
+const title = 'Página no encontrada';
+---
+<Base lang={lang} title={title}>
+  <section class="flex-1 flex items-center justify-center py-20 bg-[var(--color-bone)] text-center">
+    <div class="max-w-xl px-5">
+      <p class="display text-8xl md:text-9xl text-[var(--color-brand-yellow-dark)] opacity-30">404</p>
+      <h1 class="display text-4xl md:text-5xl mt-4">Parece que te perdiste en la montaña</h1>
+      <p class="text-[var(--color-stone)] mt-6 text-lg leading-relaxed">
+        La página que buscas no existe o ha sido movida a otra cumbre.
+      </p>
+      <div class="mt-10">
+        <a href="/" class="btn btn-primary px-10 py-4">Volver al campamento base</a>
+      </div>
+    </div>
+  </section>
+</Base>
