@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import CTABanner from './CTABanner.astro';
+import WhatsAppBubble from './WhatsAppBubble.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+import { r } from '../i18n/routes';
+import { getEntry, type CollectionEntry, render } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'courses'>;
+  lang: Lang;
+}
+const { entry, lang } = Astro.props;
+const t = useTranslations(lang);
+const d = entry.data;
+const { Content } = await render(entry);
+const site = await getEntry('site', 'config');
+const wa = site ? `https://wa.me/${site.data.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`Hola, me interesa el curso "${d.title[lang]}".`)}` : '#';
+
+const levelLabel: any = {
+  es: { intro: 'Principiante', intermediate: 'Intermedio', advanced: 'Avanzado' },
+  en: { intro: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' },
+} as const;
+const includesLabel = lang === 'es' ? 'Incluye' : 'Includes';
+const excludesLabel = lang === 'es' ? 'No incluye' : 'Does not include';
+const fromLabel = lang === 'es' ? 'Desde' : 'From';
+---
+<Base lang={lang} title={d.title[lang]} description={d.summary[lang]}>
+  <article>
+    <section class="relative h-[60vh] min-h-[480px] overflow-hidden bg-[var(--color-ink)]">
+      <Image src={d.cover} alt={d.title[lang]} widths={[800, 1400, 2000]} sizes="100vw" class="absolute inset-0 w-full h-full object-cover opacity-80" />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+      <div class="absolute inset-x-0 bottom-0 max-w-7xl mx-auto px-5 md:px-8 py-14 text-[var(--color-bone)]">
+        <p class="eyebrow text-[var(--color-brand-yellow)]">{d.location[lang]}</p>
+        <h1 class="display text-5xl md:text-7xl mt-4 max-w-4xl">{d.title[lang]}</h1>
+      </div>
+    </section>
+
+    <section class="bg-white border-b border-[var(--color-line)]">
+      <div class="max-w-7xl mx-auto px-5 md:px-8 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div>
+          <p class="eyebrow text-[var(--color-stone)]">{t('card.duration')}</p>
+          <p class="display text-2xl mt-2">{d.durationDays}D</p>
+        </div>
+        <div>
+          <p class="eyebrow text-[var(--color-stone)]">{lang === 'es' ? 'Nivel' : 'Level'}</p>
+          <p class="display text-2xl mt-2">{levelLabel[lang][d.level]}</p>
+        </div>
+        {d.priceFrom && (
+          <div>
+            <p class="eyebrow text-[var(--color-stone)]">{fromLabel}</p>
+            <p class="display text-2xl mt-2">{d.currency} {d.priceFrom.toLocaleString()}</p>
+          </div>
+        )}
+        <div class="flex items-start">
+          <a href={wa} target="_blank" rel="noopener" class="btn btn-primary w-full">{t('card.book')} →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-7">
+          <p class="text-xl md:text-2xl leading-relaxed">{d.summary[lang]}</p>
+          <div class="prose mt-8 max-w-none"><Content /></div>
+        </div>
+
+        <aside class="lg:col-span-5 space-y-6">
+          {d.includes && (
+            <div class="bg-[var(--color-bone)] p-6 border border-[var(--color-line)]">
+              <p class="eyebrow text-[var(--color-brand-yellow-dark)]">{includesLabel}</p>
+              <ul class="mt-4 space-y-2 text-sm">
+                {d.includes[lang].map((i: string) => <li class="flex gap-2"><span class="text-[var(--color-brand-yellow-dark)]">✓</span>{i}</li>)}
+              </ul>
+            </div>
+          )}
+          {d.excludes && (
+            <div class="bg-[var(--color-bone)] p-6 border border-[var(--color-line)]">
+              <p class="eyebrow text-[var(--color-stone)]">{excludesLabel}</p>
+              <ul class="mt-4 space-y-2 text-sm">
+                {d.excludes[lang].map((i: string) => <li class="flex gap-2"><span class="text-[var(--color-stone)]">—</span>{i}</li>)}
+              </ul>
+            </div>
+          )}
+          <a href={wa} target="_blank" rel="noopener" class="btn btn-dark w-full">{t('card.book')} →</a>
+        </aside>
+      </div>
+    </section>
+  </article>
+  <CTABanner lang={lang} />
+  <WhatsAppBubble />
+</Base>

@@ -1,0 +1,107 @@
+---
+import Base from '../layouts/Base.astro';
+import { type Lang } from '../i18n/ui';
+
+import { getEntry } from 'astro:content';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const title = lang === 'es' ? 'Calendario de Actividades' : 'Activities Calendar';
+
+const site = await getEntry('site', 'config');
+const waNumber = site?.data?.whatsapp.replace(/\D/g, '') || '';
+
+const activities = [
+  { date: '15.11.2026', title: 'Ascensión Cerro Plomo', price: '$250.000', spots: 6, available: 2, href: lang === 'es' ? '/expediciones/cerro-el-plomo' : '/en/expeditions/cerro-el-plomo' },
+  { date: '01.12.2026', title: 'Curso Alta Montaña (ACF)', price: '$480.000', spots: 8, available: 4, href: lang === 'es' ? '/formacion/alta-montana' : '/en/training/alta-montana' },
+  { date: '12.01.2027', title: 'Expedición Ojos del Salado', price: '$1.200.000', spots: 5, available: 0, href: '#' },
+];
+
+const parseDate = (d: string) => {
+  const parts = d.split('.');
+  if (parts.length !== 3) return new Date();
+  return new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+};
+
+activities.sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
+
+const groupedActivities = activities.reduce((acc, curr) => {
+  const dateObj = parseDate(curr.date);
+  let monthYear = dateObj.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { month: 'long', year: 'numeric' });
+  monthYear = monthYear.charAt(0).toUpperCase() + monthYear.slice(1);
+  if (!acc[monthYear]) {
+    acc[monthYear] = [];
+  }
+  acc[monthYear].push(curr);
+  return acc;
+}, {} as Record<string, typeof activities>);
+
+---
+<Base lang={lang} title={title}>
+  <section class="bg-[var(--color-ink)] text-[var(--color-bone)] py-20 md:py-28">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <h1 class="display text-5xl md:text-7xl">{title}</h1>
+    </div>
+  </section>
+  <section class="py-16 md:py-24 bg-[var(--color-bone)] min-h-[50vh]">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 text-[var(--color-stone)]">
+      {Object.entries(groupedActivities).length === 0 && (
+        <p class="text-xl">{lang === 'es' ? 'No hay actividades programadas.' : 'No activities scheduled.'}</p>
+      )}
+      {Object.entries(groupedActivities).map(([month, acts]) => (
+        <div class="mb-14 last:mb-0">
+          <h2 class="display text-3xl text-[var(--color-ink)] mb-6 border-b border-[var(--color-brand-yellow)] inline-block pb-1 pr-6">{month}</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b-2 border-[var(--color-line)] text-sm uppercase tracking-widest text-[var(--color-ink)]">
+                  <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Fecha' : 'Date'}</th>
+                  <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Actividad' : 'Activity'}</th>
+                  <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Precio' : 'Price'}</th>
+                  <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Cupos Libres' : 'Spots'}</th>
+                  <th class="py-4 px-4 font-bold text-center">{lang === 'es' ? 'Acción' : 'Action'}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {acts.map((a) => {
+                  const msg = lang === 'es' 
+                    ? `Hola! Me gustaría reservar un cupo para la actividad: ${a.title} con fecha ${a.date}.`
+                    : `Hi! I would like to book a spot for the activity: ${a.title} on ${a.date}.`;
+                  const waHref = waNumber ? `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}` : '#';
+                  return (
+                    <tr class="border-b border-[var(--color-line)] hover:bg-white transition-colors">
+                      <td class="py-4 px-4 whitespace-nowrap text-[var(--color-ink)]">{a.date}</td>
+                      <td class="py-4 px-4 font-medium text-[var(--color-ink)]">
+                        {a.href && a.href !== '#' ? (
+                          <a href={a.href} class="group inline-flex items-center gap-1.5 hover:text-[var(--color-brand-yellow-dark)] transition-colors underline decoration-[var(--color-line)] underline-offset-4 hover:decoration-[var(--color-brand-yellow-dark)]">
+                            {a.title}
+                            <span class="opacity-50 group-hover:opacity-100 transition-opacity">↗</span>
+                          </a>
+                        ) : (
+                          a.title
+                        )}
+                      </td>
+                      <td class="py-4 px-4">{a.price}</td>
+                      <td class="py-4 px-4">{a.available}/{a.spots}</td>
+                      <td class="py-4 px-4 text-center">
+                        {a.available > 0 ? (
+                          <a href={waHref} target="_blank" rel="noopener" class="inline-block bg-[#25D366] text-white px-4 py-2 text-xs font-bold uppercase tracking-widest hover:bg-[#1ea855] transition-colors rounded-sm">
+                            {lang === 'es' ? 'Reservar' : 'Book'}
+                          </a>
+                        ) : (
+                          <span class="inline-block bg-[var(--color-line)] text-[var(--color-stone-light)] px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-sm cursor-not-allowed opacity-70">
+                            {lang === 'es' ? 'Agotado' : 'Sold out'}
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>

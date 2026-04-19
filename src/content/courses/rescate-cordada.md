@@ -12,6 +12,7 @@ location:
   en: "Paso Los Libertadores, Chile"
 priceFrom: 320000
 currency: "CLP"
+maxStudents: 8
 featured: true
 cover: "../assets/hielo-cover.webp"
 order: 3

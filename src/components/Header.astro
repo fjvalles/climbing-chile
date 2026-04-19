@@ -2,6 +2,7 @@
 import Logo from './Logo.astro';
 import { useTranslations, type Lang } from '../i18n/ui';
 import { r, altLang } from '../i18n/routes';
+import { getEntry } from 'astro:content';
 
 interface Props {
   lang: Lang;
@@ -10,12 +11,14 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const alt = altLang(lang);
 const current = Astro.url.pathname;
+const site = await getEntry('site', 'config');
+const waHref = site?.data?.whatsapp ? `https://wa.me/${site.data.whatsapp.replace(/\D/g, '')}` : '#';
 
 const nav = [
   { key: 'nav.expeditions' as const, href: r(lang, 'expeditions') },
   { key: 'nav.training' as const, href: r(lang, 'training') },
   { key: 'nav.about' as const, href: r(lang, 'about') },
-  { key: 'nav.contact' as const, href: r(lang, 'contact') },
+  { key: 'nav.calendar' as const, href: r(lang, 'calendar') },
 ];
 
 const langAltHref = current === '/' ? r(alt, 'home') : current.startsWith('/en') ? current.replace(/^\/en/, '') || '/' : `/en${current === '/' ? '' : current}`;
@@ -23,13 +26,13 @@ const langAltHref = current === '/' ? r(alt, 'home') : current.startsWith('/en')
 <header class="sticky top-0 z-40 bg-[var(--color-bone)]/90 backdrop-blur border-b border-[var(--color-line)]">
   <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 md:h-20 flex items-center justify-between">
     <Logo />
-    <nav class="hidden md:flex items-center gap-8" aria-label="Primary">
+    <nav class="hidden md:flex items-center gap-8 h-full" aria-label="Primary">
       {nav.map(({ key, href }) => (
         <a
           href={href}
           class:list={[
-            'display text-sm text-[var(--color-ink)] link-underline',
-            current === href && 'text-[var(--color-brand-yellow-dark)]',
+            'nav-link',
+            current === href && 'nav-link--active',
           ]}
         >
           {t(key)}
@@ -40,9 +43,11 @@ const langAltHref = current === '/' ? r(alt, 'home') : current.startsWith('/en')
       <a href={langAltHref} id="lang-switch" class="eyebrow text-[var(--color-stone)] hover:text-[var(--color-ink)]" aria-label={t('lang.switch')}>
         {alt.toUpperCase()}
       </a>
-      <a href={r(lang, 'contact')} class="btn btn-primary hidden sm:inline-flex">
-        {t('nav.book')}
-      </a>
+      <div class="hidden md:flex">
+        <a href={waHref} target="_blank" rel="noopener" class="btn btn-primary bg-[#25D366] hover:bg-[#1ea855] border-transparent text-white">
+          {t('nav.book')}
+        </a>
+      </div>
       <button id="nav-toggle" class="md:hidden p-2" aria-label="Menu" aria-expanded="false">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="4" y1="7" x2="20" y2="7" />
@@ -55,9 +60,9 @@ const langAltHref = current === '/' ? r(alt, 'home') : current.startsWith('/en')
   <div id="mobile-nav" class="md:hidden hidden border-t border-[var(--color-line)] bg-[var(--color-bone)]">
     <div class="px-5 py-4 flex flex-col gap-3">
       {nav.map(({ key, href }) => (
-        <a href={href} class="display text-lg py-1">{t(key)}</a>
+        <a href={href} class="display text-lg py-1 transition-colors hover:text-[var(--color-brand-yellow-dark)]">{t(key)}</a>
       ))}
-      <a href={r(lang, 'contact')} class="btn btn-primary w-full mt-2">{t('nav.book')}</a>
+      <a href={waHref} target="_blank" rel="noopener" class="btn btn-primary w-full mt-2 bg-[#25D366] hover:bg-[#1ea855] border-transparent text-white">{t('nav.book')}</a>
     </div>
   </div>
 </header>

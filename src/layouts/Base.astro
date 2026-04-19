@@ -12,7 +12,7 @@ interface Props {
 }
 const { lang, title, description, ogImage } = Astro.props;
 const siteName = 'Climbing Chile';
-const fullTitle = title === siteName ? title : `${title} · ${siteName}`;
+const fullTitle = title.includes(siteName) ? title : `${title} · ${siteName}`;
 const desc = description ?? 'Climbing & Mountain Guides. Expediciones, escalada y formación técnica en los Andes. Based in Santiago de Chile.';
 const og = ogImage ?? '/og.jpg';
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
@@ -37,20 +37,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.andeanpeaks.com" />
     <link rel="dns-prefetch" href="https://identity.netlify.com" />
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <!-- Google Analytics 4 — reemplaza G-XXXXXXXXXX con tu Measurement ID -->
-    <!-- Para obtenerlo: analytics.google.com → Administrador → Flujos de datos → Web -->
-    <!--
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
-    -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- Google Analytics 4: reemplaza G-XXXXXXXXXX con tu Measurement ID -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script> -->
+    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body class="min-h-screen flex flex-col">
     <Header lang={lang} />

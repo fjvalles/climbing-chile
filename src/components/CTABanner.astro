@@ -1,18 +1,77 @@
 ---
 import { useTranslations, type Lang } from '../i18n/ui';
-import { r } from '../i18n/routes';
+import { getEntry } from 'astro:content';
+
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const site = await getEntry('site', 'config');
+const msgES = `Hola! Me gustaría cotizar un plan a medida. Aquí están mis detalles:
+
+• Destino / Montaña: 
+• Fechas estimadas: 
+• Número de personas: 
+• Qué servicios necesitan: [Logística / Permisos / Guiado / Equipo]
+• Experiencia previa del grupo: 
+
+¡Quedo a la espera!`;
+
+const msgEN = `Hi! I would like to request a quote for a tailor-made plan. Here are my details:
+
+• Destination / Mountain: 
+• Estimated dates: 
+• Number of people: 
+• Services needed: [Logistics / Permits / Guiding / Gear]
+• Group's previous experience: 
+
+Looking forward to hearing from you!`;
+
+const waText = encodeURIComponent(lang === 'es' ? msgES : msgEN);
+const waHref = site?.data?.whatsapp ? `https://wa.me/${site.data.whatsapp.replace(/\D/g, '')}?text=${waText}` : '#';
+const paths = {
+  mountain: 'M3 20 L10 8 L14 14 L18 9 L23 20 Z',
+  rope: 'M4 20 C 8 4, 16 4, 20 20',
+  book: 'M4 5 H11 A3 3 0 0 1 14 8 V20 A3 3 0 0 0 11 17 H4 Z M14 8 A3 3 0 0 1 17 5 H22 V17 H17 A3 3 0 0 0 14 20',
+  truck: 'M2 7 H14 V17 H2 Z M14 10 H19 L22 13 V17 H14 Z M6 17 A2 2 0 1 0 6 21 A2 2 0 0 0 6 17 Z M18 17 A2 2 0 1 0 18 21 A2 2 0 0 0 18 17 Z',
+  axe: 'M7 17 L17 7 M17 7 L13 3 L21 5 Z M7 17 L5 21',
+};
+
+const features = lang === 'es' ? [
+  { icon: 'truck', label: 'Logística' },
+  { icon: 'book', label: 'Permisos' },
+  { icon: 'axe', label: 'Equipo' },
+  { icon: 'mountain', label: 'Guiado' },
+] : [
+  { icon: 'truck', label: 'Logistics' },
+  { icon: 'book', label: 'Permits' },
+  { icon: 'axe', label: 'Gear' },
+  { icon: 'mountain', label: 'Guiding' },
+];
 ---
 <section class="bg-[var(--color-brand-yellow)] text-[var(--color-ink)]">
   <div class="max-w-7xl mx-auto px-5 md:px-8 py-20 md:py-28 grid md:grid-cols-2 gap-10 items-center">
-    <h2 class="display text-4xl md:text-6xl whitespace-pre-line leading-none">
-      {t('section.cta.title')}
+    <h2 class="display text-4xl md:text-6xl leading-[1.1]">
+      {t('section.cta.title').split('\n').map((line, i) => (
+        <span class={i === 0 ? "block text-white" : "block"}>{line}</span>
+      ))}
     </h2>
-    <div>
+    <div class="flex flex-col items-start">
       <p class="text-lg max-w-md">{t('section.cta.subtitle')}</p>
-      <a href={r(lang, 'contact')} class="btn btn-dark mt-8">{t('nav.contact')} →</a>
+      
+      <div class="flex flex-wrap gap-3 mt-6">
+        {features.map((f) => (
+          <div class="flex items-center gap-2 border border-[var(--color-ink)]/20 rounded-full px-4 py-2 bg-[var(--color-ink)]/5">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" class="opacity-80">
+              <path d={paths[f.icon as keyof typeof paths]} />
+            </svg>
+            <span class="text-sm font-medium">{f.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <a href={waHref} target="_blank" rel="noopener" class="btn btn-dark mt-10 hover:bg-[#25D366] hover:text-white hover:border-[#25D366]">
+        {lang === 'es' ? 'Cotizar' : 'Get a quote'}
+      </a>
     </div>
   </div>
 </section>

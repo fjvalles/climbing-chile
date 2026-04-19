@@ -3,17 +3,21 @@ import type { Lang } from './ui';
 export const routes: Record<Lang, Record<string, string>> = {
   es: {
     home: '/',
-    expeditions: '/expediciones',
-    training: '/formacion',
-    about: '/nosotros',
-    contact: '/contacto',
+    expeditions: '/#expeditions',
+    training: '/#training',
+    about: '/#about',
+    contact: '#contact',
+    terms: '/terminos-y-condiciones',
+    calendar: '/calendario',
   },
   en: {
     home: '/en',
-    expeditions: '/en/expeditions',
-    training: '/en/training',
-    about: '/en/about',
-    contact: '/en/contact',
+    expeditions: '/en#expeditions',
+    training: '/en#training',
+    about: '/en#about',
+    contact: '#contact',
+    terms: '/en/terms-and-conditions',
+    calendar: '/en/calendar',
   },
 };
 

@@ -12,6 +12,7 @@ location:
   en: "Las Chilcas / El Arrayán"
 priceFrom: 180000
 currency: "CLP"
+maxStudents: 12
 featured: true
 cover: "../assets/alfalfal-cover.webp"
 order: 1

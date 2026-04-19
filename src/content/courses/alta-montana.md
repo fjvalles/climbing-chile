@@ -12,6 +12,14 @@ location:
   en: "Cajón del Maipo / Loma Larga Glacier"
 priceFrom: 480000
 currency: "CLP"
+maxStudents: 6
+requirements:
+  es:
+    - "Salud física compatible"
+    - "Deseable experiencia previa en cerros de media montaña"
+  en:
+    - "Compatible physical health"
+    - "Desirable previous experience in mid-mountain trekking"
 featured: true
 cover: "../assets/puntiagudo-cover.webp"
 order: 2
