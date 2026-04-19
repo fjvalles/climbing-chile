@@ -7,16 +7,17 @@ interface Props {
   class?: string;
 }
 const { variant = 'dark', class: className = '' } = Astro.props;
-const site = await getEntry('site', 'config');
+const header = await getEntry('site', 'header');
 
 const textColor = variant === 'dark' ? '#0B0B0B' : '#F7F5F0';
 const accent = '#F2C200';
 
-if (!site) return null;
+if (!header || header.data.type !== 'header') return null;
+const { logo, logoText } = header.data;
 ---
 <a href="/" aria-label="Climbing Chile — Inicio" class={`inline-flex items-center gap-3 ${className}`}>
   <Image
-    src={site.data.logo}
+    src={logo}
     alt="Climbing Chile logo"
     width={120}
     height={120}
@@ -26,7 +27,7 @@ if (!site) return null;
     class="w-13 h-13 object-contain"
   />
   <span class="flex flex-col leading-[0.9]">
-    <span class="display text-[1.05rem]" style={`color:${textColor}`}>{site.data.logoText.top}</span>
-    <span class="display text-[1.05rem]" style={`color:${accent}`}>{site.data.logoText.bottom}</span>
+    <span class="display text-[1.05rem]" style={`color:${textColor}`}>{logoText.top}</span>
+    <span class="display text-[1.05rem]" style={`color:${accent}`}>{logoText.bottom}</span>
   </span>
 </a>
