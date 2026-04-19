@@ -97,7 +97,6 @@ const site = defineCollection({
     email: z.string().email(),
     instagram: z.string().url(),
     address: localized,
-    formEndpoint: z.string().url().optional(),
   }),
 });
 

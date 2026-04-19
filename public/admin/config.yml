@@ -212,4 +212,3 @@ collections:
             fields:
               - { label: "Español", name: "es", widget: "string" }
               - { label: "English", name: "en", widget: "string" }
-          - { label: "Endpoint formulario (Formspree/Web3Forms)", name: "formEndpoint", widget: "string", required: false }

@@ -188,7 +188,6 @@ Desde ahí se puede editar:
 - Email
 - Instagram
 - Dirección ES / EN
-- `formEndpoint` si se necesitara
 
 ### Cómo crear una nueva entrada
 

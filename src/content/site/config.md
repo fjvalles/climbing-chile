@@ -6,5 +6,4 @@ instagram: "https://www.instagram.com/climbingchile_cl"
 address:
   es: "Santiago, Chile"
   en: "Santiago, Chile"
-formEndpoint: "https://formspree.io/f/your-form-id"
 ---
