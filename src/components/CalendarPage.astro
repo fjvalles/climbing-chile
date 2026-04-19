@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { type Lang } from '../i18n/ui';
 import { getEntry, getCollection } from 'astro:content';
@@ -15,26 +16,35 @@ const expeditions = await getCollection('expeditions');
 const courses = await getCollection('courses');
 
 // Combine and extract dates
-const allActivitiesRaw = [...expeditions, ...courses].flatMap(entry => {
+const allActivitiesRaw = [
+  ...expeditions.map(e => ({ ...e, type: 'expedition' as const })), 
+  ...courses.map(c => ({ ...c, type: 'course' as const }))
+].flatMap(entry => {
   const dates = entry.data.dates || [];
+  const isCourse = entry.type === 'course';
+  
   return dates.map(date => ({
     date: date.start, // Keep for sorting/grouping
     startDate: date.start,
     endDate: date.end,
     title: entry.data.title[lang],
+    category: isCourse 
+      ? (lang === 'es' ? 'Formación' : 'Training')
+      : (lang === 'es' ? 'Expedición' : 'Expedition'),
+    categoryKey: isCourse ? 'course' : 'expedition',
+    duration: entry.data.durationDays,
+    cover: entry.data.cover,
     price: `${entry.data.currency} $${entry.data.priceFrom?.toLocaleString()}`,
-    spots: date.spots || entry.data.maxSpots || entry.data.maxStudents || 0,
-    available: date.spots !== undefined ? date.spots : (entry.data.maxSpots || entry.data.maxStudents || 0),
+    available: date.spots !== undefined ? date.spots : (isCourse ? (entry.data as any).maxStudents : (entry.data as any).maxSpots) || 0,
     href: lang === 'es' 
-      ? `/${'durationDays' in entry.data && 'level' in entry.data ? 'formacion' : 'expediciones'}/${entry.data.slug || entry.id}`
-      : `/en/${'durationDays' in entry.data && 'level' in entry.data ? 'training' : 'expeditions'}/${entry.data.slug || entry.id}`
+      ? `/${isCourse ? 'formacion' : 'expediciones'}/${entry.data.slug || entry.id}`
+      : `/en/${isCourse ? 'training' : 'expeditions'}/${entry.data.slug || entry.id}`
   }));
 });
 
 // Deduplicate by date + base title
 const seen = new Set();
 const allActivities = allActivitiesRaw.filter(a => {
-  // Normalize title for deduplication (e.g., "Escalada en hielo..." -> "Escalada en hielo")
   const baseTitle = a.title.split('·')[0].trim().toLowerCase();
   const key = `${a.startDate}-${a.endDate}-${baseTitle}`;
   
@@ -67,83 +77,318 @@ const formatDateRange = (startStr: string, endStr: string) => {
   const start = parseDate(startStr);
   const end = parseDate(endStr);
   const locale = lang === 'es' ? 'es-ES' : 'en-US';
-  const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
+  const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit' };
 
   if (startStr === endStr) {
-    return start.toLocaleDateString(locale, options);
+    return start.toLocaleDateString(locale, { ...options, year: 'numeric' });
   }
 
-  return `${start.toLocaleDateString(locale, options)} - ${end.toLocaleDateString(locale, options)}`;
+  return `${start.toLocaleDateString(locale, options)} - ${end.toLocaleDateString(locale, { ...options, year: 'numeric' })}`;
 };
 
 ---
 <Base lang={lang} title={title}>
-  <section class="bg-[var(--color-ink)] text-[var(--color-bone)] py-20 md:py-28">
+  <section class="bg-[var(--color-ink)] text-[var(--color-bone)] py-8 md:pt-20 md:pb-4">
     <div class="max-w-7xl mx-auto px-5 md:px-8">
-      <h1 class="display text-5xl md:text-7xl">{title}</h1>
+      <h1 class="display text-4xl md:text-7xl leading-tight text-left">
+        <span class="md:hidden">Calendario</span>
+        <span class="hidden md:inline">{title}</span>
+      </h1>
     </div>
   </section>
-  <section class="py-16 md:py-24 bg-[var(--color-bone)] min-h-[50vh]">
+  <section class="pt-4 pb-20 md:pt-6 md:pb-24 bg-[var(--color-bone)] min-h-[50vh]">
     <div class="max-w-7xl mx-auto px-5 md:px-8 text-[var(--color-stone)]">
+      
+      <!-- Filters -->
+      <div class="mb-12 md:mb-20 flex flex-col gap-3 items-start text-left" id="calendar-filters">
+        <span class="text-xs font-bold uppercase tracking-widest text-[var(--color-ink)]">{lang === 'es' ? 'Filtrar por:' : 'Filter by:'}</span>
+        <div class="flex flex-wrap gap-2 justify-start">
+          <button 
+            data-filter="all" 
+            class="filter-btn active px-5 py-2 text-xs font-bold uppercase tracking-widest border border-[var(--color-line)] rounded-full transition-all cursor-pointer bg-white text-[var(--color-ink)] hover:border-[var(--color-brand-yellow)]"
+          >
+            {lang === 'es' ? 'Todos' : 'All'}
+          </button>
+          <button 
+            data-filter="expedition" 
+            class="filter-btn px-5 py-2 text-xs font-bold uppercase tracking-widest border border-[var(--color-line)] rounded-full transition-all cursor-pointer bg-white text-[var(--color-ink)] hover:border-[var(--color-brand-yellow)]"
+          >
+            {lang === 'es' ? 'Expediciones' : 'Expeditions'}
+          </button>
+          <button 
+            data-filter="course" 
+            class="filter-btn px-5 py-2 text-xs font-bold uppercase tracking-widest border border-[var(--color-line)] rounded-full transition-all cursor-pointer bg-white text-[var(--color-ink)] hover:border-[var(--color-brand-yellow)]"
+          >
+            {lang === 'es' ? 'Formación' : 'Training'}
+          </button>
+        </div>
+      </div>
+
       {Object.entries(groupedActivities).length === 0 && (
         <p class="text-xl">{lang === 'es' ? 'No hay actividades programadas.' : 'No activities scheduled.'}</p>
       )}
-      {Object.entries(groupedActivities).map(([month, acts]) => (
-        <div class="mb-14 last:mb-0">
-          <h2 class="display text-3xl text-[var(--color-ink)] mb-6 border-b border-[var(--color-brand-yellow)] inline-block pb-1 pr-6">{month}</h2>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
-              <thead>
-                <tr class="border-b-2 border-[var(--color-line)] text-sm uppercase tracking-widest text-[var(--color-ink)]">
-                  <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Fecha' : 'Date'}</th>
-                  <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Actividad' : 'Activity'}</th>
-                  <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Precio' : 'Price'}</th>
-                  <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Cupos' : 'Spots'}</th>
-                  <th class="py-4 px-4 font-bold text-center">{lang === 'es' ? 'Acción' : 'Action'}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {acts.map((a) => {
-                  const displayDate = formatDateRange(a.startDate, a.endDate);
-                  const msg = lang === 'es' 
-                    ? `Hola! Me gustaría reservar un cupo para la actividad: ${a.title} con fecha ${displayDate}.`
-                    : `Hi! I would like to book a spot for the activity: ${a.title} on ${displayDate}.`;
-                  const waHref = waNumber ? `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}` : '#';
-                  return (
-                    <tr class="border-b border-[var(--color-line)] hover:bg-white transition-colors">
-                      <td class="py-4 px-4 whitespace-nowrap text-[var(--color-ink)]">{displayDate}</td>
-                      <td class="py-4 px-4 font-medium text-[var(--color-ink)]">
-                        {a.href && a.href !== '#' ? (
-                          <a href={a.href} class="group inline-flex items-center gap-1.5 hover:text-[var(--color-brand-yellow-dark)] transition-colors underline decoration-[var(--color-line)] underline-offset-4 hover:decoration-[var(--color-brand-yellow-dark)]">
-                            {a.title}
-                            <span class="opacity-50 group-hover:opacity-100 transition-opacity">↗</span>
-                          </a>
-                        ) : (
-                          a.title
-                        )}
-                      </td>
-                      <td class="py-4 px-4">{a.price}</td>
-                      <td class="py-4 px-4">{a.available > 0 ? a.available : (lang === 'es' ? 'Agotado' : 'Full')}</td>
-                      <td class="py-4 px-4 text-center">
+      <div id="calendar-content">
+        {Object.entries(groupedActivities).map(([month, acts]) => (
+          <div class="month-section mb-20 last:mb-0">
+            <h2 class="display text-3xl text-[var(--color-ink)] mb-8 border-b border-[var(--color-brand-yellow)] inline-block pb-1 pr-6">{month}</h2>
+            
+            <!-- Desktop Table View -->
+            <div class="hidden md:block overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b-2 border-[var(--color-line)] text-sm uppercase tracking-widest text-[var(--color-ink)]">
+                    <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Fecha' : 'Date'}</th>
+                    <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Actividad' : 'Activity'}</th>
+                    <th class="py-4 px-4 font-bold text-center">{lang === 'es' ? 'Duración' : 'Duration'}</th>
+                    <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Precio' : 'Price'}</th>
+                    <th class="py-4 px-4 font-bold">{lang === 'es' ? 'Cupos' : 'Spots'}</th>
+                    <th class="py-4 px-4 font-bold text-right">{lang === 'es' ? 'Acción' : 'Action'}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {acts.map((a) => {
+                    const displayDate = formatDateRange(a.startDate, a.endDate);
+                    const msg = lang === 'es' 
+                      ? `Hola! Me gustaría reservar un cupo para la actividad: ${a.title} con fecha ${displayDate}.`
+                      : `Hi! I would like to book a spot for the activity: ${a.title} on ${displayDate}.`;
+                    const waHref = waNumber ? `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}` : '#';
+                    return (
+                      <tr class="activity-item border-b border-[var(--color-line)] hover:bg-white transition-colors group" data-category={a.categoryKey}>
+                        <td class="py-6 px-4 whitespace-nowrap text-[var(--color-ink)] font-medium">{displayDate}</td>
+                        <td class="py-6 px-4">
+                          <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-sm overflow-hidden shrink-0 border border-[var(--color-line)]">
+                              <Image src={a.cover} alt={a.title} width={48} height={48} class="w-full h-full object-cover" />
+                            </div>
+                            <div>
+                              <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-stone-light)] block mb-0.5">{a.category}</span>
+                              {a.href && a.href !== '#' ? (
+                                <a href={a.href} class="font-bold text-[var(--color-ink)] group-hover:text-[var(--color-brand-yellow-dark)] transition-colors underline decoration-[var(--color-line)] underline-offset-4 hover:decoration-[var(--color-brand-yellow-dark)]">
+                                  {a.title}
+                                </a>
+                              ) : (
+                                <span class="font-bold text-[var(--color-ink)]">{a.title}</span>
+                              )}
+                            </div>
+                          </div>
+                        </td>
+                        <td class="py-6 px-4 text-center text-[var(--color-ink)]">
+                          {a.duration} {lang === 'es' ? 'DÍAS' : 'DAYS'}
+                        </td>
+                        <td class="py-6 px-4 font-bold text-[var(--color-ink)]">{a.price}</td>
+                        <td class="py-6 px-4">
+                          {a.available > 0 ? (
+                            <div class="flex flex-col">
+                              <span class="text-[var(--color-ink)]">{a.available}</span>
+                              {a.available <= 3 && (
+                                <span class="text-[9px] font-bold text-red-600 uppercase tracking-tighter">{lang === 'es' ? '¡Últimos cupos!' : 'Last spots!'}</span>
+                              )}
+                            </div>
+                          ) : (
+                            <span class="text-red-600 font-bold">{lang === 'es' ? 'Agotado' : 'Full'}</span>
+                          )}
+                        </td>
+                        <td class="py-6 px-4 text-right">
+                          {a.available > 0 ? (
+                            <a href={waHref} target="_blank" rel="noopener" class="btn btn-primary !py-2 !px-4 !text-[10px]">
+                              {lang === 'es' ? 'Consultar disponibilidad' : 'Check availability'}
+                            </a>
+                          ) : (
+                            <span class="inline-block bg-[var(--color-line)] text-[var(--color-stone-light)] px-4 py-2 text-[10px] font-bold uppercase tracking-widest rounded-sm cursor-not-allowed opacity-70">
+                              {lang === 'es' ? 'Agotado' : 'Sold out'}
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Mobile List View -->
+            <div class="md:hidden space-y-6">
+              {acts.map((a) => {
+                const displayDate = formatDateRange(a.startDate, a.endDate);
+                const msg = lang === 'es' 
+                  ? `Hola! Me gustaría reservar un cupo para la actividad: ${a.title} con fecha ${displayDate}.`
+                  : `Hi! I would like to book a spot for the activity: ${a.title} on ${displayDate}.`;
+                const waHref = waNumber ? `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}` : '#';
+                const hasDetail = a.href && a.href !== '#';
+
+                return (
+                  <div class="activity-item bg-white border border-[var(--color-line)] rounded-sm shadow-sm overflow-hidden flex flex-col" data-category={a.categoryKey}>
+                    {/* Image & Header - Wrapped in link if has detail */}
+                    {hasDetail ? (
+                      <a href={a.href} class="relative h-40 shrink-0 group block">
+                        <Image src={a.cover} alt={a.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-3 left-4 right-4 flex justify-between items-end">
+                          <span class="tape !text-[10px]">{displayDate}</span>
+                          <span class="text-white text-[10px] font-bold uppercase tracking-widest bg-black/40 backdrop-blur-sm px-2 py-1 rounded-sm">
+                            {a.duration} {lang === 'es' ? 'DÍAS' : 'DAYS'}
+                          </span>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-[var(--color-brand-yellow)] text-[var(--color-ink)] p-1.5 rounded-full shadow-lg transform translate-x-2 -translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                        </div>
+                      </a>
+                    ) : (
+                      <div class="relative h-32 shrink-0">
+                        <Image src={a.cover} alt={a.title} class="w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-3 left-4 right-4 flex justify-between items-end">
+                          <span class="tape !text-[10px]">{displayDate}</span>
+                          <span class="text-white text-[10px] font-bold uppercase tracking-widest bg-black/40 backdrop-blur-sm px-2 py-1 rounded-sm">
+                            {a.duration} {lang === 'es' ? 'DÍAS' : 'DAYS'}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    <div class="p-5 flex flex-col gap-4">
+                      <div>
+                        <div class="flex justify-between items-start mb-1">
+                          <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--color-stone-light)]">{a.category}</span>
+                          {hasDetail && (
+                            <a href={a.href} class="text-[var(--color-brand-yellow-dark)] eyebrow text-[9px] flex items-center gap-1 font-bold">
+                              {lang === 'es' ? 'VER DETALLE' : 'VIEW DETAILS'}
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                            </a>
+                          )}
+                        </div>
+                        <h3 class="text-xl font-bold text-[var(--color-ink)] leading-tight">
+                          {hasDetail ? (
+                            <a href={a.href} class="hover:text-[var(--color-brand-yellow-dark)] transition-colors">
+                              {a.title}
+                            </a>
+                          ) : (
+                            a.title
+                          )}
+                        </h3>
+                      </div>
+
+                      <div class="grid grid-cols-2 gap-4 py-3 border-y border-[var(--color-line)] border-dashed">
+                        <div class="flex flex-col">
+                          <span class="text-[var(--color-stone-light)] uppercase tracking-widest text-[10px] font-bold mb-1">{lang === 'es' ? 'Inversión' : 'Investment'}</span>
+                          <span class="font-bold text-[var(--color-ink)] text-lg">{a.price}</span>
+                        </div>
+                        <div class="flex flex-col border-l border-[var(--color-line)] border-dashed pl-4">
+                          <span class="text-[var(--color-stone-light)] uppercase tracking-widest text-[10px] font-bold mb-1">{lang === 'es' ? 'Disponibilidad' : 'Availability'}</span>
+                          <div class="flex flex-col">
+                            <span class={a.available > 0 ? "font-bold text-[var(--color-ink)] text-lg" : "font-bold text-red-600 text-lg"}>
+                              {a.available > 0 ? (lang === 'es' ? `${a.available} cupos` : `${a.available} spots`) : (lang === 'es' ? 'Agotado' : 'Full')}
+                            </span>
+                            {a.available > 0 && a.available <= 3 && (
+                              <span class="text-[10px] font-bold text-red-600 uppercase animate-pulse">{lang === 'es' ? '¡Últimos cupos!' : 'Last spots!'}</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mt-2">
                         {a.available > 0 ? (
-                          <a href={waHref} target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-[#25D366] text-white px-4 py-2 text-xs font-bold uppercase tracking-widest hover:bg-[#1ea855] transition-colors rounded-sm">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.7-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.5.7.5-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.7 15l-1.3 4.7 4.8-1.2A10 10 0 1 0 12 2z"/></svg>
-                            {lang === 'es' ? 'Cotizar cupo' : 'Get a quote'}
+                          <a href={waHref} target="_blank" rel="noopener" class="w-full btn btn-primary !py-4 flex items-center justify-center gap-3">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.7-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.5.7.5-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.7 15l-1.3 4.7 4.8-1.2A10 10 0 1 0 12 2z"/></svg>
+                            {lang === 'es' ? 'Reservar mi cupo' : 'Secure my spot'}
                           </a>
                         ) : (
-                          <span class="inline-block bg-[var(--color-line)] text-[var(--color-stone-light)] px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-sm cursor-not-allowed opacity-70">
-                            {lang === 'es' ? 'Agotado' : 'Sold out'}
+                          <span class="w-full inline-flex bg-[var(--color-line)] text-[var(--color-stone-light)] px-4 py-4 text-sm font-bold uppercase tracking-widest rounded-sm cursor-not-allowed opacity-70 justify-center">
+                            {lang === 'es' ? 'Totalmente agotado' : 'Fully booked'}
                           </span>
                         )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                        <p class="text-[10px] text-center mt-3 text-[var(--color-stone-light)] italic uppercase tracking-widest">
+                          {lang === 'es' ? 'Respuesta inmediata por WhatsApp' : 'Instant response via WhatsApp'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+      <div id="no-results" class="hidden py-12 text-center">
+        <p class="text-xl text-[var(--color-stone)]">{lang === 'es' ? 'No se encontraron actividades para este filtro.' : 'No activities found for this filter.'}</p>
+      </div>
     </div>
   </section>
+
+  <style>
+    .filter-btn.active {
+      background-color: var(--color-brand-yellow);
+      border-color: var(--color-brand-yellow-dark);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+
+  <script>
+    function initFilters() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const monthSections = document.querySelectorAll('.month-section');
+      const noResults = document.getElementById('no-results');
+
+      if (!filterBtns.length) return;
+
+      filterBtns.forEach(btn => {
+        // Clone and replace to avoid multiple listeners
+        const newBtn = btn.cloneNode(true) as HTMLElement;
+        btn.parentNode?.replaceChild(newBtn, btn);
+
+        newBtn.addEventListener('click', () => {
+          const filter = newBtn.getAttribute('data-filter');
+
+          // Update active state
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          newBtn.classList.add('active');
+
+          let visibleCount = 0;
+
+          // Filter activities
+          monthSections.forEach(section => {
+            const itemsInMonth = section.querySelectorAll('.activity-item');
+            let visibleInMonth = 0;
+
+            itemsInMonth.forEach(item => {
+              const category = item.getAttribute('data-category');
+              if (filter === 'all' || category === filter) {
+                (item as HTMLElement).style.display = '';
+                visibleInMonth++;
+                visibleCount++;
+              } else {
+                (item as HTMLElement).style.display = 'none';
+              }
+            });
+
+            // Hide/Show month header based on visibility
+            if (visibleInMonth > 0) {
+              (section as HTMLElement).style.display = '';
+            } else {
+              (section as HTMLElement).style.display = 'none';
+            }
+          });
+
+          // Show/Hide no results message
+          if (noResults) {
+            if (visibleCount === 0) {
+              noResults.classList.remove('hidden');
+            } else {
+              noResults.classList.add('hidden');
+            }
+          }
+        });
+      });
+    }
+
+    // Initialize on page load (fires on initial load and after view transitions)
+    document.addEventListener('astro:page-load', initFilters);
+  </script>
 </Base>

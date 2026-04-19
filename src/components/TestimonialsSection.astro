@@ -32,10 +32,10 @@ if (!config) return null;
       >
         {testimonials.map((t) => (
           <div class="carousel-slide">
-            <article class="flex flex-1 flex-col bg-[var(--color-bone)] text-[var(--color-ink)] p-7 border border-[var(--color-line)] shadow-sm rounded-[var(--radius-card)] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative overflow-hidden group">
-              <span class="display text-8xl leading-none text-[var(--color-line)] select-none absolute top-4 right-4 opacity-50 group-hover:text-[var(--color-brand-yellow-light)] transition-colors">"</span>
-              <p class="text-sm leading-relaxed flex-1 italic relative z-10">{t.data.text[lang]}</p>
-              <div class="flex items-center gap-4 mt-8 pt-6 border-t border-[var(--color-line)]">
+            <article class="flex flex-1 flex-col bg-[var(--color-bone)] text-[var(--color-ink)] p-7 border border-[var(--color-line)] shadow-sm rounded-[var(--radius-card)] transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative overflow-hidden group isolation-auto">
+              <span class="display text-9xl leading-none text-[var(--color-line)] select-none absolute -top-2 -left-2 opacity-15 group-hover:opacity-25 group-hover:text-[var(--color-brand-yellow-dark)] transition-all duration-500 pointer-events-none z-0">“</span>
+              <p class="text-sm leading-relaxed flex-1 italic mt-10 relative z-10">{t.data.text[lang]}</p>
+              <div class="flex items-center gap-4 mt-8 pt-6 border-t border-[var(--color-line)] relative z-10">
                 <div
                   class="shrink-0 w-12 h-12 rounded-full flex items-center justify-center shadow-inner overflow-hidden"
                   style={!t.data.photo ? `background-color: ${t.data.color}` : ''}

@@ -36,15 +36,21 @@ const fromLabel = lang === 'es' ? 'Desde' : 'From';
     </section>
 
     <section class="bg-white border-b border-[var(--color-line)]">
-      <div class="max-w-7xl mx-auto px-5 md:px-8 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="max-w-7xl mx-auto px-5 md:px-8 py-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-start">
         <div>
           <p class="eyebrow text-[var(--color-stone)]">{t('card.duration')}</p>
-          <p class="display text-2xl mt-2">{d.durationDays}D</p>
+          <p class="display text-2xl mt-2">{d.durationDays} {lang === 'es' ? 'DÍAS' : 'DAYS'}</p>
         </div>
         <div>
           <p class="eyebrow text-[var(--color-stone)]">{lang === 'es' ? 'Nivel' : 'Level'}</p>
           <p class="display text-2xl mt-2">{levelLabel[lang][d.level]}</p>
         </div>
+        {d.maxStudents && (
+          <div>
+            <p class="eyebrow text-[var(--color-stone)]">{t('card.maxSpots')}</p>
+            <p class="display text-2xl mt-2">{d.maxStudents}</p>
+          </div>
+        )}
         {d.priceFrom && (
           <div>
             <p class="eyebrow text-[var(--color-stone)]">{fromLabel}</p>

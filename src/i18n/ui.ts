@@ -68,6 +68,7 @@ export const ui = {
     'footer.contact': 'Contacto',
     'footer.follow': 'Síguenos',
     'footer.rights': 'Todos los derechos reservados.',
+    'footer.designedBy': 'Diseñado por',
 
     'about.values.title': 'Lo que nos mueve',
     'about.value1.title': 'Seguridad',
@@ -139,6 +140,7 @@ export const ui = {
     'footer.contact': 'Contact',
     'footer.follow': 'Follow',
     'footer.rights': 'All rights reserved.',
+    'footer.designedBy': 'Designed by',
 
     'about.values.title': 'What drives us',
     'about.value1.title': 'Safety',

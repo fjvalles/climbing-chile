@@ -38,7 +38,7 @@ const maxSpots = d.maxSpots ?? d.dates.reduce((max, date) => Math.max(max, date.
   <div class="p-5 grid grid-cols-2 gap-x-8 gap-y-6 text-xs">
     <div>
       <p class="eyebrow text-[var(--color-stone)]">{t('card.duration')}</p>
-      <p class="display text-sm mt-2">{d.durationDays}D</p>
+      <p class="display text-sm mt-2">{d.durationDays} {lang === 'es' ? 'DÍAS' : 'DAYS'}</p>
     </div>
     <div>
       <p class="eyebrow text-[var(--color-stone)]">{t('card.difficulty')}</p>

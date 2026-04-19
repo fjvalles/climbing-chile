@@ -1,10 +1,10 @@
 ---
-import { useTranslations, type Lang } from '../i18n/ui';
-import { getEntry } from 'astro:content';
+import { useTranslations, type Lang } from "../i18n/ui";
+import { getEntry } from "astro:content";
 
 const { lang } = Astro.props;
-const site = await getEntry('site', 'footer');
-const cta = await getEntry('site', 'cta');
+const site = await getEntry("site", "footer");
+const cta = await getEntry("site", "cta");
 const s = site?.data;
 const c = cta?.data;
 
@@ -28,95 +28,172 @@ const msgEN = `Hi! I would like to request a quote for a tailor-made plan. Here 
 
 Looking forward to hearing from you!`;
 
-const waText = encodeURIComponent(lang === 'es' ? msgES : msgEN);
-const waHref = s?.whatsapp ? `https://wa.me/${s.whatsapp.replace(/\D/g, '')}?text=${waText}` : '#';
+const waText = encodeURIComponent(lang === "es" ? msgES : msgEN);
+const waHref = s?.whatsapp
+  ? `https://wa.me/${s.whatsapp.replace(/\D/g, "")}?text=${waText}`
+  : "#";
 const paths = {
-  mountain: 'M3 20 L10 8 L14 14 L18 9 L23 20 Z',
-  rope: 'M4 20 C 8 4, 16 4, 20 20',
-  book: 'M4 5 H11 A3 3 0 0 1 14 8 V20 A3 3 0 0 0 11 17 H4 Z M14 8 A3 3 0 0 1 17 5 H22 V17 H17 A3 3 0 0 0 14 20',
-  truck: 'M2 7 H14 V17 H2 Z M14 10 H19 L22 13 V17 H14 Z M6 17 A2 2 0 1 0 6 21 A2 2 0 0 0 6 17 Z M18 17 A2 2 0 1 0 18 21 A2 2 0 0 0 18 17 Z',
-  axe: 'M7 17 L17 7 M17 7 L13 3 L21 5 Z M7 17 L5 21',
+  mountain: "M3 20 L10 8 L14 14 L18 9 L23 20 Z",
+  rope: "M4 20 C 8 4, 16 4, 20 20",
+  book: "M4 5 H11 A3 3 0 0 1 14 8 V20 A3 3 0 0 0 11 17 H4 Z M14 8 A3 3 0 0 1 17 5 H22 V17 H17 A3 3 0 0 0 14 20",
+  truck:
+    "M2 7 H14 V17 H2 Z M14 10 H19 L22 13 V17 H14 Z M6 17 A2 2 0 1 0 6 21 A2 2 0 0 0 6 17 Z M18 17 A2 2 0 1 0 18 21 A2 2 0 0 0 18 17 Z",
+  axe: "M7 17 L17 7 M17 7 L13 3 L21 5 Z M7 17 L5 21",
 };
 
-const features = lang === 'es' ? [
-  { icon: 'truck', label: 'Logística' },
-  { icon: 'book', label: 'Permisos' },
-  { icon: 'axe', label: 'Equipo' },
-  { icon: 'mountain', label: 'Guiado' },
-] : [
-  { icon: 'truck', label: 'Logistics' },
-  { icon: 'book', label: 'Permits' },
-  { icon: 'axe', label: 'Gear' },
-  { icon: 'mountain', label: 'Guiding' },
-];
+const features =
+  lang === "es"
+    ? [
+        { icon: "truck", label: "Logística" },
+        { icon: "mountain", label: "Guiado" },
+        { icon: "book", label: "Permisos" },
+        { icon: "axe", label: "Equipo" },
+      ]
+    : [
+        { icon: "truck", label: "Logistics" },
+        { icon: "mountain", label: "Guiding" },
+        { icon: "book", label: "Permits" },
+        { icon: "axe", label: "Gear" },
+      ];
 ---
-<section class="py-20 md:py-32 bg-[var(--color-bone)] border-t border-[var(--color-line)] relative overflow-hidden">
+
+<section
+  class="py-20 md:py-32 bg-[var(--color-bone)] border-t border-[var(--color-line)] relative overflow-hidden"
+>
   <!-- Subtle background accent -->
-  <div class="absolute top-0 right-0 w-1/3 h-full bg-[var(--color-brand-yellow)]/5 -skew-x-12 translate-x-1/2"></div>
-  
+  <div
+    class="absolute top-0 right-0 w-1/3 h-full bg-[var(--color-brand-yellow)]/5 -skew-x-12 translate-x-1/2"
+  >
+  </div>
+
   <div class="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
-    <div class="bg-white border border-[var(--color-line)] p-8 md:p-16 lg:p-20 shadow-2xl shadow-[var(--color-ink)]/10 rounded-sm">
+    <div
+      class="bg-white border border-[var(--color-line)] p-8 md:p-16 lg:p-20 shadow-2xl shadow-[var(--color-ink)]/10 rounded-sm"
+    >
       <!-- Title Row: Full Width -->
       <div class="mb-12 md:mb-16 border-b border-[var(--color-line)] pb-10">
-        <h2 class="display text-3xl md:text-5xl lg:text-6xl leading-[1.1] text-[var(--color-ink)]">
-          {c?.title[lang].split('\n').map((line: string) => {
-            // Highlighting logic
-            let highlightedLine = line;
-            const highlights = [
-              "Nosotros nos encargamos",
-              "We design tailor-made expeditions"
-            ];
-            
-            return (
-              <span class="block">
-                {line.split(new RegExp(`(${highlights.join('|')})`, 'gi')).map((part) => (
-                  highlights.some(h => h.toLowerCase() === part.toLowerCase()) 
-                    ? <span class="text-[var(--color-brand-yellow-dark)] italic">{part}</span> 
-                    : part
-                ))}
-              </span>
-            );
-          })}
+        <h2
+          class="display text-3xl md:text-5xl lg:text-6xl leading-[1.1] text-[var(--color-ink)]"
+        >
+          {
+            c?.title[lang].split("\n").map((line: string) => {
+              // Highlighting logic
+              let highlightedLine = line;
+              const highlights = [
+                "Nosotros nos encargamos",
+                "We design tailor-made expeditions",
+              ];
+
+              return (
+                <span class="block">
+                  {line
+                    .split(new RegExp(`(${highlights.join("|")})`, "gi"))
+                    .map((part) =>
+                      highlights.some(
+                        (h) => h.toLowerCase() === part.toLowerCase(),
+                      ) ? (
+                        <span class="text-[var(--color-brand-yellow-dark)] italic">
+                          {part}
+                        </span>
+                      ) : (
+                        part
+                      ),
+                    )}
+                </span>
+              );
+            })
+          }
         </h2>
       </div>
 
       <!-- Content Row: Split -->
       <div class="grid lg:grid-cols-12 gap-12 items-start">
         <div class="lg:col-span-7">
-          <p class="text-xl md:text-2xl text-[var(--color-stone)] leading-relaxed font-light">
-            {lang === 'es' ? (
-              <>Creamos itinerarios <span class="text-[var(--color-ink)] font-bold border-b-2 border-[var(--color-brand-yellow)]">100% personalizados</span> para que solo te enfoques en escalar.<br class="hidden md:block" /> Tú eliges la cumbre, nosotros gestionamos todo lo demás.</>
-            ) : (
-              <>We build <span class="text-[var(--color-ink)] font-bold border-b-2 border-[var(--color-brand-yellow)]">100% tailor-made</span> itineraries so you can focus solely on climbing.<br class="hidden md:block" /> You pick the summit, and we handle the logistics.</>
-            )}
+          <p
+            class="text-xl md:text-2xl text-[var(--color-stone)] leading-relaxed font-light"
+          >
+            {
+              lang === "es" ? (
+                <>
+                  Creamos itinerarios{" "}
+                  <span class="text-[var(--color-ink)] font-bold border-b-2 border-[var(--color-brand-yellow)]">
+                    100% personalizados
+                  </span>{" "}
+                  para que solo te enfoques en escalar.
+                  <br class="hidden md:block" /> Tú eliges la cumbre, nosotros
+                  gestionamos todo lo demás.
+                </>
+              ) : (
+                <>
+                  We build{" "}
+                  <span class="text-[var(--color-ink)] font-bold border-b-2 border-[var(--color-brand-yellow)]">
+                    100% tailor-made
+                  </span>{" "}
+                  itineraries so you can focus solely on climbing.
+                  <br class="hidden md:block" /> You pick the summit, and we
+                  handle the logistics.
+                </>
+              )
+            }
           </p>
-          
+
           <div class="flex flex-wrap gap-3 mt-10">
-            {features.map((f) => (
-              <div class="flex items-center gap-2.5 border border-[var(--color-line)] rounded-full px-5 py-2 bg-[var(--color-bone)]/50">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="text-[var(--color-brand-yellow-dark)]">
-                  <path d={paths[f.icon as keyof typeof paths]} />
-                </svg>
-                <span class="text-xs font-bold uppercase tracking-widest text-[var(--color-ink)]">{f.label}</span>
-              </div>
-            ))}
+            {
+              features.map((f) => (
+                <div class="flex items-center gap-2.5 border border-[var(--color-line)] rounded-full px-5 py-2 bg-[var(--color-bone)]/50">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    class="text-[var(--color-brand-yellow-dark)]"
+                  >
+                    <path d={paths[f.icon as keyof typeof paths]} />
+                  </svg>
+                  <span class="text-xs font-bold uppercase tracking-widest text-[var(--color-ink)]">
+                    {f.label}
+                  </span>
+                </div>
+              ))
+            }
           </div>
         </div>
 
-        <div class="lg:col-span-5 flex flex-col items-start lg:items-end lg:justify-center h-full">
-          <a 
-            href={waHref} 
-            target="_blank" 
-            rel="noopener" 
+        <div
+          class="lg:col-span-5 flex flex-col items-start lg:items-end lg:justify-center h-full"
+        >
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener"
             class="btn btn-shimmer w-full lg:w-auto px-12 py-6 bg-[var(--color-brand-yellow)] text-[var(--color-ink)] hover:bg-[#25D366] hover:text-white transition-all duration-300 shadow-xl shadow-[var(--color-brand-yellow)]/20 hover:shadow-[#25D366]/40 flex items-center justify-center gap-4 group"
             style="border-radius: var(--radius-card);"
           >
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="group-hover:scale-110 transition-transform">
-              <path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.7-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.5.7.5-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.7 15l-1.3 4.7 4.8-1.2A10 10 0 1 0 12 2z"/>
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+              class="group-hover:scale-110 transition-transform"
+            >
+              <path
+                d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.7-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.5.7.5-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.7 15l-1.3 4.7 4.8-1.2A10 10 0 1 0 12 2z"
+              ></path>
             </svg>
-            <span class="text-lg font-bold tracking-tight">{c?.button[lang]}</span>
+            <span class="text-lg font-bold tracking-tight"
+              >{c?.button[lang]}</span
+            >
           </a>
-          <p class="mt-4 text-xs text-[var(--color-stone-light)] uppercase tracking-widest font-bold">Respuesta inmediata vía WhatsApp</p>
+          <p
+            class="mt-4 text-xs text-[var(--color-stone-light)] uppercase tracking-widest font-bold"
+          >
+            Respuesta inmediata vía WhatsApp
+          </p>
         </div>
       </div>
     </div>
