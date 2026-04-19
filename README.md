@@ -249,4 +249,8 @@ npm run build
 | `--color-bone` | `#F7F5F0` | Fondo base |
 | `--color-stone` | `#6B6B6B` | Texto secundario |
 
-Tipografía: **Archivo Black** (display) + **Inter** (cuerpo).
+## Licencia
+
+© 2026 Climbing Chile. Todos los derechos reservados.
+
+El código fuente, diseño, textos, itinerarios y activos multimedia (fotos, logo) de este repositorio son propiedad privada. No se autoriza su reproducción, distribución o modificación sin el consentimiento expreso de **Climbing Chile**.
