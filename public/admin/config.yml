@@ -213,6 +213,56 @@ collections:
               - { label: "Español", name: "es", widget: "string" }
               - { label: "English", name: "en", widget: "string" }
 
+          - { label: "Logo principal", name: "logo", widget: "image" }
+          - label: "Texto Logo"
+            name: "logoText"
+            widget: "object"
+            fields:
+              - { label: "Texto arriba (Ej: Climbing)", name: "top", widget: "string" }
+              - { label: "Texto abajo (Ej: Chile)", name: "bottom", widget: "string" }
+
+          - label: "Hero (Inicio)"
+            name: "hero"
+            widget: "object"
+            fields:
+              - label: "Ceja (Eyebrow)"
+                name: "eyebrow"
+                widget: "object"
+                fields:
+                  - { label: "Español", name: "es", widget: "string" }
+                  - { label: "English", name: "en", widget: "string" }
+              - label: "Título principal"
+                name: "title"
+                widget: "object"
+                hint: "Usa \\n para saltos de línea"
+                fields:
+                  - { label: "Español", name: "es", widget: "text" }
+                  - { label: "English", name: "en", widget: "text" }
+              - label: "Subtítulo"
+                name: "subtitle"
+                widget: "object"
+                fields:
+                  - { label: "Español", name: "es", widget: "text" }
+                  - { label: "English", name: "en", widget: "text" }
+
+          - label: "Footer"
+            name: "footer"
+            widget: "object"
+            fields:
+              - label: "Lema (Tagline)"
+                name: "tagline"
+                widget: "object"
+                hint: "Usa \\n para saltos de línea"
+                fields:
+                  - { label: "Español", name: "es", widget: "text" }
+                  - { label: "English", name: "en", widget: "text" }
+              - label: "Ubicaciones (Debajo logo)"
+                name: "locations"
+                widget: "object"
+                fields:
+                  - { label: "Español", name: "es", widget: "string" }
+                  - { label: "English", name: "en", widget: "string" }
+
           - label: "Sección Nosotros (Valores)"
             name: "about"
             widget: "object"

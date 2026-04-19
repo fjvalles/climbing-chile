@@ -6,6 +6,20 @@ instagram: "https://www.instagram.com/climbingchile_cl"
 address:
   es: "Santiago, Chile"
   en: "Santiago, Chile"
+logo: "../../assets/logo.png"
+logoText:
+  top: "Climbing"
+  bottom: "Chile"
+hero:
+  eyebrow:
+    es: "Guías de montaña · Santiago de Chile"
+    en: "Mountain Guides · Santiago de Chile"
+  title:
+    es: "Comprometidos\ncon tus sueños\nverticales."
+    en: "Committed\nto your vertical\ndreams."
+  subtitle:
+    es: "Expediciones, escalada, formación técnica y logística a medida en los Andes. Diseñado para ti."
+    en: "Expeditions, climbing, technical training and tailor-made logistics in the Andes. Built for you."
 about:
   title:
     es: "Guías certificados"
@@ -43,4 +57,11 @@ cta:
   subtitle:
     es: "Creamos itinerarios 100% personalizados para que solo te enfoques en escalar. Tú eliges la cumbre, nosotros gestionamos todo lo demás."
     en: "We build custom itineraries so you can focus solely on climbing. You pick the summit, and we handle the logistics."
+footer:
+  tagline:
+    es: "Climbing & Mountain Guides.\nBased in Santiago de Chile."
+    en: "Climbing & Mountain Guides.\nBased in Santiago de Chile."
+  locations:
+    es: "Santiago · Andes · Patagonia"
+    en: "Santiago · Andes · Patagonia"
 ---

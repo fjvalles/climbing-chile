@@ -91,28 +91,43 @@ const team = defineCollection({
 
 const site = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/site' }),
-  schema: z.object({
-    whatsapp: z.string(),
-    whatsappDisplay: z.string(),
-    email: z.string().email(),
-    instagram: z.string().url(),
-    address: localized,
-    about: z.object({
-      title: localized,
-      values: z.array(z.object({
+  schema: ({ image }) =>
+    z.object({
+      whatsapp: z.string(),
+      whatsappDisplay: z.string(),
+      email: z.string().email(),
+      instagram: z.string().url(),
+      address: localized,
+      logo: image(),
+      logoText: z.object({
+        top: z.string(),
+        bottom: z.string(),
+      }),
+      hero: z.object({
+        eyebrow: localized,
         title: localized,
-        body: localized,
-      })).max(3),
+        subtitle: localized,
+      }),
+      about: z.object({
+        title: localized,
+        values: z.array(z.object({
+          title: localized,
+          body: localized,
+        })).max(3),
+      }),
+      testimonials: z.object({
+        eyebrow: localized,
+        title: localized,
+      }),
+      cta: z.object({
+        title: localized,
+        subtitle: localized,
+      }),
+      footer: z.object({
+        tagline: localized,
+        locations: localized,
+      }),
     }),
-    testimonials: z.object({
-      eyebrow: localized,
-      title: localized,
-    }),
-    cta: z.object({
-      title: localized,
-      subtitle: localized,
-    }),
-  }),
 });
 
 export const collections = { expeditions, courses, team, site };
