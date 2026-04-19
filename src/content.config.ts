@@ -70,6 +70,7 @@ const courses = defineCollection({
         )
         .default([]),
       cover: image(),
+      gallery: z.array(image()).default([]),
       featured: z.boolean().default(false),
       order: z.number().default(100),
     }),
