@@ -58,6 +58,17 @@ const courses = defineCollection({
       currency: z.enum(['USD', 'CLP']).default('CLP'),
       maxStudents: z.number().int().positive().optional(),
       requirements: z.object({ es: z.array(z.string()), en: z.array(z.string()) }).optional(),
+      includes: z.object({ es: z.array(z.string()), en: z.array(z.string()) }).optional(),
+      excludes: z.object({ es: z.array(z.string()), en: z.array(z.string()) }).optional(),
+      itinerary: z
+        .array(
+          z.object({
+            day: z.number().int().positive(),
+            title: localized,
+            body: localized,
+          })
+        )
+        .default([]),
       cover: image(),
       featured: z.boolean().default(false),
       order: z.number().default(100),

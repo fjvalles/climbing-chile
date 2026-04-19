@@ -35,23 +35,23 @@ const maxSpots = d.maxSpots ?? d.dates.reduce((max, date) => Math.max(max, date.
       <h3 class="display text-2xl md:text-3xl mt-2">{d.title[lang]}</h3>
     </div>
   </div>
-  <div class="p-5 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+  <div class="p-5 grid grid-cols-2 gap-x-8 gap-y-6 text-xs">
     <div>
       <p class="eyebrow text-[var(--color-stone)]">{t('card.duration')}</p>
-      <p class="display text-sm mt-1">{d.durationDays}D</p>
+      <p class="display text-sm mt-2">{d.durationDays}D</p>
     </div>
-    <div class="hidden sm:block">
+    <div>
       <p class="eyebrow text-[var(--color-stone)]">{t('card.difficulty')}</p>
-      <p class="display text-sm mt-1">{difficultyLabel[lang][d.difficulty]}</p>
+      <p class="display text-sm mt-2">{difficultyLabel[lang][d.difficulty]}</p>
     </div>
     <div>
       <p class="eyebrow text-[var(--color-stone)]">{t('card.season')}</p>
-      <p class="display text-sm mt-1 leading-tight">{d.season[lang]}</p>
+      <p class="display text-sm mt-2 leading-snug">{d.season[lang]}</p>
     </div>
     {maxSpots > 0 && (
       <div>
         <p class="eyebrow text-[var(--color-stone)]">{t('card.maxSpots')}</p>
-        <p class="display text-sm mt-1">{maxSpots}</p>
+        <p class="display text-sm mt-2">{maxSpots}</p>
       </div>
     )}
   </div>

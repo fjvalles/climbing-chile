@@ -50,7 +50,7 @@ const title =
           eyebrow={t("section.expeditions")}
           title={t("section.expeditions.title")}
         />
-        <a href={r(lang, "calendar")} class="btn btn-outline"
+        <a href={r(lang, "calendar")} class="btn btn-outline whitespace-nowrap"
           >{t("section.expeditions.all")} →</a
         >
       </div>
@@ -153,8 +153,8 @@ const title =
         <div class="space-y-6 self-start">
           {
             team.map((p) => (
-              <article class="flex flex-col gap-4 p-5 bg-[var(--color-bone)] border border-[var(--color-line)] transition-colors sm:flex-row sm:items-center sm:gap-5 hover:border-[var(--color-brand-yellow)]">
-                <div class="shrink-0 w-24 h-24 overflow-hidden rounded-full border-2 border-white shadow-sm">
+              <article class="flex flex-col gap-6 p-6 md:p-8 bg-[var(--color-bone)] border border-[var(--color-line)] transition-all sm:flex-row sm:items-start hover:border-[var(--color-brand-yellow)] hover:shadow-sm">
+                <div class="shrink-0 w-32 h-32 overflow-hidden rounded-full border-4 border-white shadow-md mx-auto sm:mx-0">
                   <Image
                     src={p.data.photo}
                     alt={p.data.name}
@@ -162,20 +162,20 @@ const title =
                     class="w-full h-full object-cover"
                   />
                 </div>
-                <div class="flex-1">
-                  <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                    <p class="display text-2xl">{p.data.name}</p>
-                    <p class="eyebrow text-[var(--color-stone)]">
+                <div class="flex-1 text-center sm:text-left">
+                  <div>
+                    <p class="display text-3xl">{p.data.name}</p>
+                    <p class="eyebrow text-[var(--color-brand-yellow-dark)] mt-1">
                       {p.data.role[lang]}
                     </p>
                   </div>
-                  <p class="text-sm text-[var(--color-stone)] mt-2">
+                  <p class="text-sm text-[var(--color-stone)] mt-4 leading-relaxed">
                     {p.data.bio[lang]}
                   </p>
                   {p.data.certifications.length > 0 && (
-                    <div class="flex flex-wrap gap-2 mt-3">
+                    <div class="flex flex-wrap justify-center sm:justify-start gap-2 mt-4">
                       {p.data.certifications.map((c) => (
-                        <span class="tape text-[10px] bg-white border border-[var(--color-line)]">
+                        <span class="tape text-[10px] px-2 py-1">
                           {c}
                         </span>
                       ))}

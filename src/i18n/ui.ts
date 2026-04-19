@@ -26,8 +26,8 @@ export const ui = {
 
 'section.expeditions': 'Próximas salidas',
     'section.expeditions.title': 'Expediciones abiertas',
-    'section.expeditions.all': 'Ver fechas disponibles',
-    'expedition.dates': 'Ver fechas disponibles',
+    'section.expeditions.all': 'Ver fechas',
+    'expedition.dates': 'Ver fechas',
     'section.training': 'Formación',
     'section.training.title': 'Cursos y formaciones técnicas',
     'section.about': 'Nosotros',
@@ -97,8 +97,8 @@ export const ui = {
 
 'section.expeditions': 'Upcoming trips',
     'section.expeditions.title': 'Open expeditions',
-    'section.expeditions.all': 'View available dates',
-    'expedition.dates': 'View available dates',
+    'section.expeditions.all': 'View dates',
+    'expedition.dates': 'View dates',
     'section.training': 'Training',
     'section.training.title': 'Technical courses & training',
     'section.about': 'About',
