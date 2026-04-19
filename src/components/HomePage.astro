@@ -2,7 +2,6 @@
 import Base from "../layouts/Base.astro";
 import Hero from "./Hero.astro";
 import SectionHeader from "./SectionHeader.astro";
-import ServiceTile from "./ServiceTile.astro";
 import ExpeditionCard from "./ExpeditionCard.astro";
 import CourseCard from "./CourseCard.astro";
 import CTABanner from "./CTABanner.astro";
@@ -31,84 +30,6 @@ const team = (await getCollection("team")).sort(
   (a, b) => a.data.order - b.data.order,
 );
 
-const services =
-  lang === "es"
-    ? [
-        {
-          icon: "mountain" as const,
-          title: "Expediciones",
-          body: "Cumbres clásicas y técnicas en Chile, Argentina, Bolivia y Perú.",
-          href: r(lang, "expeditions"),
-        },
-        {
-          icon: "rope" as const,
-          title: "Escalada",
-          body: "Roca, hielo y mixto. Desde Arrayán hasta Cochamó.",
-          href: r(lang, "expeditions"),
-        },
-        {
-          icon: "book" as const,
-          title: "Formación",
-          body: "Cursos técnicos con metodología práctica y progresiva.",
-          href: r(lang, "training"),
-        },
-        {
-          icon: "truck" as const,
-          title: "Logística",
-          body: "Contacta con el plan. Nosotros nos encargamos del resto.",
-          href: r(lang, "contact"),
-        },
-        {
-          icon: "flag" as const,
-          title: "Viajes a medida",
-          body: "Para ti o tu equipo. Itinerarios 100% personalizados.",
-          href: r(lang, "contact"),
-        },
-        {
-          icon: "calendar" as const,
-          title: "Eventos",
-          body: "Charlas, proyecciones y meetups en la comunidad climber.",
-          href: r(lang, "contact"),
-        },
-      ]
-    : [
-        {
-          icon: "mountain" as const,
-          title: "Expeditions",
-          body: "Classic and technical summits in Chile, Argentina, Bolivia and Peru.",
-          href: r(lang, "expeditions"),
-        },
-        {
-          icon: "rope" as const,
-          title: "Climbing",
-          body: "Rock, ice and mixed. From Arrayán to Cochamó.",
-          href: r(lang, "expeditions"),
-        },
-        {
-          icon: "book" as const,
-          title: "Training",
-          body: "Technical courses with a hands-on, progressive method.",
-          href: r(lang, "training"),
-        },
-        {
-          icon: "truck" as const,
-          title: "Logistics",
-          body: "Bring us the plan. We handle the rest.",
-          href: r(lang, "contact"),
-        },
-        {
-          icon: "flag" as const,
-          title: "Tailor-made",
-          body: "For you or your team. 100% custom itineraries.",
-          href: r(lang, "contact"),
-        },
-        {
-          icon: "calendar" as const,
-          title: "Events",
-          body: "Talks, screenings and meetups with the climber community.",
-          href: r(lang, "contact"),
-        },
-      ];
 
 const title =
   lang === "es"
