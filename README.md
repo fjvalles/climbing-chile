@@ -249,8 +249,12 @@ npm run build
 | `--color-bone` | `#F7F5F0` | Fondo base |
 | `--color-stone` | `#6B6B6B` | Texto secundario |
 
-## Licencia
+## Licencia y Propiedad Intelectual
 
 © 2026 Climbing Chile. Todos los derechos reservados.
 
-El código fuente, diseño, textos, itinerarios y activos multimedia (fotos, logo) de este repositorio son propiedad privada. No se autoriza su reproducción, distribución o modificación sin el consentimiento expreso de **Climbing Chile**.
+- **Diseño y Código:** El diseño de la interfaz (UI/UX), la arquitectura de la solución y el código fuente son propiedad intelectual de **Francisco Valles**.
+- **Contenido y Marca:** Todos los textos, itinerarios, logotipos, activos multimedia y la marca **Climbing Chile** son propiedad exclusiva de la empresa.
+
+Queda estrictamente prohibida la reproducción, distribución, modificación o transmisión de cualquier parte de este proyecto sin el consentimiento previo y por escrito de los titulares correspondientes.
+
