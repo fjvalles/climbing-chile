@@ -20,8 +20,10 @@ Sitio web oficial de [Climbing Chile](https://www.instagram.com/climbingchile_cl
 
 ```
 src/
-├── components/        # Header, Footer, Hero, Cards, páginas compuestas
+├── assets/            # Assets UI fuera del content pipeline (ej: logo)
+├── components/        # Header, Footer, Hero, cards y secciones compuestas
 ├── content/
+│   ├── assets/        # Imágenes usadas por expediciones, cursos y equipo
 │   ├── expeditions/   # Una entrada Markdown por expedición
 │   ├── courses/       # Una entrada Markdown por curso
 │   ├── team/          # Una entrada Markdown por persona del equipo
@@ -29,14 +31,224 @@ src/
 ├── content.config.ts  # Schemas Zod para todas las colecciones
 ├── i18n/              # Diccionarios ES/EN y mapa de rutas por idioma
 ├── layouts/Base.astro # Layout raíz: meta SEO, fuentes, header, footer
-├── pages/             # Rutas ES: /, /expediciones, /formacion, /nosotros, /contacto
-│   └── en/            # Rutas EN: /en, /en/expeditions, /en/training, /en/about, /en/contact
+├── pages/             # Rutas Astro
+│   ├── index.astro    # Home ES
+│   ├── calendario.astro
+│   ├── expediciones/[slug].astro
+│   ├── formacion/[slug].astro
+│   ├── terminos-y-condiciones.astro
+│   └── en/            # Home EN, calendario EN, detail pages EN, terms EN
 └── styles/global.css  # Tokens de diseño + utilidades globales
 public/
 ├── admin/             # Decap CMS — accesible en /admin
 ├── uploads/           # Imágenes subidas desde el CMS
+├── hero-bg.mp4        # Video local del hero
 └── robots.txt
 ```
+
+## Rutas principales
+
+- `/` home en español
+- `/en` home en inglés
+- `/#expeditions`, `/#training`, `/#about` navegación por anclas en home
+- `/calendario` y `/en/calendar`
+- `/expediciones/[slug]` y `/en/expeditions/[slug]`
+- `/formacion/[slug]` y `/en/training/[slug]`
+- `/terminos-y-condiciones` y `/en/terms-and-conditions`
+
+## Desarrollo local
+
+Requisitos:
+
+- Node.js `>= 22.12.0`
+
+Comandos:
+
+```bash
+npm install
+npm run dev
+```
+
+Build de producción:
+
+```bash
+npm run build
+```
+
+## CMS de Netlify / Decap
+
+El proyecto usa [Decap CMS](https://decapcms.org) con:
+
+- `backend: git-gateway`
+- autenticación por `Netlify Identity`
+- flujo editorial `publish_mode: editorial_workflow`
+
+La URL del CMS es:
+
+- Producción: `https://<tu-dominio>/admin/`
+- En Netlify deploy previews: `https://<deploy-preview-url>/admin/`
+
+### Qué se puede editar desde el CMS
+
+Colecciones configuradas hoy en [public/admin/config.yml](/Users/fjvalles/Projects/climbing-chile/public/admin/config.yml):
+
+- `Expediciones`
+- `Cursos`
+- `Equipo`
+- `Configuración del sitio`
+
+### Cómo dar acceso a un editor
+
+1. Entrar al panel del sitio en Netlify.
+2. Ir a `Identity`.
+3. Si Identity no está activado, activarlo.
+4. En `Registration preferences`, definir quién puede entrar.
+   Normalmente conviene mantener invitación manual.
+5. En `Services`, asegurarse de que `Git Gateway` esté habilitado.
+6. Invitar al usuario editor desde la sección `Identity > Invite users`.
+7. El editor recibirá un email para crear contraseña.
+
+Notas:
+
+- Sin `Identity` + `Git Gateway`, el CMS no podrá guardar cambios en el repositorio.
+- Si el login abre con token de invitación o recuperación, el sitio ya redirige automáticamente al flujo correcto de `/admin/`.
+
+### Cómo entrar al CMS como editor
+
+1. Abrir `/admin/`.
+2. Elegir login con Netlify Identity.
+3. Ingresar email y contraseña.
+4. Entrar a la colección deseada.
+
+### Cómo editar contenido
+
+#### Expediciones
+
+Cada entrada corresponde a un archivo Markdown dentro de `src/content/expeditions/`.
+
+Campos importantes:
+
+- `Destacada`: define si aparece en el home
+- `Título`, `Resumen`, `Ubicación`, `Temporada`: siempre en ES y EN
+- `País`, `Duración`, `Dificultad`, `Estado`
+- `Precio desde`, `Moneda`
+- `Imagen portada`
+- `Galería`
+- `Fechas disponibles`
+- `Incluye` / `No incluye`
+- `Itinerario`
+- `Orden`
+- `Contenido`
+
+Buenas prácticas:
+
+- completar siempre español e inglés
+- usar una portada horizontal/vertical de buena calidad
+- mantener consistencia en `season`, `status` y `order`
+- si una expedición debe destacarse en home, activar `Destacada`
+
+#### Cursos
+
+Cada entrada corresponde a un archivo Markdown dentro de `src/content/courses/`.
+
+Campos importantes:
+
+- `Destacado`
+- `Título`, `Resumen`, `Ubicación` en ES y EN
+- `Nivel`
+- `Duración`
+- `Precio desde`
+- `Moneda`
+- `Imagen portada`
+- `Orden`
+- `Contenido`
+
+Importante:
+
+- hoy el schema del proyecto soporta además campos como `maxStudents` y `requirements`
+- esos campos existen en contenido, pero no están expuestos todavía en el formulario del CMS
+- si se quieren editar desde el CMS, hay que agregarlos en `public/admin/config.yml`
+
+#### Equipo
+
+Cada entrada corresponde a un archivo Markdown dentro de `src/content/team/`.
+
+Campos:
+
+- `Nombre`
+- `Rol` en ES y EN
+- `Bio` en ES y EN
+- `Foto`
+- `Certificaciones`
+- `Orden`
+
+#### Configuración del sitio
+
+Archivo administrado:
+
+- `src/content/site/config.md`
+
+Desde ahí se puede editar:
+
+- WhatsApp
+- WhatsApp visible
+- Email
+- Instagram
+- Dirección ES / EN
+- `formEndpoint` si se necesitara
+
+### Cómo crear una nueva entrada
+
+1. Entrar a la colección.
+2. Hacer click en `New`.
+3. Completar los campos obligatorios.
+4. Guardar como draft o enviar a revisión.
+
+Con `editorial_workflow`, el CMS no publica directamente en una sola acción:
+
+- `Draft`: borrador inicial
+- `In review`: listo para revisión
+- `Ready`: listo para publicar/mergear
+
+Dependiendo del setup de Netlify/Decap, esto crea commits o ramas editoriales manejadas por Git Gateway.
+
+### Cómo actualizar imágenes desde el CMS
+
+- Las imágenes subidas desde el CMS van a `public/uploads`
+- Luego se referencian públicamente como `/uploads/...`
+
+Recomendaciones:
+
+- usar `.webp` si es posible
+- no subir archivos gigantes si no hace falta
+- mantener nombres simples y descriptivos
+
+### Cómo editar contenido fuera del CMS
+
+También se puede editar directo en el repo:
+
+- expediciones: `src/content/expeditions/*.md`
+- cursos: `src/content/courses/*.md`
+- equipo: `src/content/team/*.md`
+- config global: `src/content/site/config.md`
+- assets del content pipeline: `src/content/assets/*`
+
+Después de editar:
+
+```bash
+npm run build
+```
+
+### Limitaciones actuales del CMS
+
+El schema del proyecto y el CMS no están 100% alineados en todos los campos.
+
+Ejemplos:
+
+- expediciones soportan `maxSpots` en `src/content.config.ts`, pero ese campo no está aún en el formulario del CMS
+- cursos soportan `maxStudents` y `requirements`, pero esos campos no están aún en el formulario del CMS
+
+Si se quiere que marketing o editores administren esos datos desde `/admin/`, hay que extender [public/admin/config.yml](/Users/fjvalles/Projects/climbing-chile/public/admin/config.yml).
 
 ## Paleta de marca
 
