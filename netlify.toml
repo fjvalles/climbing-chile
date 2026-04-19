@@ -83,11 +83,13 @@
     # - frames: Netlify Identity needs it for the login popup
     Content-Security-Policy = "default-src 'self'; script-src 'self' https://identity.netlify.com https://unpkg.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://res.cloudinary.com; connect-src 'self' https://*.netlify.com https://*.netlify.app; frame-src https://identity.netlify.com; object-src 'none'; base-uri 'self'; form-action 'self'"
 
-# ─── Admin: no indexing ───────────────────────────────────────────────────────
+# ─── Admin: no indexing & relaxed CSP for Decap CMS ──────────────────────────
 [[headers]]
   for = "/admin/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+    # Decap CMS requires unsafe-eval to function properly
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://res.cloudinary.com; connect-src 'self' https://*.netlify.com https://*.netlify.app; frame-src https://identity.netlify.com; object-src 'none'; base-uri 'self'; form-action 'self'"
 
 # ─── Static assets: aggressive caching ───────────────────────────────────────
 [[headers]]
