@@ -63,7 +63,7 @@ const levelLabel: Record<Lang, Record<string, string>> = {
         )}
       </div>
 
-      <div class="pt-5 border-t border-[var(--color-line)] flex items-center justify-between">
+      <div class="pt-5 border-t border-[var(--color-line)] flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
          {d.priceFrom ? (
             <div>
               <p class="eyebrow text-[var(--color-stone)] text-[10px]">{lang === 'es' ? 'Desde' : 'From'}</p>
@@ -72,7 +72,7 @@ const levelLabel: Record<Lang, Record<string, string>> = {
          ) : (
             <div></div>
          )}
-         <span class="btn py-2 px-5 text-xs bg-[var(--color-ink)] text-[var(--color-bone)] group-hover:bg-[var(--color-brand-yellow)] group-hover:text-[var(--color-ink)] transition-colors">{t('card.details')} →</span>
+         <span class="btn w-full justify-center py-2 px-5 text-xs bg-[var(--color-ink)] text-[var(--color-bone)] group-hover:bg-[var(--color-brand-yellow)] group-hover:text-[var(--color-ink)] transition-colors sm:w-auto">{t('card.details')} →</span>
       </div>
     </div>
   </div>
