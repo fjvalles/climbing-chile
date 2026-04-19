@@ -11,8 +11,11 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const alt = altLang(lang);
 const current = Astro.url.pathname;
-const site = await getEntry('site', 'config');
-const waHref = site?.data?.whatsapp ? `https://wa.me/${site.data.whatsapp.replace(/\D/g, '')}` : '#';
+const site = await getEntry('site', 'footer');
+const header = await getEntry('site', 'header');
+const s = site?.data;
+const h = header?.data;
+const waHref = s ? `https://wa.me/${s.whatsapp.replace(/\D/g, '')}` : '#';
 
 const nav = [
   { key: 'nav.expeditions' as const, href: r(lang, 'expeditions') },
@@ -59,7 +62,7 @@ const langAltHref = current === '/' ? r(alt, 'home') : current.startsWith('/en')
       </a>
       <div class="hidden md:flex">
         <a href={waHref} target="_blank" rel="noopener" class="btn btn-primary bg-[#25D366] hover:bg-[#1ea855] border-transparent text-white">
-          {t('nav.book')}
+          {h?.bookButton[lang]}
         </a>
       </div>
       <button id="nav-toggle" class="md:hidden p-2" aria-label="Menu" aria-expanded="false">
@@ -80,7 +83,7 @@ const langAltHref = current === '/' ? r(alt, 'home') : current.startsWith('/en')
           <a href={href} class="display text-lg py-1 transition-colors hover:text-[var(--color-brand-yellow-dark)]">{t(key)}</a>
         )
       ))}
-      <a href={waHref} target="_blank" rel="noopener" class="btn btn-primary w-full mt-2 bg-[#25D366] hover:bg-[#1ea855] border-transparent text-white">{t('nav.book')}</a>
+      <a href={waHref} target="_blank" rel="noopener" class="btn btn-primary w-full mt-2 bg-[#25D366] hover:bg-[#1ea855] border-transparent text-white">{h?.bookButton[lang]}</a>
     </div>
   </div>
 </header>

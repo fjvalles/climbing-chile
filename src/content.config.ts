@@ -24,8 +24,8 @@ const expeditions = defineCollection({
       dates: z
         .array(
           z.object({
-            start: z.coerce.date(),
-            end: z.coerce.date(),
+            start: z.string(),
+            end: z.string(),
             spots: z.number().int().nonnegative().optional(),
           })
         )
@@ -89,45 +89,63 @@ const team = defineCollection({
     }),
 });
 
+const testimonials = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/testimonials' }),
+  schema: z.object({
+    text: localized,
+    name: z.string(),
+    initials: z.string(),
+    color: z.string().default('#2a3e55'),
+    expedition: localized,
+    order: z.number().default(100),
+  }),
+});
+
 const site = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/site' }),
   schema: ({ image }) =>
-    z.object({
-      whatsapp: z.string(),
-      whatsappDisplay: z.string(),
-      email: z.string().email(),
-      instagram: z.string().url(),
-      address: localized,
-      logo: image(),
-      logoText: z.object({
-        top: z.string(),
-        bottom: z.string(),
+    z.discriminatedUnion('type', [
+      z.object({
+        type: z.literal('header'),
+        logo: image(),
+        logoText: z.object({ top: z.string(), bottom: z.string() }),
+        bookButton: localized,
       }),
-      hero: z.object({
+      z.object({
+        type: z.literal('hero'),
         eyebrow: localized,
         title: localized,
         subtitle: localized,
+        primaryButton: localized,
+        secondaryButton: localized,
       }),
-      about: z.object({
+      z.object({
+        type: z.literal('about'),
         title: localized,
-        values: z.array(z.object({
-          title: localized,
-          body: localized,
-        })).max(3),
+        values: z.array(z.object({ title: localized, body: localized })).max(3),
       }),
-      testimonials: z.object({
+      z.object({
+        type: z.literal('testimonials'),
         eyebrow: localized,
         title: localized,
       }),
-      cta: z.object({
+      z.object({
+        type: z.literal('cta'),
         title: localized,
         subtitle: localized,
+        button: localized,
       }),
-      footer: z.object({
+      z.object({
+        type: z.literal('footer'),
         tagline: localized,
         locations: localized,
+        whatsapp: z.string(),
+        whatsappDisplay: z.string(),
+        email: z.string().email(),
+        instagram: z.string().url(),
+        address: localized,
       }),
-    }),
+    ]),
 });
 
-export const collections = { expeditions, courses, team, site };
+export const collections = { expeditions, courses, team, testimonials, site };

@@ -2,10 +2,12 @@
 import { useTranslations, type Lang } from '../i18n/ui';
 import { getEntry } from 'astro:content';
 
-interface Props { lang: Lang }
 const { lang } = Astro.props;
-const t = useTranslations(lang);
-const site = await getEntry('site', 'config');
+const site = await getEntry('site', 'footer');
+const cta = await getEntry('site', 'cta');
+const s = site?.data;
+const c = cta?.data;
+
 const msgES = `Hola! Me gustaría cotizar un plan a medida. Aquí están mis detalles:
 
 • Destino / Montaña: 
@@ -27,7 +29,7 @@ const msgEN = `Hi! I would like to request a quote for a tailor-made plan. Here 
 Looking forward to hearing from you!`;
 
 const waText = encodeURIComponent(lang === 'es' ? msgES : msgEN);
-const waHref = site?.data?.whatsapp ? `https://wa.me/${site.data.whatsapp.replace(/\D/g, '')}?text=${waText}` : '#';
+const waHref = s?.whatsapp ? `https://wa.me/${s.whatsapp.replace(/\D/g, '')}?text=${waText}` : '#';
 const paths = {
   mountain: 'M3 20 L10 8 L14 14 L18 9 L23 20 Z',
   rope: 'M4 20 C 8 4, 16 4, 20 20',
@@ -51,12 +53,12 @@ const features = lang === 'es' ? [
 <section class="bg-[var(--color-brand-yellow)] text-[var(--color-ink)]">
   <div class="max-w-7xl mx-auto px-5 md:px-8 py-20 md:py-28 grid md:grid-cols-2 gap-10 items-center">
     <h2 class="display text-4xl md:text-6xl leading-[1.1]">
-      {site?.data.cta.title[lang].split('\n').map((line: string) => (
+      {c?.title[lang].split('\n').map((line: string) => (
         <span class="block">{line}</span>
       ))}
     </h2>
     <div class="flex flex-col items-start">
-      <p class="text-lg max-w-md">{site?.data.cta.subtitle[lang]}</p>
+      <p class="text-lg max-w-md">{c?.subtitle[lang]}</p>
       
       <div class="flex flex-wrap gap-3 mt-6">
         {features.map((f) => (
@@ -70,7 +72,7 @@ const features = lang === 'es' ? [
       </div>
 
       <a href={waHref} target="_blank" rel="noopener" class="btn btn-dark mt-10 hover:bg-[#25D366] hover:text-white hover:border-[#25D366]">
-        {lang === 'es' ? 'Cotizar' : 'Get a quote'}
+        {c?.button[lang]}
       </a>
     </div>
   </div>

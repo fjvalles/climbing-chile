@@ -30,8 +30,8 @@ const team = (await getCollection("team")).sort(
   (a, b) => a.data.order - b.data.order,
 );
 
-const site = await getEntry("site", "config");
-if (!site) throw new Error("Site config not found");
+const about = await getEntry("site", "about");
+if (!about) throw new Error("About config not found");
 
 const title =
   lang === "es"
@@ -126,13 +126,13 @@ const title =
       <div class="max-w-5xl">
         <SectionHeader
           eyebrow={t("section.about")}
-          title={site.data.about.title[lang]}
+          title={about.data.title[lang]}
         />
       </div>
 
       <div class="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
         <div class="space-y-8">
-          {site.data.about.values.map((v) => (
+          {about.data.values.map((v) => (
             <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
               <p class="display text-3xl">{v.title[lang]}</p>
               <p class="text-sm text-[var(--color-stone)] mt-2">

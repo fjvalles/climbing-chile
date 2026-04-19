@@ -195,132 +195,187 @@ collections:
       - { label: "Certificaciones", name: "certifications", widget: "list", field: { label: "Cert", name: "cert", widget: "string" } }
       - { label: "Orden", name: "order", widget: "number", value_type: "int", default: 100 }
 
-  - name: "site"
-    label: "Configuración del sitio"
-    files:
-      - file: "src/content/site/config.md"
-        label: "Datos de contacto"
-        name: "config"
+  - name: "testimonials"
+    label: "Testimonios"
+    label_singular: "Testimonio"
+    folder: "src/content/testimonials"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: "name"
+    summary: "{{name}} - {{expedition.es}}"
+    fields:
+      - { label: "Nombre", name: "name", widget: "string" }
+      - { label: "Iniciales", name: "initials", widget: "string" }
+      - { label: "Color iniciales", name: "color", widget: "color", default: "#2a3e55" }
+      - label: "Texto"
+        name: "text"
+        widget: "object"
         fields:
+          - { label: "Español", name: "es", widget: "text" }
+          - { label: "English", name: "en", widget: "text" }
+      - label: "Actividad realizada"
+        name: "expedition"
+        widget: "object"
+        fields:
+          - { label: "Español", name: "es", widget: "string" }
+          - { label: "English", name: "en", widget: "string" }
+      - { label: "Orden", name: "order", widget: "number", value_type: "int", default: 100 }
+
+  - name: "site"
+    label: "Personalización del sitio"
+    files:
+      - file: "src/content/site/header.md"
+        label: "Cabecera (Header)"
+        name: "header"
+        fields:
+          - { label: "Tipo", name: "type", widget: "hidden", default: "header" }
+          - { label: "Logo principal", name: "logo", widget: "image" }
+          - label: "Texto Logo"
+            name: "logoText"
+            widget: "object"
+            fields:
+              - { label: "Texto arriba", name: "top", widget: "string" }
+              - { label: "Texto abajo", name: "bottom", widget: "string" }
+          - label: "Botón de reserva"
+            name: "bookButton"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+
+      - file: "src/content/site/hero.md"
+        label: "Hero (Inicio)"
+        name: "hero"
+        fields:
+          - { label: "Tipo", name: "type", widget: "hidden", default: "hero" }
+          - label: "Ceja (Eyebrow)"
+            name: "eyebrow"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Título principal"
+            name: "title"
+            widget: "object"
+            hint: "Usa \\n para saltos de línea"
+            fields:
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+          - label: "Subtítulo"
+            name: "subtitle"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+          - label: "Botón Principal (Expediciones)"
+            name: "primaryButton"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Botón Secundario (Cotizar)"
+            name: "secondaryButton"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+
+      - file: "src/content/site/about.md"
+        label: "Sección Nosotros (Valores)"
+        name: "about"
+        fields:
+          - { label: "Tipo", name: "type", widget: "hidden", default: "about" }
+          - label: "Título de la sección"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Valores"
+            name: "values"
+            widget: "list"
+            fields:
+              - label: "Título"
+                name: "title"
+                widget: "object"
+                fields:
+                  - { label: "Español", name: "es", widget: "string" }
+                  - { label: "English", name: "en", widget: "string" }
+              - label: "Cuerpo"
+                name: "body"
+                widget: "object"
+                fields:
+                  - { label: "Español", name: "es", widget: "text" }
+                  - { label: "English", name: "en", widget: "text" }
+
+      - file: "src/content/site/testimonials.md"
+        label: "Títulos de Testimonios"
+        name: "testimonials_config"
+        fields:
+          - { label: "Tipo", name: "type", widget: "hidden", default: "testimonials" }
+          - label: "Ceja (Eyebrow)"
+            name: "eyebrow"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Título"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+
+      - file: "src/content/site/cta.md"
+        label: "Sección CTA (¿Tienes un plan?)"
+        name: "cta"
+        fields:
+          - { label: "Tipo", name: "type", widget: "hidden", default: "cta" }
+          - label: "Título"
+            name: "title"
+            widget: "object"
+            hint: "Usa \\n para saltos de línea"
+            fields:
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+          - label: "Subtítulo"
+            name: "subtitle"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+          - label: "Texto del botón"
+            name: "button"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+
+      - file: "src/content/site/footer.md"
+        label: "Footer e Información de contacto"
+        name: "footer"
+        fields:
+          - { label: "Tipo", name: "type", widget: "hidden", default: "footer" }
+          - label: "Lema (Tagline)"
+            name: "tagline"
+            widget: "object"
+            hint: "Usa \\n para saltos de línea"
+            fields:
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
+          - label: "Ubicaciones (Debajo logo)"
+            name: "locations"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
           - { label: "WhatsApp (E.164)", name: "whatsapp", widget: "string", hint: "Ej: +56912345678" }
           - { label: "WhatsApp visible", name: "whatsappDisplay", widget: "string" }
           - { label: "Email", name: "email", widget: "string" }
-          - { label: "instagram URL", name: "instagram", widget: "string" }
+          - { label: "Instagram URL", name: "instagram", widget: "string" }
           - label: "Dirección"
             name: "address"
             widget: "object"
             fields:
               - { label: "Español", name: "es", widget: "string" }
               - { label: "English", name: "en", widget: "string" }
-
-          - { label: "Logo principal", name: "logo", widget: "image" }
-          - label: "Texto Logo"
-            name: "logoText"
-            widget: "object"
-            fields:
-              - { label: "Texto arriba (Ej: Climbing)", name: "top", widget: "string" }
-              - { label: "Texto abajo (Ej: Chile)", name: "bottom", widget: "string" }
-
-          - label: "Hero (Inicio)"
-            name: "hero"
-            widget: "object"
-            fields:
-              - label: "Ceja (Eyebrow)"
-                name: "eyebrow"
-                widget: "object"
-                fields:
-                  - { label: "Español", name: "es", widget: "string" }
-                  - { label: "English", name: "en", widget: "string" }
-              - label: "Título principal"
-                name: "title"
-                widget: "object"
-                hint: "Usa \\n para saltos de línea"
-                fields:
-                  - { label: "Español", name: "es", widget: "text" }
-                  - { label: "English", name: "en", widget: "text" }
-              - label: "Subtítulo"
-                name: "subtitle"
-                widget: "object"
-                fields:
-                  - { label: "Español", name: "es", widget: "text" }
-                  - { label: "English", name: "en", widget: "text" }
-
-          - label: "Footer"
-            name: "footer"
-            widget: "object"
-            fields:
-              - label: "Lema (Tagline)"
-                name: "tagline"
-                widget: "object"
-                hint: "Usa \\n para saltos de línea"
-                fields:
-                  - { label: "Español", name: "es", widget: "text" }
-                  - { label: "English", name: "en", widget: "text" }
-              - label: "Ubicaciones (Debajo logo)"
-                name: "locations"
-                widget: "object"
-                fields:
-                  - { label: "Español", name: "es", widget: "string" }
-                  - { label: "English", name: "en", widget: "string" }
-
-          - label: "Sección Nosotros (Valores)"
-            name: "about"
-            widget: "object"
-            fields:
-              - label: "Título de la sección"
-                name: "title"
-                widget: "object"
-                fields:
-                  - { label: "Español", name: "es", widget: "string" }
-                  - { label: "English", name: "en", widget: "string" }
-              - label: "Valores"
-                name: "values"
-                widget: "list"
-                fields:
-                  - label: "Título"
-                    name: "title"
-                    widget: "object"
-                    fields:
-                      - { label: "Español", name: "es", widget: "string" }
-                      - { label: "English", name: "en", widget: "string" }
-                  - label: "Cuerpo"
-                    name: "body"
-                    widget: "object"
-                    fields:
-                      - { label: "Español", name: "es", widget: "text" }
-                      - { label: "English", name: "en", widget: "text" }
-
-          - label: "Sección Testimonios"
-            name: "testimonials"
-            widget: "object"
-            fields:
-              - label: "Ceja (Eyebrow)"
-                name: "eyebrow"
-                widget: "object"
-                fields:
-                  - { label: "Español", name: "es", widget: "string" }
-                  - { label: "English", name: "en", widget: "string" }
-              - label: "Título"
-                name: "title"
-                widget: "object"
-                fields:
-                  - { label: "Español", name: "es", widget: "string" }
-                  - { label: "English", name: "en", widget: "string" }
-
-          - label: "Sección CTA (Tienes un plan?)"
-            name: "cta"
-            widget: "object"
-            fields:
-              - label: "Título"
-                name: "title"
-                widget: "object"
-                hint: "Usa \\n para saltos de línea"
-                fields:
-                  - { label: "Español", name: "es", widget: "text" }
-                  - { label: "English", name: "en", widget: "text" }
-              - label: "Subtítulo"
-                name: "subtitle"
-                widget: "object"
-                fields:
-                  - { label: "Español", name: "es", widget: "text" }
-                  - { label: "English", name: "en", widget: "text" }
