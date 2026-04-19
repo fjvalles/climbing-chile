@@ -59,9 +59,24 @@ const features = lang === 'es' ? [
       <!-- Title Row: Full Width -->
       <div class="mb-12 md:mb-16 border-b border-[var(--color-line)] pb-10">
         <h2 class="display text-3xl md:text-5xl lg:text-6xl leading-[1.1] text-[var(--color-ink)]">
-          {c?.title[lang].split('\n').map((line: string) => (
-            <span class="block">{line}</span>
-          ))}
+          {c?.title[lang].split('\n').map((line: string) => {
+            // Highlighting logic
+            let highlightedLine = line;
+            const highlights = [
+              "Nosotros nos encargamos",
+              "We design tailor-made expeditions"
+            ];
+            
+            return (
+              <span class="block">
+                {line.split(new RegExp(`(${highlights.join('|')})`, 'gi')).map((part) => (
+                  highlights.some(h => h.toLowerCase() === part.toLowerCase()) 
+                    ? <span class="text-[var(--color-brand-yellow-dark)] italic">{part}</span> 
+                    : part
+                ))}
+              </span>
+            );
+          })}
         </h2>
       </div>
 
@@ -70,9 +85,9 @@ const features = lang === 'es' ? [
         <div class="lg:col-span-7">
           <p class="text-xl md:text-2xl text-[var(--color-stone)] leading-relaxed font-light">
             {lang === 'es' ? (
-              <>Creamos itinerarios <span class="text-[var(--color-ink)] font-bold border-b-2 border-[var(--color-brand-yellow)]">100% personalizados</span> para que solo te enfoques en escalar. Tú eliges la cumbre, nosotros gestionamos todo lo demás.</>
+              <>Creamos itinerarios <span class="text-[var(--color-ink)] font-bold border-b-2 border-[var(--color-brand-yellow)]">100% personalizados</span> para que solo te enfoques en escalar.<br class="hidden md:block" /> Tú eliges la cumbre, nosotros gestionamos todo lo demás.</>
             ) : (
-              <>We build <span class="text-[var(--color-ink)] font-bold border-b-2 border-[var(--color-brand-yellow)]">100% tailor-made</span> itineraries so you can focus solely on climbing. You pick the summit, and we handle the logistics.</>
+              <>We build <span class="text-[var(--color-ink)] font-bold border-b-2 border-[var(--color-brand-yellow)]">100% tailor-made</span> itineraries so you can focus solely on climbing.<br class="hidden md:block" /> You pick the summit, and we handle the logistics.</>
             )}
           </p>
           
@@ -93,7 +108,8 @@ const features = lang === 'es' ? [
             href={waHref} 
             target="_blank" 
             rel="noopener" 
-            class="btn w-full lg:w-auto px-12 py-6 bg-[var(--color-brand-yellow)] text-[var(--color-ink)] hover:bg-[#25D366] hover:text-white transition-all duration-300 shadow-xl shadow-[var(--color-brand-yellow)]/20 hover:shadow-[#25D366]/40 flex items-center justify-center gap-4 group"
+            class="btn btn-shimmer w-full lg:w-auto px-12 py-6 bg-[var(--color-brand-yellow)] text-[var(--color-ink)] hover:bg-[#25D366] hover:text-white transition-all duration-300 shadow-xl shadow-[var(--color-brand-yellow)]/20 hover:shadow-[#25D366]/40 flex items-center justify-center gap-4 group"
+            style="border-radius: var(--radius-card);"
           >
             <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="group-hover:scale-110 transition-transform">
               <path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.7-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.5.7.5-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.7 15l-1.3 4.7 4.8-1.2A10 10 0 1 0 12 2z"/>

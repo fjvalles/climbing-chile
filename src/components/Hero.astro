@@ -30,16 +30,25 @@ const waHref = s ? `https://wa.me/${s.whatsapp.replace(/\D/g, '')}` : '#';
   <div class="relative max-w-7xl mx-auto px-5 md:px-8 pt-20 md:pt-32 pb-24 md:pb-40">
     <p class="eyebrow text-[var(--color-brand-yellow)]">{h?.eyebrow[lang]}</p>
     <h1 class="display text-4xl md:text-7xl mt-6 md:whitespace-pre-line max-w-4xl">
-      {h?.title[lang].split('\n').map((line: string) => (
-        <span class="block">{line}</span>
-      ))}
+      {h?.title[lang].split('\n').map((line: string) => {
+        const highlights = ["con tus sueños", "vertical dreams", "your vertical"];
+        const needsHighlight = highlights.some(h => line.toLowerCase().includes(h.toLowerCase()));
+        return (
+          <span class={`block ${needsHighlight ? 'text-[var(--color-brand-yellow)]' : ''}`}>
+            {line}
+          </span>
+        );
+      })}
     </h1>
     <p class="mt-8 max-w-xl text-base md:text-lg text-[var(--color-stone-light)] leading-relaxed">
       {h?.subtitle[lang]}
     </p>
     <div class="mt-10 flex flex-wrap gap-3">
-      <a href={r(lang, 'expeditions')} class="btn btn-primary">{h?.primaryButton[lang]} →</a>
-      <a href={waHref} target="_blank" rel="noopener" class="btn btn-outline hover:bg-[#25D366] hover:border-[#25D366]" style="border-color: var(--color-bone); color: var(--color-bone)">{h?.secondaryButton[lang]}</a>
+      <a href={r(lang, 'expeditions')} class="btn btn-primary btn-shimmer">{h?.primaryButton[lang]} →</a>
+      <a href={waHref} target="_blank" rel="noopener" class="btn btn-outline hover:bg-[#25D366] hover:border-[#25D366] flex items-center gap-2" style="border-color: var(--color-bone); color: var(--color-bone)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.7-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.5.7.5-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.7 15l-1.3 4.7 4.8-1.2A10 10 0 1 0 12 2z"/></svg>
+        {h?.secondaryButton[lang]}
+      </a>
     </div>
   </div>
   <div class="divider-ticks absolute bottom-0 inset-x-0" style="background-image: repeating-linear-gradient(90deg, var(--color-brand-yellow) 0 12px, transparent 12px 24px);"></div>

@@ -20,14 +20,14 @@ const difficultyLabel = {
 const statusLabel = d.status === 'soon' ? t('card.soon') : t('card.open');
 const maxSpots = d.maxSpots ?? d.dates.reduce((max, date) => Math.max(max, date.spots ?? 0), 0);
 ---
-<a href={href} class="expedition-card group block h-full bg-white border border-[var(--color-line)] overflow-hidden hover:-translate-y-1 transition-transform duration-300" data-status={d.status} data-region={d.country === 'CL' ? 'chile' : 'internacional'}>
+<a href={href} class="expedition-card group block h-full bg-white border border-[var(--color-line)] overflow-hidden" data-status={d.status} data-region={d.country === 'CL' ? 'chile' : 'internacional'}>
   <div class="relative aspect-[4/5] overflow-hidden bg-[var(--color-ink)]">
     <Image
       src={d.cover}
       alt={d.title[lang]}
       widths={[400, 600, 900]}
       sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
-      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out group-hover:opacity-90"
     />
     <span class="tape absolute top-4 left-4">{statusLabel}</span>
     <div class="absolute inset-x-0 bottom-0 p-5 text-white bg-gradient-to-t from-black/80 via-black/30 to-transparent">

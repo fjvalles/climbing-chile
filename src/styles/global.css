@@ -72,16 +72,98 @@ body {
   letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
   font-size: 0.8125rem;
-  border-radius: 2px;
-  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.btn:hover { transform: translateY(-1px); }
-.btn-primary { background: var(--color-brand-yellow); color: var(--color-ink); }
-.btn-primary:hover { background: var(--color-brand-yellow-light); }
-.btn-dark { background: var(--color-ink); color: var(--color-brand-yellow); }
-.btn-dark:hover { background: var(--color-ink-soft); }
-.btn-outline { border: 1px solid var(--color-ink); color: var(--color-ink); }
-.btn-outline:hover { background: var(--color-ink); color: var(--color-brand-yellow); }
+.btn:hover { 
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.btn:active {
+  transform: translateY(0) scale(0.96);
+  box-shadow: none;
+}
+
+.btn-primary { 
+  background: linear-gradient(180deg, var(--color-brand-yellow-light) 0%, var(--color-brand-yellow) 100%); 
+  color: var(--color-ink);
+  border: 1px solid var(--color-brand-yellow-dark);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.btn-primary:hover { 
+  background: linear-gradient(180deg, var(--color-brand-yellow-light) 0%, var(--color-brand-yellow-dark) 100%);
+}
+
+.btn-dark { 
+  background: var(--color-ink); 
+  color: var(--color-brand-yellow); 
+}
+.btn-dark:hover { 
+  background: var(--color-ink-soft); 
+}
+
+.btn-outline { 
+  border: 1.5px solid var(--color-ink); 
+  color: var(--color-ink); 
+}
+.btn-outline:hover { 
+  background: var(--color-ink); 
+  color: var(--color-brand-yellow); 
+}
+
+/* Shimmer effect for high-priority CTA */
+.btn-shimmer::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: rotate(30deg);
+  animation: shimmer 5s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -60%; }
+  15% { left: 120%; }
+  100% { left: 120%; }
+}
+
+.expedition-card {
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-radius: var(--radius-card);
+}
+.expedition-card:hover { 
+  transform: translateY(-6px); 
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* WhatsApp Pulse Animation */
+.wa-ping {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background-color: #25D366;
+  opacity: 0.6;
+  animation: ping 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
 
 .tape {
   background: var(--color-brand-yellow);
@@ -112,7 +194,7 @@ body {
   align-self: stretch;
   padding: 1.5rem 4px;
   border-bottom: 2px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .nav-link:hover,
 .nav-link--active {

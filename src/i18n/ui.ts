@@ -14,7 +14,7 @@ export const ui = {
     'nav.training': 'Formación',
     'nav.about': 'Nosotros',
     'nav.contact': 'Contacto',
-    'nav.book': 'Reservar',
+    'nav.book': 'Hablar con un guía',
     'nav.terms': 'Términos y Condiciones',
     'nav.calendar': 'Calendario',
 
@@ -24,7 +24,7 @@ export const ui = {
     'hero.cta.primary': 'Ver expediciones',
     'hero.cta.secondary': 'Cotizar',
 
-'section.expeditions': 'Próximas salidas',
+    'section.expeditions': 'Próximas salidas',
     'section.expeditions.title': 'Expediciones abiertas',
     'section.expeditions.all': 'Ver fechas',
     'expedition.dates': 'Ver fechas',
@@ -32,7 +32,7 @@ export const ui = {
     'section.training.title': 'Cursos y formaciones técnicas',
     'section.about': 'Nosotros',
     'section.about.title': 'Guías certificados',
-    'section.cta.title': '¿Tienes un plan?\nNosotros nos encargamos.',
+    'section.cta.title': '¿Tienes un plan?\nNosotros nos encargamos',
     'section.cta.subtitle': 'Creamos itinerarios 100% personalizados para que solo te enfoques en escalar. Tú eliges la cumbre, nosotros gestionamos todo lo demás.',
 
     'card.difficulty': 'Dificultad',
@@ -40,8 +40,8 @@ export const ui = {
     'card.season': 'Temporada',
     'card.location': 'Ubicación',
     'card.details': 'Ver ficha',
-    'card.book': 'Reservar',
-    'card.open': 'Reservas abiertas',
+    'card.book': 'Cotizar ahora',
+    'card.open': 'Inscripciones abiertas',
     'card.soon': 'Próximamente',
     'card.maxSpots': 'Cupos max',
 
@@ -85,7 +85,7 @@ export const ui = {
     'nav.training': 'Training',
     'nav.about': 'About',
     'nav.contact': 'Contact',
-    'nav.book': 'Book',
+    'nav.book': 'Talk to a guide',
     'nav.terms': 'Terms & Conditions',
     'nav.calendar': 'Calendar',
 
@@ -95,7 +95,7 @@ export const ui = {
     'hero.cta.primary': 'See expeditions',
     'hero.cta.secondary': 'Get a quote',
 
-'section.expeditions': 'Upcoming trips',
+    'section.expeditions': 'Upcoming trips',
     'section.expeditions.title': 'Open expeditions',
     'section.expeditions.all': 'View dates',
     'expedition.dates': 'View dates',
@@ -111,8 +111,8 @@ export const ui = {
     'card.season': 'Season',
     'card.location': 'Location',
     'card.details': 'View brief',
-    'card.book': 'Book',
-    'card.open': 'Booking open',
+    'card.book': 'Get a quote',
+    'card.open': 'Open for booking',
     'card.soon': 'Coming soon',
     'card.maxSpots': 'Max spots',
 

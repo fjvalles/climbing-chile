@@ -5,6 +5,6 @@ logoText:
   top: "Climbing"
   bottom: "Chile"
 bookButton:
-  es: "Reservar"
-  en: "Book"
+  es: "Hablar con un guía"
+  en: "Talk to a guide"
 ---
