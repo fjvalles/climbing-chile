@@ -81,7 +81,7 @@ El proyecto usa [Decap CMS](https://decapcms.org) con:
 
 - `backend: git-gateway`
 - autenticación por `Netlify Identity`
-- flujo editorial `publish_mode: editorial_workflow`
+- flujo de publicación: simple (guardado directo en `main`)
 
 La URL del CMS es:
 
@@ -90,12 +90,12 @@ La URL del CMS es:
 
 ### Qué se puede editar desde el CMS
 
-Colecciones configuradas hoy en [public/admin/config.yml](/Users/fjvalles/Projects/climbing-chile/public/admin/config.yml):
+Todas las colecciones están 100% alineadas con el código:
 
-- `Expediciones`
-- `Cursos`
-- `Equipo`
-- `Configuración del sitio`
+- `Expediciones`: campos completos incluyendo itinerarios, inclusiones y galerías.
+- `Cursos`: campos completos incluyendo itinerarios, requisitos y galerías.
+- `Equipo`: perfiles de guías y certificaciones.
+- `Configuración del sitio`: contacto y redes sociales.
 
 ### Cómo dar acceso a un editor
 
@@ -151,23 +151,16 @@ Buenas prácticas:
 
 Cada entrada corresponde a un archivo Markdown dentro de `src/content/courses/`.
 
-Campos importantes:
+Campos completos:
 
-- `Destacado`
-- `Título`, `Resumen`, `Ubicación` en ES y EN
-- `Nivel`
-- `Duración`
-- `Precio desde`
-- `Moneda`
-- `Imagen portada`
-- `Orden`
-- `Contenido`
-
-Importante:
-
-- hoy el schema del proyecto soporta además campos como `maxStudents` y `requirements`
-- esos campos existen en contenido, pero no están expuestos todavía en el formulario del CMS
-- si se quieren editar desde el CMS, hay que agregarlos en `public/admin/config.yml`
+- `Destacado`: define si aparece en el home.
+- `Título`, `Resumen`, `Ubicación`: siempre en ES y EN.
+- `Nivel`, `Duración`, `Precio desde`, `Moneda`.
+- `Cupos máximos`, `Requisitos`.
+- `Imagen portada` y `Galería`.
+- `Incluye` / `No incluye`.
+- `Itinerario`.
+- `Orden` y `Contenido`.
 
 #### Equipo
 
@@ -238,17 +231,6 @@ Después de editar:
 ```bash
 npm run build
 ```
-
-### Limitaciones actuales del CMS
-
-El schema del proyecto y el CMS no están 100% alineados en todos los campos.
-
-Ejemplos:
-
-- expediciones soportan `maxSpots` en `src/content.config.ts`, pero ese campo no está aún en el formulario del CMS
-- cursos soportan `maxStudents` y `requirements`, pero esos campos no están aún en el formulario del CMS
-
-Si se quiere que marketing o editores administren esos datos desde `/admin/`, hay que extender [public/admin/config.yml](/Users/fjvalles/Projects/climbing-chile/public/admin/config.yml).
 
 ## Paleta de marca
 
