@@ -14,7 +14,7 @@ priceFrom: 320000
 currency: "CLP"
 maxStudents: 8
 featured: true
-cover: "../assets/hielo-cover.webp"
+cover: "../assets/hielo.webp"
 order: 3
 ---
 

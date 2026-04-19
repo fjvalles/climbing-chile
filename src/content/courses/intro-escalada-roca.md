@@ -14,7 +14,7 @@ priceFrom: 180000
 currency: "CLP"
 maxStudents: 12
 featured: true
-cover: "../assets/alfalfal-cover.webp"
+cover: "../assets/roca.webp"
 order: 1
 ---
 

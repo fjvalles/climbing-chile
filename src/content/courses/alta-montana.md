@@ -21,7 +21,7 @@ requirements:
     - "Compatible physical health"
     - "Desirable previous experience in mid-mountain trekking"
 featured: true
-cover: "../assets/puntiagudo-cover.webp"
+cover: "../assets/frio.webp"
 order: 2
 ---
 
