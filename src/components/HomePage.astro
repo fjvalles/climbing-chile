@@ -150,7 +150,11 @@ const title =
         >
       </div>
 
-      <div class="mt-8 mobile-carousel md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5" id="expeditions-grid">
+      <div
+        class="mt-8 mobile-carousel md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5"
+        id="expeditions-grid"
+        data-auto-carousel
+      >
         {expeditions.map((e) => (
           <div class="carousel-slide">
             <ExpeditionCard entry={e} lang={lang} />
@@ -168,7 +172,10 @@ const title =
           title={t("section.training.title")}
         />
       </div>
-      <div class="mt-14 mobile-carousel md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5">
+      <div
+        class="mt-14 mobile-carousel md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5"
+        data-auto-carousel
+      >
         {courses.map((e) => (
           <div class="carousel-slide">
             <CourseCard entry={e} lang={lang} />
@@ -303,4 +310,126 @@ const title =
       });
     });
   });
+
+  const mobileCarouselQuery = window.matchMedia("(max-width: 767px)");
+  const autoCarousels = document.querySelectorAll<HTMLElement>("[data-auto-carousel]");
+
+  const setupAutoCarousel = (carousel: HTMLElement) => {
+    const slides = Array.from(
+      carousel.querySelectorAll<HTMLElement>(".carousel-slide"),
+    ).filter((slide) => slide.offsetParent !== null);
+
+    if (slides.length < 2) {
+      return;
+    }
+
+    let timer: number | undefined;
+    let resumeTimer: number | undefined;
+
+    const clearTimers = () => {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = undefined;
+      }
+      if (resumeTimer) {
+        window.clearTimeout(resumeTimer);
+        resumeTimer = undefined;
+      }
+    };
+
+    const start = () => {
+      if (!mobileCarouselQuery.matches || document.hidden) {
+        return;
+      }
+
+      clearTimers();
+      timer = window.setInterval(() => {
+        const visibleSlides = slides.filter((slide) => slide.offsetParent !== null);
+        if (visibleSlides.length < 2) {
+          return;
+        }
+
+        const currentIndex = visibleSlides.findIndex((slide, index) => {
+          const isLast = index === visibleSlides.length - 1;
+          const slideStart = slide.offsetLeft - carousel.offsetLeft;
+          const slideEnd = slideStart + slide.offsetWidth;
+          const point = carousel.scrollLeft + carousel.clientWidth * 0.35;
+
+          if (isLast) {
+            return point >= slideStart;
+          }
+
+          return point >= slideStart && point < slideEnd;
+        });
+
+        const nextIndex =
+          currentIndex < 0 || currentIndex >= visibleSlides.length - 1
+            ? 0
+            : currentIndex + 1;
+
+        carousel.scrollTo({
+          left: visibleSlides[nextIndex].offsetLeft - carousel.offsetLeft,
+          behavior: "smooth",
+        });
+      }, 3800);
+    };
+
+    const pauseAndResume = () => {
+      clearTimers();
+
+      if (!mobileCarouselQuery.matches) {
+        return;
+      }
+
+      resumeTimer = window.setTimeout(start, 5500);
+    };
+
+    carousel.addEventListener("pointerdown", pauseAndResume, { passive: true });
+    carousel.addEventListener("touchstart", pauseAndResume, { passive: true });
+    carousel.addEventListener("scroll", pauseAndResume, { passive: true });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        clearTimers();
+      } else {
+        start();
+      }
+    });
+
+    mobileCarouselQuery.addEventListener("change", () => {
+      clearTimers();
+      start();
+    });
+
+    start();
+  };
+
+  autoCarousels.forEach(setupAutoCarousel);
+
+  const heroVideo = document.querySelector<HTMLVideoElement>("[data-hero-video]");
+
+  const tryPlayHero = () => {
+    if (!heroVideo) {
+      return;
+    }
+
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+
+    const playback = heroVideo.play();
+    if (playback) {
+      playback.catch(() => {});
+    }
+  };
+
+  if (heroVideo) {
+    heroVideo.addEventListener("canplay", tryPlayHero, { once: true });
+    heroVideo.addEventListener("loadeddata", tryPlayHero, { once: true });
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        tryPlayHero();
+      }
+    });
+    tryPlayHero();
+  }
 </script>
