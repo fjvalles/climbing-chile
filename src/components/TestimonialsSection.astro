@@ -1,6 +1,6 @@
 ---
+import { Image } from 'astro:assets';
 import type { Lang } from '../i18n/ui';
-
 import { getEntry, getCollection } from 'astro:content';
 
 interface Props { lang: Lang }
@@ -37,11 +37,21 @@ if (!config) return null;
               <p class="text-sm leading-relaxed flex-1 italic">{t.data.text[lang]}</p>
               <div class="flex items-center gap-4 mt-8 pt-6 border-t border-[var(--color-line)]">
                 <div
-                  class="shrink-0 w-12 h-12 rounded-full flex items-center justify-center shadow-inner"
-                  style={`background-color: ${t.data.color}`}
+                  class="shrink-0 w-12 h-12 rounded-full flex items-center justify-center shadow-inner overflow-hidden"
+                  style={!t.data.photo ? `background-color: ${t.data.color}` : ''}
                   aria-hidden="true"
                 >
-                  <span class="display text-sm text-white">{t.data.initials}</span>
+                  {t.data.photo ? (
+                    <Image 
+                      src={t.data.photo} 
+                      alt={t.data.name} 
+                      width={48} 
+                      height={48} 
+                      class="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span class="display text-sm text-white">{t.data.initials}</span>
+                  )}
                 </div>
                 <div>
                   <p class="display text-base leading-tight">{t.data.name}</p>

@@ -49,8 +49,8 @@ collections:
       - { label: "Precio desde", name: "priceFrom", widget: "number", required: false, value_type: "int" }
       - { label: "Moneda", name: "currency", widget: "select", options: ["USD","CLP"], default: "USD" }
       - { label: "Estado", name: "status", widget: "select", options: ["open","soon","closed"], default: "open" }
-      - { label: "Imagen portada", name: "cover", widget: "image" }
-      - { label: "Galería", name: "gallery", widget: "list", required: false, field: { label: "Imagen", name: "image", widget: "image" } }
+      - { label: "Imagen portada", name: "cover", widget: "image", hint: "Ideal: 1200x800px, formato WebP o JPG, máx 500KB" }
+      - { label: "Galería", name: "gallery", widget: "list", required: false, hint: "Ideal: 1200x800px, formato WebP o JPG, máx 500KB por imagen", field: { label: "Imagen", name: "image", widget: "image" } }
       - label: "Fechas disponibles"
         name: "dates"
         widget: "list"
@@ -167,8 +167,8 @@ collections:
             fields:
               - { label: "Español", name: "es", widget: "text" }
               - { label: "English", name: "en", widget: "text" }
-      - { label: "Imagen portada", name: "cover", widget: "image" }
-      - { label: "Galería", name: "gallery", widget: "list", required: false, field: { label: "Imagen", name: "image", widget: "image" } }
+      - { label: "Imagen portada", name: "cover", widget: "image", hint: "Ideal: 1200x800px, formato WebP o JPG, máx 500KB" }
+      - { label: "Galería", name: "gallery", widget: "list", required: false, hint: "Ideal: 1200x800px, formato WebP o JPG, máx 500KB por imagen", field: { label: "Imagen", name: "image", widget: "image" } }
       - label: "Fechas disponibles"
         name: "dates"
         widget: "list"
@@ -201,7 +201,7 @@ collections:
         fields:
           - { label: "Español", name: "es", widget: "text" }
           - { label: "English", name: "en", widget: "text" }
-      - { label: "Foto", name: "photo", widget: "image" }
+      - { label: "Foto", name: "photo", widget: "image", hint: "Ideal: 400x400px (cuadrada), formato WebP o JPG, máx 200KB" }
       - { label: "Certificaciones", name: "certifications", widget: "list", field: { label: "Cert", name: "cert", widget: "string" } }
       - { label: "Orden", name: "order", widget: "number", value_type: "int", default: 100 }
 
@@ -215,6 +215,7 @@ collections:
     summary: "{{name}} - {{expedition.es}}"
     fields:
       - { label: "Nombre", name: "name", widget: "string" }
+      - { label: "Foto (opcional)", name: "photo", widget: "image", required: false, hint: "Ideal: 200x200px (cuadrada), formato WebP o JPG, máx 100KB" }
       - { label: "Iniciales", name: "initials", widget: "string" }
       - { label: "Color iniciales", name: "color", widget: "color", default: "#2a3e55" }
       - label: "Texto"
@@ -239,7 +240,7 @@ collections:
         name: "header"
         fields:
           - { label: "Tipo", name: "type", widget: "hidden", default: "header" }
-          - { label: "Logo principal", name: "logo", widget: "image" }
+          - { label: "Logo principal", name: "logo", widget: "image", hint: "Ideal: Formato PNG transparente o SVG, máx 200KB" }
           - label: "Texto Logo"
             name: "logoText"
             widget: "object"

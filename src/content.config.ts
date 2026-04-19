@@ -102,14 +102,16 @@ const team = defineCollection({
 
 const testimonials = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/testimonials' }),
-  schema: z.object({
-    text: localized,
-    name: z.string(),
-    initials: z.string(),
-    color: z.string().default('#2a3e55'),
-    expedition: localized,
-    order: z.number().default(100),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      text: localized,
+      name: z.string(),
+      initials: z.string(),
+      color: z.string().default('#2a3e55'),
+      photo: image().optional(),
+      expedition: localized,
+      order: z.number().default(100),
+    }),
 });
 
 const site = defineCollection({

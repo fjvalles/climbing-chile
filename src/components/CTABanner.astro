@@ -50,30 +50,59 @@ const features = lang === 'es' ? [
   { icon: 'mountain', label: 'Guiding' },
 ];
 ---
-<section class="bg-[var(--color-brand-yellow)] text-[var(--color-ink)]">
-  <div class="max-w-7xl mx-auto px-5 md:px-8 py-20 md:py-28 grid md:grid-cols-2 gap-10 items-center">
-    <h2 class="display text-4xl md:text-6xl leading-[1.1]">
-      {c?.title[lang].split('\n').map((line: string) => (
-        <span class="block">{line}</span>
-      ))}
-    </h2>
-    <div class="flex flex-col items-start">
-      <p class="text-lg max-w-md">{c?.subtitle[lang]}</p>
-      
-      <div class="flex flex-wrap gap-3 mt-6">
-        {features.map((f) => (
-          <div class="flex items-center gap-2 border border-[var(--color-ink)]/20 rounded-full px-4 py-2 bg-[var(--color-ink)]/5">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" class="opacity-80">
-              <path d={paths[f.icon as keyof typeof paths]} />
-            </svg>
-            <span class="text-sm font-medium">{f.label}</span>
-          </div>
-        ))}
+<section class="py-20 md:py-32 bg-[var(--color-bone)] border-t border-[var(--color-line)] relative overflow-hidden">
+  <!-- Subtle background accent -->
+  <div class="absolute top-0 right-0 w-1/3 h-full bg-[var(--color-brand-yellow)]/5 -skew-x-12 translate-x-1/2"></div>
+  
+  <div class="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
+    <div class="bg-white border border-[var(--color-line)] p-8 md:p-16 lg:p-20 shadow-2xl shadow-[var(--color-ink)]/10 rounded-sm">
+      <!-- Title Row: Full Width -->
+      <div class="mb-12 md:mb-16 border-b border-[var(--color-line)] pb-10">
+        <h2 class="display text-3xl md:text-5xl lg:text-6xl leading-[1.1] text-[var(--color-ink)]">
+          {c?.title[lang].split('\n').map((line: string) => (
+            <span class="block">{line}</span>
+          ))}
+        </h2>
       </div>
 
-      <a href={waHref} target="_blank" rel="noopener" class="btn btn-dark mt-10 hover:bg-[#25D366] hover:text-white hover:border-[#25D366]">
-        {c?.button[lang]}
-      </a>
+      <!-- Content Row: Split -->
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-7">
+          <p class="text-xl md:text-2xl text-[var(--color-stone)] leading-relaxed font-light">
+            {lang === 'es' ? (
+              <>Creamos itinerarios <span class="text-[var(--color-ink)] font-bold border-b-2 border-[var(--color-brand-yellow)]">100% personalizados</span> para que solo te enfoques en escalar. Tú eliges la cumbre, nosotros gestionamos todo lo demás.</>
+            ) : (
+              <>We build <span class="text-[var(--color-ink)] font-bold border-b-2 border-[var(--color-brand-yellow)]">100% tailor-made</span> itineraries so you can focus solely on climbing. You pick the summit, and we handle the logistics.</>
+            )}
+          </p>
+          
+          <div class="flex flex-wrap gap-3 mt-10">
+            {features.map((f) => (
+              <div class="flex items-center gap-2.5 border border-[var(--color-line)] rounded-full px-5 py-2 bg-[var(--color-bone)]/50">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" class="text-[var(--color-brand-yellow-dark)]">
+                  <path d={paths[f.icon as keyof typeof paths]} />
+                </svg>
+                <span class="text-xs font-bold uppercase tracking-widest text-[var(--color-ink)]">{f.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 flex flex-col items-start lg:items-end lg:justify-center h-full">
+          <a 
+            href={waHref} 
+            target="_blank" 
+            rel="noopener" 
+            class="btn w-full lg:w-auto px-12 py-6 bg-[var(--color-brand-yellow)] text-[var(--color-ink)] hover:bg-[#25D366] hover:text-white transition-all duration-300 shadow-xl shadow-[var(--color-brand-yellow)]/20 hover:shadow-[#25D366]/40 flex items-center justify-center gap-4 group"
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="group-hover:scale-110 transition-transform">
+              <path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.7-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.5.7.5-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.7 15l-1.3 4.7 4.8-1.2A10 10 0 1 0 12 2z"/>
+            </svg>
+            <span class="text-lg font-bold tracking-tight">{c?.button[lang]}</span>
+          </a>
+          <p class="mt-4 text-xs text-[var(--color-stone-light)] uppercase tracking-widest font-bold">Respuesta inmediata vía WhatsApp</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
