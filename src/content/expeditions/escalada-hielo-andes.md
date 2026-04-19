@@ -17,7 +17,7 @@ difficulty: moderate
 season:
   es: Jun – Jul
   en: Jun – Jul
-priceFrom: 380
+priceFrom: 380000
 currency: CLP
 status: open
 includes:
