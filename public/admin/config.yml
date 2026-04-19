@@ -125,6 +125,46 @@ collections:
           - { label: "English", name: "en", widget: "string" }
       - { label: "Precio desde", name: "priceFrom", widget: "number", required: false, value_type: "int" }
       - { label: "Moneda", name: "currency", widget: "select", options: ["CLP","USD"], default: "CLP" }
+      - { label: "Cupos máximos", name: "maxStudents", widget: "number", required: false, value_type: "int" }
+      - label: "Requisitos"
+        name: "requirements"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Español", name: "es", widget: "list", field: { label: "Requisito", name: "item", widget: "string" } }
+          - { label: "English", name: "en", widget: "list", field: { label: "Requirement", name: "item", widget: "string" } }
+      - label: "Incluye"
+        name: "includes"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Español", name: "es", widget: "list", field: { label: "Item", name: "item", widget: "string" } }
+          - { label: "English", name: "en", widget: "list", field: { label: "Item", name: "item", widget: "string" } }
+      - label: "No incluye"
+        name: "excludes"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Español", name: "es", widget: "list", field: { label: "Item", name: "item", widget: "string" } }
+          - { label: "English", name: "en", widget: "list", field: { label: "Item", name: "item", widget: "string" } }
+      - label: "Itinerario"
+        name: "itinerary"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Día", name: "day", widget: "number", value_type: "int", min: 1 }
+          - label: "Título"
+            name: "title"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Descripción"
+            name: "body"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "text" }
+              - { label: "English", name: "en", widget: "text" }
       - { label: "Imagen portada", name: "cover", widget: "image" }
       - { label: "Orden", name: "order", widget: "number", value_type: "int", default: 100 }
       - { label: "Contenido", name: "body", widget: "markdown", required: false }
