@@ -8,29 +8,38 @@ Sitio web oficial de [Climbing Chile](https://www.instagram.com/climbingchile_cl
 
 | Capa | Tecnología |
 |------|-----------|
-| Framework | [Astro 6](https://astro.build) — generación estática (SSG) |
+| Framework | [Astro 6](https://astro.build) — generación estática (SSG) con View Transitions |
 | Estilos | [Tailwind CSS v4](https://tailwindcss.com) con tokens de marca personalizados |
+| UX | Navegación fluida, CTAs pegajosos en móvil y filtrado dinámico |
 | Idiomas | i18n ES / EN — español en `/`, inglés en `/en/*` |
 | CMS | [Decap CMS](https://decapcms.org) vía Netlify Identity + Git Gateway |
 | Hosting | [Netlify](https://netlify.com) — hosting, formularios y gestión de identidad |
 | Formularios | Netlify Forms (integrado, sin dependencias externas) |
 | Seguridad | Security headers en `netlify.toml` (CSP, HSTS, X-Frame-Options…) |
 
+## Características destacadas
+
+- **Navegación Fluida:** Uso de `View Transitions` de Astro para transiciones suaves entre páginas sin recargar el estado del navegador.
+- **Optimización Móvil:** Menú colapsable persistente, CTAs "sticky" en las vistas de detalle y tarjetas interactivas en el calendario.
+- **Calendario Dinámico:** Filtrado instantáneo por tipo de actividad (Expedición o Formación) con actualización en tiempo real.
+- **Booking Unificado:** Integración directa con WhatsApp para reservas, con mensajes preconfigurados según la actividad y el idioma.
+- **SEO & Performance:** Generación estática completa, imágenes optimizadas y cabeceras de seguridad rigurosas.
+
 ## Estructura
 
 ```
 src/
 ├── assets/            # Assets UI fuera del content pipeline (ej: logo)
-├── components/        # Header, Footer, Hero, cards y secciones compuestas
+├── components/        # Header (sticky), Footer, Hero, cards y secciones
 ├── content/
 │   ├── assets/        # Imágenes usadas por expediciones, cursos y equipo
 │   ├── expeditions/   # Una entrada Markdown por expedición
 │   ├── courses/       # Una entrada Markdown por curso
 │   ├── team/          # Una entrada Markdown por persona del equipo
-│   └── site/          # Configuración global: contacto, redes, etc.
+│   └── site/          # Configuración global: contacto, hero, footer, etc.
 ├── content.config.ts  # Schemas Zod para todas las colecciones
 ├── i18n/              # Diccionarios ES/EN y mapa de rutas por idioma
-├── layouts/Base.astro # Layout raíz: meta SEO, fuentes, header, footer
+├── layouts/Base.astro # Layout raíz: View Transitions, SEO, fuentes
 ├── pages/             # Rutas Astro
 │   ├── index.astro    # Home ES
 │   ├── calendario.astro
