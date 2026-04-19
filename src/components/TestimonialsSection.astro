@@ -63,7 +63,11 @@ const testimonials = lang === 'es' ? [
       </h2>
     </div>
 
-    <div class="mobile-carousel md:grid md:grid-cols-3 md:gap-5" data-auto-carousel>
+    <div
+      class="mobile-carousel md:grid md:grid-cols-3 md:gap-5"
+      data-carousel-track
+      data-auto-carousel
+    >
       {testimonials.map((t) => (
         <article class="carousel-slide flex h-full flex-col bg-[var(--color-bone)] text-[var(--color-ink)] p-7 border border-[var(--color-ink-soft)]">
           <span class="display text-6xl leading-none text-[var(--color-brand-yellow)] select-none mb-4">"</span>
@@ -84,6 +88,11 @@ const testimonials = lang === 'es' ? [
         </article>
       ))}
     </div>
+    <div
+      class="carousel-dots mt-5 md:hidden"
+      data-carousel-dots
+      aria-label={lang === 'es' ? 'Paginación de testimonios' : 'Testimonials pagination'}
+    ></div>
 
   </div>
 </section>

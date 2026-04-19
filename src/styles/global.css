@@ -139,6 +139,27 @@ body {
   scroll-snap-align: start;
 }
 
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.carousel-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-stone-light) 55%, transparent);
+  transition: transform 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+  opacity: 0.8;
+}
+
+.carousel-dot.is-active {
+  background: var(--color-brand-yellow-dark);
+  transform: scale(1.35);
+  opacity: 1;
+}
+
 @media (min-width: 48rem) {
   .mobile-carousel {
     display: grid;
