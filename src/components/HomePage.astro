@@ -9,7 +9,7 @@ import TestimonialsSection from "./TestimonialsSection.astro";
 import WhatsAppBubble from "./WhatsAppBubble.astro";
 import { useTranslations, type Lang } from "../i18n/ui";
 import { r } from "../i18n/routes";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import { Image } from "astro:assets";
 interface Props {
   lang: Lang;
