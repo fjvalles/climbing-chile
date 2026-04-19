@@ -102,7 +102,7 @@ const nav = [
     <div
       class="max-w-7xl mx-auto px-5 md:px-8 py-6 pb-20 md:pb-6 grid md:grid-cols-3 items-center gap-4 text-xs text-[var(--color-stone-light)]"
     >
-      <p class="text-center md:text-left">© {year} Francisco Valles. {t("footer.rights")}</p>
+      <p class="text-center md:text-left">© {year} {h && h.type === 'header' ? `${h.logoText.top} ${h.logoText.bottom}` : 'Climbing Chile'}. {t("footer.rights")}</p>
       <p class="eyebrow text-center">{f && f.type === 'footer' ? f.locations[lang] : ''}</p>
       <p class="text-center md:text-right">
         {t("footer.designedBy")} <a href="mailto:fjvallesj@gmail.com" class="hover:text-[var(--color-brand-yellow)] transition-colors underline underline-offset-2">Francisco V</a>
