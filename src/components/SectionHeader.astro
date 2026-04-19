@@ -6,7 +6,14 @@ interface Props {
 }
 const { eyebrow, title, align = 'left' } = Astro.props;
 ---
-<div class:list={['max-w-3xl', align === 'center' && 'mx-auto text-center']}>
+<div
+  class:list={[
+    'w-full min-w-0',
+    align === 'center' && 'mx-auto text-center',
+  ]}
+>
   <p class="eyebrow text-[var(--color-brand-yellow-dark)]">{eyebrow}</p>
-  <h2 class="display text-4xl md:text-5xl lg:text-6xl mt-4">{title}</h2>
+  <h2 class="display mt-4 text-[clamp(2rem,4.4vw,4.1rem)] leading-[0.9]">
+    {title}
+  </h2>
 </div>

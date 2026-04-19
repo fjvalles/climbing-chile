@@ -14,6 +14,7 @@ difficulty: "difficult"
 season:
   es: "Ago – Sep 2026"
   en: "Aug – Sep 2026"
+maxSpots: 3
 priceFrom: 1200
 currency: "USD"
 featured: true

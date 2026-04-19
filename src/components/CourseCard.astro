@@ -1,0 +1,79 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  entry: CollectionEntry<'courses'>;
+  lang: Lang;
+}
+const { entry, lang } = Astro.props;
+const t = useTranslations(lang);
+const d = entry.data;
+
+const href = lang === 'es' ? `/formacion/${entry.id}` : `/en/training/${entry.id}`;
+
+const levelLabel: Record<Lang, Record<string, string>> = {
+  es: { intro: 'Introducción', intermediate: 'Intermedio', advanced: 'Avanzado' },
+  en: { intro: 'Introduction', intermediate: 'Intermediate', advanced: 'Advanced' },
+} as const;
+---
+<a href={href} class="group flex h-full flex-col bg-white border border-[var(--color-line)] overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+  <div class="relative aspect-[4/3] overflow-hidden bg-[var(--color-ink)] shrink-0">
+    <Image
+      src={d.cover}
+      alt={d.title[lang]}
+      widths={[400, 600]}
+      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+      class="w-full h-full object-cover opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent p-5 flex flex-col justify-end">
+      <span class="tape text-[10px] mb-3 self-start">{levelLabel[lang][d.level]}</span>
+      <h3 class="display text-2xl text-white md:text-3xl leading-[1.1]">{d.title[lang]}</h3>
+    </div>
+  </div>
+  
+  <div class="p-5 flex flex-col flex-1 justify-between">
+    <div class="mb-6">
+      <p class="text-sm text-[var(--color-stone)] line-clamp-3">{d.summary[lang]}</p>
+    </div>
+    
+    <div class="space-y-5">
+      {d.requirements && d.requirements[lang].length > 0 && (
+        <div class="bg-[var(--color-bone)] border border-[var(--color-line)] p-4">
+          <p class="eyebrow text-xs text-[var(--color-ink)] mb-2.5">{lang === 'es' ? 'Requisitos Básicos' : 'Basic Requirements'}</p>
+          <ul class="text-xs text-[var(--color-stone)] space-y-1.5">
+            {d.requirements[lang].slice(0, 2).map((req: string) => (
+              <li class="flex items-start gap-2"><span class="text-[var(--color-brand-yellow-dark)] flex-shrink-0 text-[10px] mt-0.5">✓</span><span class="line-clamp-1">{req}</span></li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div class="grid grid-cols-2 gap-4 text-xs">
+        <div>
+          <p class="eyebrow text-[var(--color-stone)]">{t('card.duration')}</p>
+          <p class="display text-sm mt-1">{d.durationDays} {lang === 'es' ? 'Días' : 'Days'}</p>
+        </div>
+        {d.maxStudents && (
+          <div>
+            <p class="eyebrow text-[var(--color-stone)]">{t('card.maxSpots')}</p>
+            <p class="display text-sm mt-1">{d.maxStudents} {lang === 'es' ? 'alumnos' : 'students'}</p>
+          </div>
+        )}
+      </div>
+
+      <div class="pt-5 border-t border-[var(--color-line)] flex items-center justify-between">
+         {d.priceFrom ? (
+            <div>
+              <p class="eyebrow text-[var(--color-stone)] text-[10px]">{lang === 'es' ? 'Desde' : 'From'}</p>
+              <p class="display text-xl text-[var(--color-ink)] leading-none mt-1">{d.currency} {d.priceFrom.toLocaleString()}</p>
+            </div>
+         ) : (
+            <div></div>
+         )}
+         <span class="btn py-2 px-5 text-xs bg-[var(--color-ink)] text-[var(--color-bone)] group-hover:bg-[var(--color-brand-yellow)] group-hover:text-[var(--color-ink)] transition-colors">{t('card.details')} →</span>
+      </div>
+    </div>
+  </div>
+</a>

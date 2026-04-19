@@ -14,6 +14,7 @@ difficulty: "demanding"
 season:
   es: "Ene – Feb 2027"
   en: "Jan – Feb 2027"
+maxSpots: 4
 priceFrom: 1600
 currency: "USD"
 featured: true

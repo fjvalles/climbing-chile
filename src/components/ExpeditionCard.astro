@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { useTranslations, type Lang } from '../i18n/ui';
-import { r } from '../i18n/routes';
+import { getEntry } from 'astro:content';
 
 interface Props {
   entry: CollectionEntry<'expeditions'>;
@@ -11,14 +11,16 @@ interface Props {
 const { entry, lang } = Astro.props;
 const t = useTranslations(lang);
 const d = entry.data;
-const href = `${r(lang, 'expeditions')}/${entry.id}`;
+
+const href = lang === 'es' ? `/expediciones/${entry.id}` : `/en/expeditions/${entry.id}`;
 const difficultyLabel = {
   es: { easy: 'Fácil', moderate: 'Moderada', demanding: 'Exigente', difficult: 'Difícil', expedition: 'Expedición' },
   en: { easy: 'Easy', moderate: 'Moderate', demanding: 'Demanding', difficult: 'Difficult', expedition: 'Expedition' },
 } as const;
 const statusLabel = d.status === 'soon' ? t('card.soon') : t('card.open');
+const maxSpots = d.maxSpots ?? d.dates.reduce((max, date) => Math.max(max, date.spots ?? 0), 0);
 ---
-<a href={href} class="group block bg-white border border-[var(--color-line)] overflow-hidden hover:-translate-y-1 transition-transform duration-300">
+<a href={href} class="expedition-card group block h-full bg-white border border-[var(--color-line)] overflow-hidden hover:-translate-y-1 transition-transform duration-300" data-status={d.status} data-region={d.country === 'CL' ? 'chile' : 'internacional'}>
   <div class="relative aspect-[4/5] overflow-hidden bg-[var(--color-ink)]">
     <Image
       src={d.cover}
@@ -33,18 +35,24 @@ const statusLabel = d.status === 'soon' ? t('card.soon') : t('card.open');
       <h3 class="display text-2xl md:text-3xl mt-2">{d.title[lang]}</h3>
     </div>
   </div>
-  <div class="p-5 grid grid-cols-3 gap-3 text-xs">
+  <div class="p-5 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
     <div>
       <p class="eyebrow text-[var(--color-stone)]">{t('card.duration')}</p>
       <p class="display text-sm mt-1">{d.durationDays}D</p>
     </div>
-    <div>
+    <div class="hidden sm:block">
       <p class="eyebrow text-[var(--color-stone)]">{t('card.difficulty')}</p>
       <p class="display text-sm mt-1">{difficultyLabel[lang][d.difficulty]}</p>
     </div>
     <div>
       <p class="eyebrow text-[var(--color-stone)]">{t('card.season')}</p>
-      <p class="display text-sm mt-1">{d.season[lang]}</p>
+      <p class="display text-sm mt-1 leading-tight">{d.season[lang]}</p>
     </div>
+    {maxSpots > 0 && (
+      <div>
+        <p class="eyebrow text-[var(--color-stone)]">{t('card.maxSpots')}</p>
+        <p class="display text-sm mt-1">{maxSpots}</p>
+      </div>
+    )}
   </div>
 </a>

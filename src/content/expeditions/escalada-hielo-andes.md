@@ -14,6 +14,7 @@ difficulty: "moderate"
 season:
   es: "Jun – Jul"
   en: "Jun – Jul"
+maxSpots: 4
 priceFrom: 380
 currency: "USD"
 featured: true

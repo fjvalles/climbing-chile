@@ -1,91 +1,306 @@
 ---
-import Base from '../layouts/Base.astro';
-import Hero from './Hero.astro';
-import SectionHeader from './SectionHeader.astro';
-import ServiceTile from './ServiceTile.astro';
-import ExpeditionCard from './ExpeditionCard.astro';
-import CTABanner from './CTABanner.astro';
-import WhatsAppBubble from './WhatsAppBubble.astro';
-import { useTranslations, type Lang } from '../i18n/ui';
-import { r } from '../i18n/routes';
-import { getCollection } from 'astro:content';
-
-interface Props { lang: Lang }
+import Base from "../layouts/Base.astro";
+import Hero from "./Hero.astro";
+import SectionHeader from "./SectionHeader.astro";
+import ServiceTile from "./ServiceTile.astro";
+import ExpeditionCard from "./ExpeditionCard.astro";
+import CourseCard from "./CourseCard.astro";
+import CTABanner from "./CTABanner.astro";
+import TestimonialsSection from "./TestimonialsSection.astro";
+import WhatsAppBubble from "./WhatsAppBubble.astro";
+import { useTranslations, type Lang } from "../i18n/ui";
+import { r } from "../i18n/routes";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+interface Props {
+  lang: Lang;
+}
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const expeditions = (await getCollection('expeditions'))
+const expeditions = (await getCollection("expeditions"))
   .filter((e) => e.data.featured)
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 6);
 
-const services = lang === 'es'
-  ? [
-      { icon: 'mountain' as const, title: 'Expediciones', body: 'Cumbres clásicas y técnicas en Chile, Argentina, Bolivia y Perú.', href: r(lang, 'expeditions') },
-      { icon: 'rope' as const, title: 'Escalada', body: 'Roca, hielo y mixto. Desde Arrayán hasta Cochamó.', href: r(lang, 'expeditions') },
-      { icon: 'book' as const, title: 'Formación', body: 'Cursos técnicos con metodología práctica y progresiva.', href: r(lang, 'training') },
-      { icon: 'truck' as const, title: 'Logística', body: 'Contacta con el plan. Nosotros nos encargamos del resto.', href: r(lang, 'contact') },
-      { icon: 'flag' as const, title: 'Viajes a medida', body: 'Para ti o tu equipo. Itinerarios 100% personalizados.', href: r(lang, 'contact') },
-      { icon: 'calendar' as const, title: 'Eventos', body: 'Charlas, proyecciones y meetups en la comunidad climber.', href: r(lang, 'contact') },
-    ]
-  : [
-      { icon: 'mountain' as const, title: 'Expeditions', body: 'Classic and technical summits in Chile, Argentina, Bolivia and Peru.', href: r(lang, 'expeditions') },
-      { icon: 'rope' as const, title: 'Climbing', body: 'Rock, ice and mixed. From Arrayán to Cochamó.', href: r(lang, 'expeditions') },
-      { icon: 'book' as const, title: 'Training', body: 'Technical courses with a hands-on, progressive method.', href: r(lang, 'training') },
-      { icon: 'truck' as const, title: 'Logistics', body: 'Bring us the plan. We handle the rest.', href: r(lang, 'contact') },
-      { icon: 'flag' as const, title: 'Tailor-made', body: 'For you or your team. 100% custom itineraries.', href: r(lang, 'contact') },
-      { icon: 'calendar' as const, title: 'Events', body: 'Talks, screenings and meetups with the climber community.', href: r(lang, 'contact') },
-    ];
+const courses = (await getCollection("courses")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 
-const title = lang === 'es' ? 'Climbing Chile · Guías de montaña' : 'Climbing Chile · Mountain Guides';
+const team = (await getCollection("team")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const services =
+  lang === "es"
+    ? [
+        {
+          icon: "mountain" as const,
+          title: "Expediciones",
+          body: "Cumbres clásicas y técnicas en Chile, Argentina, Bolivia y Perú.",
+          href: r(lang, "expeditions"),
+        },
+        {
+          icon: "rope" as const,
+          title: "Escalada",
+          body: "Roca, hielo y mixto. Desde Arrayán hasta Cochamó.",
+          href: r(lang, "expeditions"),
+        },
+        {
+          icon: "book" as const,
+          title: "Formación",
+          body: "Cursos técnicos con metodología práctica y progresiva.",
+          href: r(lang, "training"),
+        },
+        {
+          icon: "truck" as const,
+          title: "Logística",
+          body: "Contacta con el plan. Nosotros nos encargamos del resto.",
+          href: r(lang, "contact"),
+        },
+        {
+          icon: "flag" as const,
+          title: "Viajes a medida",
+          body: "Para ti o tu equipo. Itinerarios 100% personalizados.",
+          href: r(lang, "contact"),
+        },
+        {
+          icon: "calendar" as const,
+          title: "Eventos",
+          body: "Charlas, proyecciones y meetups en la comunidad climber.",
+          href: r(lang, "contact"),
+        },
+      ]
+    : [
+        {
+          icon: "mountain" as const,
+          title: "Expeditions",
+          body: "Classic and technical summits in Chile, Argentina, Bolivia and Peru.",
+          href: r(lang, "expeditions"),
+        },
+        {
+          icon: "rope" as const,
+          title: "Climbing",
+          body: "Rock, ice and mixed. From Arrayán to Cochamó.",
+          href: r(lang, "expeditions"),
+        },
+        {
+          icon: "book" as const,
+          title: "Training",
+          body: "Technical courses with a hands-on, progressive method.",
+          href: r(lang, "training"),
+        },
+        {
+          icon: "truck" as const,
+          title: "Logistics",
+          body: "Bring us the plan. We handle the rest.",
+          href: r(lang, "contact"),
+        },
+        {
+          icon: "flag" as const,
+          title: "Tailor-made",
+          body: "For you or your team. 100% custom itineraries.",
+          href: r(lang, "contact"),
+        },
+        {
+          icon: "calendar" as const,
+          title: "Events",
+          body: "Talks, screenings and meetups with the climber community.",
+          href: r(lang, "contact"),
+        },
+      ];
+
+const title =
+  lang === "es"
+    ? "Climbing Chile · Guías de montaña"
+    : "Climbing Chile · Mountain Guides";
 ---
+
 <Base lang={lang} title={title}>
   <Hero lang={lang} />
 
-  <section class="py-20 md:py-28 bg-[var(--color-bone)]">
+  <section
+    id="expeditions"
+    class="py-20 md:py-28 bg-white border-y border-[var(--color-line)]"
+  >
     <div class="max-w-7xl mx-auto px-5 md:px-8">
-      <SectionHeader eyebrow={t('section.services')} title={t('section.services.title')} />
-      <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {services.map((s) => <ServiceTile {...s} />)}
+      <div class="flex flex-wrap items-end justify-between gap-6 md:flex-nowrap">
+        <SectionHeader
+          eyebrow={t("section.expeditions")}
+          title={t("section.expeditions.title")}
+        />
+        <a href={r(lang, "calendar")} class="btn btn-outline"
+          >{t("section.expeditions.all")} →</a
+        >
+      </div>
+
+      <div class="flex flex-wrap gap-2 mt-10">
+        <button
+          class="filter-btn uppercase text-xs font-bold tracking-widest bg-[var(--color-ink)] text-[var(--color-bone)] px-4 py-2 rounded-full border border-[var(--color-ink)] transition-colors"
+          data-filter="all">{lang === "es" ? "TODAS" : "ALL"}</button
+        >
+        <button
+          class="filter-btn uppercase text-xs font-bold tracking-widest bg-transparent text-[var(--color-ink)] px-4 py-2 rounded-full border border-[var(--color-line)] hover:border-[var(--color-ink)] transition-colors"
+          data-filter="region-chile">CHILE</button
+        >
+        <button
+          class="filter-btn uppercase text-xs font-bold tracking-widest bg-transparent text-[var(--color-ink)] px-4 py-2 rounded-full border border-[var(--color-line)] hover:border-[var(--color-ink)] transition-colors"
+          data-filter="region-internacional"
+          >{lang === "es" ? "INTERNACIONAL" : "INTERNATIONAL"}</button
+        >
+      </div>
+
+      <div class="mt-8 mobile-carousel md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5" id="expeditions-grid">
+        {expeditions.map((e) => (
+          <div class="carousel-slide">
+            <ExpeditionCard entry={e} lang={lang} />
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <section class="py-20 md:py-28 bg-white border-y border-[var(--color-line)]">
+  <section id="training" class="py-20 md:py-28 bg-[var(--color-bone)]">
     <div class="max-w-7xl mx-auto px-5 md:px-8">
-      <div class="flex items-end justify-between flex-wrap gap-6">
-        <SectionHeader eyebrow={t('section.expeditions')} title={t('section.expeditions.title')} />
-        <a href={r(lang, 'expeditions')} class="btn btn-outline">{t('section.expeditions.all')} →</a>
+      <div class="flex flex-wrap items-end justify-between gap-6 md:flex-nowrap">
+        <SectionHeader
+          eyebrow={t("section.training")}
+          title={t("section.training.title")}
+        />
       </div>
-      <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {expeditions.map((e) => <ExpeditionCard entry={e} lang={lang} />)}
-      </div>
-    </div>
-  </section>
-
-  <section class="py-20 md:py-28 bg-[var(--color-bone)]">
-    <div class="max-w-7xl mx-auto px-5 md:px-8 grid lg:grid-cols-12 gap-10 items-start">
-      <div class="lg:col-span-5">
-        <SectionHeader eyebrow={t('section.about')} title={t('section.about.title')} />
-        <a href={r(lang, 'about')} class="btn btn-outline mt-8">{t('nav.about')} →</a>
-      </div>
-      <div class="lg:col-span-7 grid sm:grid-cols-3 gap-5">
-        <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
-          <p class="display text-3xl">{t('about.value1.title')}</p>
-          <p class="text-sm text-[var(--color-stone)] mt-3">{t('about.value1.body')}</p>
-        </div>
-        <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
-          <p class="display text-3xl">{t('about.value2.title')}</p>
-          <p class="text-sm text-[var(--color-stone)] mt-3">{t('about.value2.body')}</p>
-        </div>
-        <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
-          <p class="display text-3xl">{t('about.value3.title')}</p>
-          <p class="text-sm text-[var(--color-stone)] mt-3">{t('about.value3.body')}</p>
-        </div>
+      <div class="mt-14 mobile-carousel md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5">
+        {courses.map((e) => (
+          <div class="carousel-slide">
+            <CourseCard entry={e} lang={lang} />
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
+  <section
+    id="about"
+    class="py-20 md:py-28 bg-white border-y border-[var(--color-line)]"
+  >
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <div class="max-w-5xl">
+        <SectionHeader
+          eyebrow={t("section.about")}
+          title={t("section.about.title")}
+        />
+      </div>
+
+      <div class="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
+        <div class="space-y-8">
+          <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
+            <p class="display text-3xl">{t("about.value1.title")}</p>
+            <p class="text-sm text-[var(--color-stone)] mt-2">
+              {t("about.value1.body")}
+            </p>
+          </div>
+          <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
+            <p class="display text-3xl">{t("about.value2.title")}</p>
+            <p class="text-sm text-[var(--color-stone)] mt-2">
+              {t("about.value2.body")}
+            </p>
+          </div>
+          <div class="border-l-2 border-[var(--color-brand-yellow)] pl-4">
+            <p class="display text-3xl">{t("about.value3.title")}</p>
+            <p class="text-sm text-[var(--color-stone)] mt-2">
+              {t("about.value3.body")}
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-6 self-start">
+          {
+            team.map((p) => (
+              <article class="flex flex-col gap-4 p-5 bg-[var(--color-bone)] border border-[var(--color-line)] transition-colors sm:flex-row sm:items-center sm:gap-5 hover:border-[var(--color-brand-yellow)]">
+                <div class="shrink-0 w-24 h-24 overflow-hidden rounded-full border-2 border-white shadow-sm">
+                  <Image
+                    src={p.data.photo}
+                    alt={p.data.name}
+                    widths={[200, 400]}
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                    <p class="display text-2xl">{p.data.name}</p>
+                    <p class="eyebrow text-[var(--color-stone)]">
+                      {p.data.role[lang]}
+                    </p>
+                  </div>
+                  <p class="text-sm text-[var(--color-stone)] mt-2">
+                    {p.data.bio[lang]}
+                  </p>
+                  {p.data.certifications.length > 0 && (
+                    <div class="flex flex-wrap gap-2 mt-3">
+                      {p.data.certifications.map((c) => (
+                        <span class="tape text-[10px] bg-white border border-[var(--color-line)]">
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <TestimonialsSection lang={lang} />
   <CTABanner lang={lang} />
   <WhatsAppBubble />
 </Base>
+
+<script>
+  const btns = document.querySelectorAll(".filter-btn");
+  const cards = document.querySelectorAll(
+    ".expedition-card",
+  ) as NodeListOf<HTMLElement>;
+
+  btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      btns.forEach((b) => {
+        b.classList.remove("bg-[var(--color-ink)]", "text-[var(--color-bone)]");
+        b.classList.add("bg-transparent", "text-[var(--color-ink)]");
+      });
+      btn.classList.remove("bg-transparent", "text-[var(--color-ink)]");
+      btn.classList.add("bg-[var(--color-ink)]", "text-[var(--color-bone)]");
+
+      const filter = btn.getAttribute("data-filter");
+
+      cards.forEach((card) => {
+        if (filter === "all") {
+          card.style.display = "";
+        } else if (
+          filter === "status-open" &&
+          card.getAttribute("data-status") === "open"
+        ) {
+          card.style.display = "";
+        } else if (
+          filter === "status-soon" &&
+          card.getAttribute("data-status") === "soon"
+        ) {
+          card.style.display = "";
+        } else if (
+          filter === "region-chile" &&
+          card.getAttribute("data-region") === "chile"
+        ) {
+          card.style.display = "";
+        } else if (
+          filter === "region-internacional" &&
+          card.getAttribute("data-region") === "internacional"
+        ) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  });
+</script>

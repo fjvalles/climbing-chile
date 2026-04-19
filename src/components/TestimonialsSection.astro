@@ -1,0 +1,89 @@
+---
+import type { Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+
+const testimonials = lang === 'es' ? [
+  {
+    text: 'Nunca había estado en alta montaña. José y su equipo me llevaron de la mano desde el primer campamento hasta la cumbre del Aconcagua. La logística fue impecable y la seguridad, innegociable.',
+    name: 'Martín Fuenzalida',
+    initials: 'MF',
+    color: '#2a3e55',
+    expedition: 'Aconcagua Normal · Feb 2025',
+  },
+  {
+    text: 'Hice el curso ACF con ellos antes de mi primera expedición real. Aprendí más en 4 días que en meses leyendo libros. Instructores que realmente saben de lo que hablan.',
+    name: 'Valentina Riquelme',
+    initials: 'VR',
+    color: '#5a3e2b',
+    expedition: 'Curso ACF · Julio 2024',
+  },
+  {
+    text: 'Contraté la logística completa para una expedición de 8 personas al Villarrica. Todo perfectamente coordinado, permisos, transporte, guiado. Me ocupé solo de disfrutar.',
+    name: 'Diego Araya',
+    initials: 'DA',
+    color: '#1e4a3a',
+    expedition: 'Villarrica Travesía · Nov 2024',
+  },
+] : [
+  {
+    text: 'I had never been on high-altitude terrain. José and his team guided me every step from base camp to the Aconcagua summit. Logistics were flawless and safety, non-negotiable.',
+    name: 'Martín Fuenzalida',
+    initials: 'MF',
+    color: '#2a3e55',
+    expedition: 'Aconcagua Normal · Feb 2025',
+  },
+  {
+    text: 'I took the ACF course before my first real expedition. I learned more in 4 days than in months of reading. Instructors who truly know what they are talking about.',
+    name: 'Valentina Riquelme',
+    initials: 'VR',
+    color: '#5a3e2b',
+    expedition: 'ACF Course · July 2024',
+  },
+  {
+    text: 'I hired full logistics for an 8-person Villarrica expedition. Everything perfectly coordinated — permits, transport, guiding. I just focused on enjoying the experience.',
+    name: 'Diego Araya',
+    initials: 'DA',
+    color: '#1e4a3a',
+    expedition: 'Villarrica Traverse · Nov 2024',
+  },
+];
+---
+
+<section class="py-20 md:py-28 bg-[var(--color-ink)] text-[var(--color-bone)]">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+
+    <div class="mb-14">
+      <p class="eyebrow text-[var(--color-brand-yellow)]">
+        {lang === 'es' ? 'Lo que dicen' : 'What they say'}
+      </p>
+      <h2 class="display mt-3 text-[clamp(2rem,4.4vw,4.1rem)] leading-[0.9]">
+        {lang === 'es' ? 'Quienes ya estuvieron ahí.' : 'Those who\'ve been there.'}
+      </h2>
+    </div>
+
+    <div class="mobile-carousel md:grid md:grid-cols-3 md:gap-5">
+      {testimonials.map((t) => (
+        <article class="carousel-slide flex h-full flex-col bg-[var(--color-bone)] text-[var(--color-ink)] p-7 border border-[var(--color-ink-soft)]">
+          <span class="display text-6xl leading-none text-[var(--color-brand-yellow)] select-none mb-4">"</span>
+          <p class="text-sm leading-relaxed flex-1">{t.text}</p>
+          <div class="flex items-center gap-4 mt-8 pt-6 border-t border-[var(--color-line)]">
+            <div
+              class="shrink-0 w-12 h-12 rounded-full flex items-center justify-center"
+              style={`background-color: ${t.color}`}
+              aria-hidden="true"
+            >
+              <span class="display text-sm text-white">{t.initials}</span>
+            </div>
+            <div>
+              <p class="display text-base leading-tight">{t.name}</p>
+              <p class="eyebrow text-[10px] text-[var(--color-stone)] mt-1">{t.expedition}</p>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>

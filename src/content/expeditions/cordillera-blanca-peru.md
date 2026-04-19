@@ -14,6 +14,7 @@ difficulty: "expedition"
 season:
   es: "21 Jul – 14 Ago 2026"
   en: "Jul 21 – Aug 14, 2026"
+maxSpots: 6
 priceFrom: 2800
 currency: "USD"
 featured: true
