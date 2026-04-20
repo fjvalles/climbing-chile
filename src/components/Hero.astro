@@ -33,25 +33,20 @@ const heroHighlight = (h?.titleHighlight?.[lang] ?? heroHighlightFallback[lang])
   </div>
   <div class="relative max-w-7xl mx-auto px-5 md:px-8 pt-20 md:pt-32 pb-24 md:pb-40">
     <p class="eyebrow text-[var(--color-brand-yellow)]">{h?.eyebrow[lang]}</p>
-    <h1 class="display text-4xl md:text-7xl mt-6 md:whitespace-pre-line max-w-4xl">
-      {h?.title[lang].split('\n').map((line: string) => {
+    <h1 class="display text-[clamp(1.75rem,8vw,4.5rem)] leading-[1.1] md:leading-[0.95] mt-6 whitespace-pre-wrap max-w-4xl break-words [text-wrap:balance]">{(() => {
+        const titleText = h?.title[lang] || '';
         const escapedHeroHighlight = heroHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        return (
-          <span class="block">
-            {line
-              .split(new RegExp(`(${escapedHeroHighlight})`, 'gi'))
-              .map((part) =>
-                heroHighlight.length > 0 && part.toLowerCase() === heroHighlight.toLowerCase() ? (
-                  <span class="text-[var(--color-brand-yellow)]">{part}</span>
-                ) : (
-                  part
-                )
-              )}
-          </span>
-        );
-      })}
-    </h1>
-    <p class="mt-8 max-w-xl text-base md:text-lg text-[var(--color-stone-light)] leading-relaxed">
+        return titleText
+          .split(new RegExp(`(${escapedHeroHighlight})`, 'gi'))
+          .map((part) =>
+            heroHighlight.length > 0 && part.toLowerCase() === heroHighlight.toLowerCase() ? (
+              <span class="text-[var(--color-brand-yellow)]">{part}</span>
+            ) : (
+              part
+            )
+          );
+      })()}</h1>
+    <p class="mt-8 max-w-xl text-base md:text-lg text-[var(--color-stone-light)] leading-relaxed [text-wrap:pretty]">
       {h?.subtitle[lang]}
     </p>
     <div class="mt-10 flex flex-wrap gap-3">
