@@ -41,23 +41,21 @@ const paths = {
   axe: "M7 17 L17 7 M17 7 L13 3 L21 5 Z M7 17 L5 21",
 };
 
-const features =
-  lang === "es"
-    ? [
-        { icon: "truck", label: "Logística" },
-        { icon: "mountain", label: "Guiado" },
-        { icon: "book", label: "Permisos" },
-        { icon: "axe", label: "Equipo" },
-      ]
-    : [
-        { icon: "truck", label: "Logistics" },
-        { icon: "mountain", label: "Guiding" },
-        { icon: "book", label: "Permits" },
-        { icon: "axe", label: "Gear" },
-      ];
+const featureIcons = ["truck", "mountain", "book", "axe"] as const;
+const features = (c?.features ?? []).map((item, index) => ({
+  icon: featureIcons[index % featureIcons.length],
+  label: item.label[lang],
+}));
+const ctaHighlightFallback = {
+  es: "Nosotros nos encargamos",
+  en: "We take care of the rest",
+} as const;
+const ctaHighlight = (c?.titleHighlight?.[lang] ?? ctaHighlightFallback[lang]).trim();
+const escapedCtaHighlight = ctaHighlight.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 ---
 
 <section
+  id="custom-plan"
   class="py-20 md:py-32 bg-[var(--color-bone)] border-t border-[var(--color-line)] relative overflow-hidden"
 >
   <!-- Subtle background accent -->
@@ -77,21 +75,13 @@ const features =
         >
           {
             c?.title[lang].split("\n").map((line: string) => {
-              // Highlighting logic
-              let highlightedLine = line;
-              const highlights = [
-                "Nosotros nos encargamos",
-                "We design tailor-made expeditions",
-              ];
-
               return (
                 <span class="block">
                   {line
-                    .split(new RegExp(`(${highlights.join("|")})`, "gi"))
+                    .split(new RegExp(`(${escapedCtaHighlight})`, "gi"))
                     .map((part) =>
-                      highlights.some(
-                        (h) => h.toLowerCase() === part.toLowerCase(),
-                      ) ? (
+                      ctaHighlight.length > 0 &&
+                      part.toLowerCase() === ctaHighlight.toLowerCase() ? (
                         <span class="text-[var(--color-brand-yellow-dark)] italic">
                           {part}
                         </span>
@@ -110,31 +100,9 @@ const features =
       <div class="grid lg:grid-cols-12 gap-12 items-start">
         <div class="lg:col-span-7">
           <p
-            class="text-xl md:text-2xl text-[var(--color-stone)] leading-relaxed font-light"
+            class="text-xl md:text-2xl text-[var(--color-stone)] leading-relaxed font-light whitespace-pre-line"
           >
-            {
-              lang === "es" ? (
-                <>
-                  Creamos itinerarios{" "}
-                  <span class="text-[var(--color-ink)] font-bold border-b-2 border-[var(--color-brand-yellow)]">
-                    100% personalizados
-                  </span>{" "}
-                  para que solo te enfoques en escalar.
-                  <br class="hidden md:block" /> Tú eliges la cumbre, nosotros
-                  gestionamos todo lo demás.
-                </>
-              ) : (
-                <>
-                  We build{" "}
-                  <span class="text-[var(--color-ink)] font-bold border-b-2 border-[var(--color-brand-yellow)]">
-                    100% tailor-made
-                  </span>{" "}
-                  itineraries so you can focus solely on climbing.
-                  <br class="hidden md:block" /> You pick the summit, and we
-                  handle the logistics.
-                </>
-              )
-            }
+            {c?.subtitle[lang]}
           </p>
 
           <div class="flex flex-wrap gap-3 mt-10">
@@ -192,7 +160,7 @@ const features =
           <p
             class="mt-4 text-xs text-[var(--color-stone-light)] uppercase tracking-widest font-bold"
           >
-            Respuesta inmediata vía WhatsApp
+            {c?.responseNote[lang]}
           </p>
         </div>
       </div>

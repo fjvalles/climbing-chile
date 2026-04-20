@@ -6,8 +6,8 @@ title:
 summary:
   es: "Cascadas de hielo técnico en el corazón de los Andes: las míticas cascadas
     Mantito y Manto de Hielo, a 2h de Santiago."
-  en: "Technical ice falls in the heart of the Andes: the iconic Mantito and Manto
-    de Hielo cascades, 2h from Santiago."
+  en: "Technical ice climbing in the heart of the Andes: the iconic Mantito and
+    Manto de Hielo lines, just two hours from Santiago."
 location:
   es: Paso Los Libertadores, Chile
   en: Paso Los Libertadores, Chile
@@ -34,15 +34,15 @@ includes:
     - UIAGM/ANGM certified guide
     - Ice axes, crampons and ropes
     - Round-trip transport from Santiago
-    - Full group equipment
+    - Full group technical equipment
 itinerary:
   - day: 1
     title:
       es: Cascada Mantito — introducción al hielo
-      en: Mantito cascade — ice introduction
+      en: Mantito Icefall — introduction to ice climbing
     body:
       es: Técnica básica de crampones y piolet. Primeras rutas en cascada Mantito.
-      en: Basic crampon and ice axe technique. First routes on Mantito cascade.
+      en: Basic crampon and ice axe technique. First pitches on the Mantito icefall.
   - day: 2
     title:
       es: Manto de Hielo — rutas técnicas
@@ -53,10 +53,10 @@ itinerary:
   - day: 3
     title:
       es: Perfeccionamiento y retorno
-      en: Refinement and return
+      en: Skills consolidation and return
     body:
       es: Práctica libre, evaluación técnica y retorno a Santiago.
-      en: Free practice, technical assessment and return to Santiago.
+      en: Independent practice, technical assessment, and return to Santiago.
 maxSpots: 4
 cover: ../assets/hielo-cover.webp
 gallery:

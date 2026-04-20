@@ -1,6 +1,6 @@
 ---
 import Logo from "./Logo.astro";
-import { useTranslations, type Lang } from "../i18n/ui";
+import type { Lang } from "../i18n/ui";
 import { r } from "../i18n/routes";
 import { getEntry } from "astro:content";
 
@@ -8,7 +8,6 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const t = useTranslations(lang);
 const footerEntry = await getEntry("site", "footer");
 const headerEntry = await getEntry("site", "header");
 const f = footerEntry?.data;
@@ -16,12 +15,12 @@ const h = headerEntry?.data;
 const year = new Date().getFullYear();
 
 const nav = [
-  { key: "nav.expeditions" as const, href: r(lang, "expeditions") },
-  { key: "nav.training" as const, href: r(lang, "training") },
-  { key: "nav.about" as const, href: r(lang, "about") },
-  { key: "nav.calendar" as const, href: r(lang, "calendar") },
-  { key: "nav.terms" as const, href: r(lang, "terms") },
-  { key: "nav.privacy" as const, href: r(lang, "privacy") },
+  { label: f?.nav.expeditions[lang], href: r(lang, "expeditions") },
+  { label: f?.nav.training[lang], href: r(lang, "training") },
+  { label: f?.nav.about[lang], href: r(lang, "about") },
+  { label: f?.nav.testimonials[lang], href: r(lang, "testimonials") },
+  { label: f?.nav.customPlan[lang], href: r(lang, "custom_plan") },
+  { label: f?.nav.calendar[lang], href: r(lang, "calendar") },
 ];
 ---
 
@@ -41,17 +40,17 @@ const nav = [
     </div>
     <div class="md:col-span-3">
       <p class="eyebrow text-[var(--color-brand-yellow)] mb-4">
-        {t("footer.nav")}
+        {f?.navHeading[lang]}
       </p>
       <ul class="space-y-2">
         {
-          nav.map(({ key, href }) => (
+          nav.map(({ label, href }) => (
             <li>
               <a
                 class="text-sm transition-colors hover:text-[var(--color-brand-yellow-dark)]"
                 href={href}
               >
-                {t(key)}
+                {label}
               </a>
             </li>
           ))
@@ -60,7 +59,7 @@ const nav = [
     </div>
     <div class="md:col-span-4">
       <p class="eyebrow text-[var(--color-brand-yellow)] mb-4">
-        {t("footer.contact")}
+        {f?.contactHeading[lang]}
       </p>
       {
         f && f.type === 'footer' && (
@@ -72,7 +71,7 @@ const nav = [
                 target="_blank"
                 rel="noopener"
               >
-                WhatsApp · {f.whatsappDisplay}
+                {f.contactLabels.whatsapp[lang]} · {f.whatsappDisplay}
               </a>
             </li>
             <li>
@@ -82,7 +81,7 @@ const nav = [
                 target="_blank"
                 rel="noopener"
               >
-                Instagram · @climbingchile_cl
+                {f.contactLabels.instagram[lang]} · {f.instagramDisplay}
               </a>
             </li>
             <li>
@@ -90,7 +89,7 @@ const nav = [
                 href={`mailto:${f.email}`}
                 class="transition-colors hover:text-[var(--color-brand-yellow)]"
               >
-                Email · {f.email}
+                {f.contactLabels.email[lang]} · {f.email}
               </a>
             </li>
           </ul>
@@ -102,10 +101,16 @@ const nav = [
     <div
       class="max-w-7xl mx-auto px-5 md:px-8 py-6 pb-20 md:pb-6 grid md:grid-cols-3 items-center gap-4 text-xs text-[var(--color-stone-light)]"
     >
-      <p class="text-center md:text-left">© {year} {h && h.type === 'header' ? `${h.logoText.top} ${h.logoText.bottom}` : 'Climbing Chile'}. {t("footer.rights")}</p>
-      <p class="eyebrow text-center">{f && f.type === 'footer' ? f.locations[lang] : ''}</p>
+      <p class="text-center md:text-left">© {year} {h && h.type === 'header' ? `${h.logoText.top} ${h.logoText.bottom}` : 'Climbing Chile'}. {f?.rights[lang]}</p>
+      
+      <div class="flex items-center justify-center gap-4 text-[10px] uppercase tracking-widest">
+        <a href={r(lang, "terms")} class="hover:text-[var(--color-brand-yellow)] transition-colors">{f?.nav.terms[lang]}</a>
+        <span class="opacity-30">·</span>
+        <a href={r(lang, "privacy")} class="hover:text-[var(--color-brand-yellow)] transition-colors">{f?.nav.privacy[lang]}</a>
+      </div>
+
       <p class="text-center md:text-right">
-        {t("footer.designedBy")} <a href="mailto:fjvallesj@gmail.com" class="hover:text-[var(--color-brand-yellow)] transition-colors underline underline-offset-2">Francisco V</a>
+        {f?.designedBy[lang]} <a href={f?.creditUrl} target="_blank" rel="noopener" class="hover:text-[var(--color-brand-yellow)] transition-colors underline underline-offset-2">{f?.creditName}</a>
       </p>
     </div>
   </div>

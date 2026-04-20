@@ -9,6 +9,7 @@ const { lang } = Astro.props;
 const title = lang === 'es' ? 'Calendario de Actividades' : 'Activities Calendar';
 
 const site = await getEntry('site', 'footer');
+const cta = await getEntry('site', 'cta');
 const waNumber = site?.data?.whatsapp.replace(/\D/g, '') || '';
 
 // Fetch all activities
@@ -88,7 +89,7 @@ const formatDateRange = (startStr: string, endStr: string) => {
 
 ---
 <Base lang={lang} title={title}>
-  <section class="bg-[var(--color-ink)] text-[var(--color-bone)] py-8 md:pt-20 md:pb-4">
+  <section class="bg-[var(--color-ink)] text-[var(--color-bone)] py-8 md:pt-24 md:pb-10 lg:pt-28 lg:pb-14">
     <div class="max-w-7xl mx-auto px-5 md:px-8">
       <h1 class="display text-4xl md:text-7xl leading-tight text-left">
         <span class="md:hidden">Calendario</span>
@@ -298,7 +299,7 @@ const formatDateRange = (startStr: string, endStr: string) => {
                           </span>
                         )}
                         <p class="text-[10px] text-center mt-3 text-[var(--color-stone-light)] italic uppercase tracking-widest">
-                          {lang === 'es' ? 'Respuesta inmediata por WhatsApp' : 'Instant response via WhatsApp'}
+                          {cta?.data.responseNote[lang]}
                         </p>
                       </div>
                     </div>

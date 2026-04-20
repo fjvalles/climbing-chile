@@ -36,7 +36,7 @@ includes:
     - "Certified climbing guide (1:6 ratio)"
     - "Safety gear (ropes, quickdraws, belay devices)"
     - "Personal gear (harness and helmet)"
-    - "Support educational material"
+    - "Supporting course materials"
 excludes:
   es:
     - "Transporte hasta el sector de escalada"
@@ -53,14 +53,14 @@ itinerary:
       en: "Fundamentals and Top-Rope"
     body:
       es: "Introducción al equipo técnico, nudos básicos (ocho), técnica de aseguramiento y primeras escaladas en modalidad top-rope para enfocar en el movimiento."
-      en: "Introduction to technical gear, basic knots (figure-eight), belaying technique, and first climbs in top-rope mode to focus on movement."
+      en: "Introduction to technical gear, basic knots (figure-eight), belaying technique, and your first top-rope climbs with a focus on movement."
   - day: 2
     title:
       es: "Maniobras y Autonomía"
-      en: "Maneuvers and Autonomy"
+      en: "Systems and autonomy"
     body:
       es: "Perfeccionamiento de la técnica de pies, comunicación en cordada y la maniobra crítica de descuelgue en reunión. Práctica supervisada intensiva."
-      en: "Refinement of footwork technique, rope team communication, and the critical anchor clearing maneuver. Intensive supervised practice."
+      en: "Refined footwork, rope-team communication, and the critical cleaning and lowering sequence at the anchor. Intensive supervised practice."
 featured: true
 cover: "../assets/roca.webp"
 order: 1

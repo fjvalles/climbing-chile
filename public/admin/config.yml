@@ -292,6 +292,14 @@ collections:
             fields:
               - { label: "Español", name: "es", widget: "string" }
               - { label: "English", name: "en", widget: "string" }
+          - label: "Navegación"
+            name: "nav"
+            widget: "object"
+            fields:
+              - { label: "Expediciones", name: "expeditions", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Formación", name: "training", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Nosotros", name: "about", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Calendario", name: "calendar", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
 
       - file: "src/content/site/hero.md"
         label: "Hero (Inicio)"
@@ -311,6 +319,13 @@ collections:
             fields:
               - { label: "Español", name: "es", widget: "text" }
               - { label: "English", name: "en", widget: "text" }
+          - label: "Texto destacado del título"
+            name: "titleHighlight"
+            widget: "object"
+            hint: "Frase o línea que se resaltará en amarillo dentro del título"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
           - label: "Subtítulo"
             name: "subtitle"
             widget: "object"
@@ -329,12 +344,24 @@ collections:
             fields:
               - { label: "Español", name: "es", widget: "string" }
               - { label: "English", name: "en", widget: "string" }
+          - label: "Imágenes de fondo del hero"
+            name: "backgroundFrames"
+            widget: "list"
+            fields:
+              - { label: "Imagen", name: "image", widget: "image" }
+              - { label: "Posición de fondo", name: "position", widget: "string", hint: "Ej: center top, center 38%, 50% 20%" }
 
       - file: "src/content/site/about.md"
         label: "Sección Nosotros (Valores)"
         name: "about"
         fields:
           - { label: "Tipo", name: "type", widget: "hidden", default: "about" }
+          - label: "Ceja de la sección"
+            name: "eyebrow"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
           - label: "Título de la sección"
             name: "title"
             widget: "object"
@@ -376,6 +403,33 @@ collections:
               - { label: "Español", name: "es", widget: "string" }
               - { label: "English", name: "en", widget: "string" }
 
+      - file: "src/content/site/home-sections.md"
+        label: "Secciones Home"
+        name: "home_sections"
+        fields:
+          - { label: "Tipo", name: "type", widget: "hidden", default: "home_sections" }
+          - label: "Expediciones"
+            name: "expeditions"
+            widget: "object"
+            fields:
+              - { label: "Ceja", name: "eyebrow", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Título", name: "title", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Botón", name: "button", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - label: "Filtros"
+                name: "filters"
+                widget: "object"
+                fields:
+                  - { label: "Todas", name: "all", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+                  - { label: "Chile", name: "chile", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+                  - { label: "Internacional", name: "international", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+          - label: "Formación"
+            name: "training"
+            widget: "object"
+            fields:
+              - { label: "Ceja", name: "eyebrow", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Título", name: "title", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Botón", name: "button", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+
       - file: "src/content/site/cta.md"
         label: "Sección CTA (¿Tienes un plan?)"
         name: "cta"
@@ -388,6 +442,13 @@ collections:
             fields:
               - { label: "Español", name: "es", widget: "text" }
               - { label: "English", name: "en", widget: "text" }
+          - label: "Texto destacado del título"
+            name: "titleHighlight"
+            widget: "object"
+            hint: "Frase exacta que se mostrará destacada en amarillo"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
           - label: "Subtítulo"
             name: "subtitle"
             widget: "object"
@@ -396,6 +457,22 @@ collections:
               - { label: "English", name: "en", widget: "text" }
           - label: "Texto del botón"
             name: "button"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Etiquetas destacadas"
+            name: "features"
+            widget: "list"
+            fields:
+              - label: "Texto"
+                name: "label"
+                widget: "object"
+                fields:
+                  - { label: "Español", name: "es", widget: "string" }
+                  - { label: "English", name: "en", widget: "string" }
+          - label: "Nota bajo el botón"
+            name: "responseNote"
             widget: "object"
             fields:
               - { label: "Español", name: "es", widget: "string" }
@@ -423,9 +500,55 @@ collections:
           - { label: "WhatsApp visible", name: "whatsappDisplay", widget: "string" }
           - { label: "Email", name: "email", widget: "string" }
           - { label: "Instagram URL", name: "instagram", widget: "string" }
+          - { label: "Instagram visible", name: "instagramDisplay", widget: "string" }
           - label: "Dirección"
             name: "address"
             widget: "object"
             fields:
               - { label: "Español", name: "es", widget: "string" }
               - { label: "English", name: "en", widget: "string" }
+          - label: "Título navegación"
+            name: "navHeading"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Título contacto"
+            name: "contactHeading"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Links del footer"
+            name: "nav"
+            widget: "object"
+            fields:
+              - { label: "Expediciones", name: "expeditions", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Formación", name: "training", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Nosotros", name: "about", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Testimonios", name: "testimonials", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Plan a medida", name: "customPlan", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Calendario", name: "calendar", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Términos", name: "terms", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Privacidad", name: "privacy", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+          - label: "Etiquetas de contacto"
+            name: "contactLabels"
+            widget: "object"
+            fields:
+              - { label: "WhatsApp", name: "whatsapp", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Instagram", name: "instagram", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+              - { label: "Email", name: "email", widget: "object", fields: [{ label: "Español", name: "es", widget: "string" }, { label: "English", name: "en", widget: "string" }] }
+          - label: "Texto derechos"
+            name: "rights"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - label: "Texto crédito"
+            name: "designedBy"
+            widget: "object"
+            fields:
+              - { label: "Español", name: "es", widget: "string" }
+              - { label: "English", name: "en", widget: "string" }
+          - { label: "Nombre crédito", name: "creditName", widget: "string" }
+          - { label: "Link crédito", name: "creditUrl", widget: "string" }

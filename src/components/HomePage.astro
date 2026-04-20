@@ -31,7 +31,9 @@ const team = (await getCollection("team")).sort(
 );
 
 const about = await getEntry("site", "about");
+const homeSections = await getEntry("site", "home-sections");
 if (!about) throw new Error("About config not found");
+if (!homeSections) throw new Error("Home sections config not found");
 
 const title =
   lang === "es"
@@ -49,27 +51,27 @@ const title =
     <div class="max-w-7xl mx-auto px-5 md:px-8">
       <div class="flex flex-wrap items-end justify-between gap-6 md:flex-nowrap">
         <SectionHeader
-          eyebrow={t("section.expeditions")}
-          title={t("section.expeditions.title")}
+          eyebrow={homeSections.data.expeditions.eyebrow[lang]}
+          title={homeSections.data.expeditions.title[lang]}
         />
         <a href={r(lang, "calendar")} class="btn btn-outline whitespace-nowrap"
-          >{t("section.expeditions.all")} →</a
+          >{homeSections.data.expeditions.button[lang]} →</a
         >
       </div>
 
       <div class="flex flex-wrap gap-2 mt-10">
         <button
           class="filter-btn uppercase text-xs font-bold tracking-widest bg-[var(--color-ink)] text-[var(--color-bone)] px-4 py-2 rounded-full border border-[var(--color-ink)] transition-colors"
-          data-filter="all">{lang === "es" ? "TODAS" : "ALL"}</button
+          data-filter="all">{homeSections.data.expeditions.filters.all[lang]}</button
         >
         <button
           class="filter-btn uppercase text-xs font-bold tracking-widest bg-transparent text-[var(--color-ink)] px-4 py-2 rounded-full border border-[var(--color-line)] hover:border-[var(--color-ink)] transition-colors"
-          data-filter="region-chile">CHILE</button
+          data-filter="region-chile">{homeSections.data.expeditions.filters.chile[lang]}</button
         >
         <button
           class="filter-btn uppercase text-xs font-bold tracking-widest bg-transparent text-[var(--color-ink)] px-4 py-2 rounded-full border border-[var(--color-line)] hover:border-[var(--color-ink)] transition-colors"
           data-filter="region-internacional"
-          >{lang === "es" ? "INTERNACIONAL" : "INTERNATIONAL"}</button
+          >{homeSections.data.expeditions.filters.international[lang]}</button
         >
       </div>
 
@@ -111,11 +113,11 @@ const title =
     <div class="max-w-7xl mx-auto px-5 md:px-8">
       <div class="flex flex-wrap items-end justify-between gap-6 md:flex-nowrap">
         <SectionHeader
-          eyebrow={t("section.training")}
-          title={t("section.training.title")}
+          eyebrow={homeSections.data.training.eyebrow[lang]}
+          title={homeSections.data.training.title[lang]}
         />
         <a href={r(lang, "calendar")} class="btn btn-outline whitespace-nowrap"
-          >{t("section.expeditions.all")} →</a
+          >{homeSections.data.training.button[lang]} →</a
         >
       </div>
       
@@ -159,7 +161,7 @@ const title =
     <div class="max-w-7xl mx-auto px-5 md:px-8">
       <div class="max-w-5xl">
         <SectionHeader
-          eyebrow={t("section.about")}
+          eyebrow={about.data.eyebrow[lang]}
           title={about.data.title[lang]}
         />
       </div>
@@ -482,30 +484,4 @@ const title =
 
   allCarousels.forEach(setupCarousel);
 
-  const heroVideo = document.querySelector<HTMLVideoElement>("[data-hero-video]");
-
-  const tryPlayHero = () => {
-    if (!heroVideo) {
-      return;
-    }
-
-    heroVideo.muted = true;
-    heroVideo.defaultMuted = true;
-
-    const playback = heroVideo.play();
-    if (playback) {
-      playback.catch(() => {});
-    }
-  };
-
-  if (heroVideo) {
-    heroVideo.addEventListener("canplay", tryPlayHero, { once: true });
-    heroVideo.addEventListener("loadeddata", tryPlayHero, { once: true });
-    document.addEventListener("visibilitychange", () => {
-      if (!document.hidden) {
-        tryPlayHero();
-      }
-    });
-    tryPlayHero();
-  }
 </script>

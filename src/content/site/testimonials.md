@@ -5,5 +5,5 @@ eyebrow:
   en: "What they say"
 title:
   es: "Quienes ya estuvieron ahí."
-  en: "Those who've been there."
+  en: "People who've already been there."
 ---

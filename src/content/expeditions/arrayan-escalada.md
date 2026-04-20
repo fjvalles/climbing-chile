@@ -4,7 +4,7 @@ title:
   en: "Trad climbing · Alfalfal"
 summary:
   es: "Escalada tradicional en el sector Alfalfal, en el Cajón del Maipo. Rutas de monolargo y multilargo en granito de calidad, todo el año."
-  en: "Traditional climbing at Alfalfal sector, Cajón del Maipo. Single and multi-pitch routes on quality granite, all year round."
+  en: "Traditional climbing in Alfalfal, Cajón del Maipo. Single-pitch and multi-pitch granite routes on excellent rock, year-round."
 location:
   es: "Alfalfal, Cajón del Maipo, Chile"
   en: "Alfalfal, Cajón del Maipo, Chile"
@@ -27,10 +27,10 @@ itinerary:
   - day: 1
     title:
       es: "Jornada completa en roca"
-      en: "Full day on rock"
+      en: "Full day of climbing"
     body:
       es: "Salida desde Santiago, rutas de monolargo o multilargo en Alfalfal según nivel del grupo, retorno a Santiago."
-      en: "Departure from Santiago, single or multi-pitch routes at Alfalfal based on group level, return to Santiago."
+      en: "Departure from Santiago, single-pitch or multi-pitch climbing in Alfalfal based on the group's level, then return to Santiago."
 includes:
   es:
     - "Guía certificado"

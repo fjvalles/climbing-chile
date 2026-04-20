@@ -120,22 +120,56 @@ const site = defineCollection({
     z.discriminatedUnion('type', [
       z.object({
         type: z.literal('header'),
-        logo: image(),
+        logo: z.string(),
         logoText: z.object({ top: z.string(), bottom: z.string() }),
         bookButton: localized,
+        nav: z.object({
+          expeditions: localized,
+          training: localized,
+          about: localized,
+          calendar: localized,
+        }),
       }),
       z.object({
         type: z.literal('hero'),
         eyebrow: localized,
         title: localized,
+        titleHighlight: localized,
         subtitle: localized,
         primaryButton: localized,
         secondaryButton: localized,
+        backgroundFrames: z
+          .array(
+            z.object({
+              image: image(),
+              position: z.string(),
+            })
+          )
+          .min(1),
       }),
       z.object({
         type: z.literal('about'),
+        eyebrow: localized,
         title: localized,
         values: z.array(z.object({ title: localized, body: localized })).max(3),
+      }),
+      z.object({
+        type: z.literal('home_sections'),
+        expeditions: z.object({
+          eyebrow: localized,
+          title: localized,
+          button: localized,
+          filters: z.object({
+            all: localized,
+            chile: localized,
+            international: localized,
+          }),
+        }),
+        training: z.object({
+          eyebrow: localized,
+          title: localized,
+          button: localized,
+        }),
       }),
       z.object({
         type: z.literal('testimonials'),
@@ -145,8 +179,11 @@ const site = defineCollection({
       z.object({
         type: z.literal('cta'),
         title: localized,
+        titleHighlight: localized,
         subtitle: localized,
         button: localized,
+        features: z.array(z.object({ label: localized })).default([]),
+        responseNote: localized,
       }),
       z.object({
         type: z.literal('footer'),
@@ -156,7 +193,29 @@ const site = defineCollection({
         whatsappDisplay: z.string(),
         email: z.string().email(),
         instagram: z.string().url(),
+        instagramDisplay: z.string(),
         address: localized,
+        navHeading: localized,
+        contactHeading: localized,
+        nav: z.object({
+          expeditions: localized,
+          training: localized,
+          about: localized,
+          testimonials: localized,
+          customPlan: localized,
+          calendar: localized,
+          terms: localized,
+          privacy: localized,
+        }),
+        contactLabels: z.object({
+          whatsapp: localized,
+          instagram: localized,
+          email: localized,
+        }),
+        rights: localized,
+        designedBy: localized,
+        creditName: z.string(),
+        creditUrl: z.string(),
       }),
       z.object({
         type: z.union([z.literal('terms'), z.literal('privacy')]),

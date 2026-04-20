@@ -4,7 +4,7 @@ title:
   en: "Puntiagudo Volcano"
 summary:
   es: "Ascenso técnico al Volcán Puntiagudo (2.493 m), uno de los volcanes más estéticos y exigentes del sur de Chile. Base en Puerto Varas."
-  en: "Technical ascent of Puntiagudo Volcano (2,493 m), one of the most aesthetic and demanding peaks in southern Chile. Base in Puerto Varas."
+  en: "Technical ascent of Puntiagudo Volcano (2,493 m), one of the most striking and demanding peaks in southern Chile. Based out of Puerto Varas."
 location:
   es: "Puerto Varas, Región de Los Lagos, Chile"
   en: "Puerto Varas, Los Lagos Region, Chile"
@@ -42,7 +42,7 @@ itinerary:
   - day: 3
     title:
       es: "Desmontaje y retorno"
-      en: "Pack-down and return"
+      en: "Break camp and return"
     body:
       es: "Desmontaje del campamento y traslado de regreso a Puerto Varas."
       en: "Break camp and transfer back to Puerto Varas."

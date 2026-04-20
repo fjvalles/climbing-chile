@@ -1,10 +1,10 @@
 ---
 title:
   es: "Progresión en nieve y hielo"
-  en: "Snow and ice progression"
+  en: "Snow and ice travel"
 summary:
   es: "Curso técnico avanzado para dominar los fundamentos de la alta montaña: tránsito en glaciares, autodetención y seguridad en cordada."
-  en: "Advanced technical course to master high mountain fundamentals: glacier travel, self-arrest, and rope team safety."
+  en: "Advanced technical course focused on mountaineering fundamentals: glacier travel, self-arrest, and rope-team safety."
 level: "intermediate"
 durationDays: 4
 location:
@@ -23,9 +23,9 @@ requirements:
     - "Deseable experiencia previa en trekking de media montaña"
     - "Equipo personal básico (se puede orientar en el arriendo)"
   en:
-    - "Physical health compatible with high mountain activity"
-    - "Desirable previous experience in mid-mountain trekking"
-    - "Basic personal gear (rental guidance provided)"
+    - "Good physical condition for high-altitude activity"
+    - "Previous hiking experience in the mountains is recommended"
+    - "Basic personal gear (we can advise on rentals)"
 includes:
   es:
     - "Guía de montaña certificado"
@@ -59,24 +59,24 @@ itinerary:
   - day: 2
     title:
       es: "Técnicas de Marcha y Autodetención"
-      en: "Walking Techniques and Self-Arrest"
+      en: "Movement techniques and self-arrest"
     body:
       es: "Uso correcto de piolet y crampones. Práctica intensiva de autodetención en diferentes pendientes y posiciones. Introducción al anclaje en nieve."
       en: "Correct use of ice axe and crampons. Intensive self-arrest practice on different slopes and positions. Introduction to snow anchors."
   - day: 3
     title:
       es: "Cordada y Rescate en Grietas"
-      en: "Rope Teams and Crevasse Rescue"
+      en: "Rope teams and crevasse rescue"
     body:
       es: "Técnicas de encordamiento para tránsito glaciar. Protocolos de seguridad y fundamentos de rescate en grietas (sistemas de polipasto básicos)."
       en: "Roping techniques for glacier travel. Safety protocols and crevasse rescue fundamentals (basic haul systems)."
   - day: 4
     title:
       es: "Ascensión Práctica y Cierre"
-      en: "Practical Ascent and Closing"
+      en: "Practical ascent and wrap-up"
     body:
       es: "Aplicación de todos los conocimientos en una ascensión técnica a una cumbre del sector. Evaluación, desmontaje de campamento y retorno a Santiago."
-      en: "Application of all skills during a technical ascent to a local summit. Evaluation, camp teardown, and return to Santiago."
+      en: "Application of all skills during a technical ascent to a summit in the area. Final assessment, camp teardown, and return to Santiago."
 featured: true
 cover: "../assets/frio.webp"
 order: 2

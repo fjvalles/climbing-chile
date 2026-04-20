@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import { getEntry } from 'astro:content';
 
 interface Props {
@@ -16,13 +15,11 @@ if (!header || header.data.type !== 'header') return null;
 const { logo, logoText } = header.data;
 ---
 <a href="/" aria-label="Climbing Chile — Inicio" class={`inline-flex items-center gap-3 ${className}`}>
-  <Image
+  <img
     src={logo}
     alt="Climbing Chile logo"
     width={120}
     height={120}
-    quality={100}
-    format="webp"
     loading="eager"
     class="w-13 h-13 object-contain"
   />

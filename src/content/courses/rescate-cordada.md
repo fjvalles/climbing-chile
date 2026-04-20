@@ -1,7 +1,7 @@
 ---
 title:
   es: "Rescate en cordada"
-  en: "Self-rescue in rope teams"
+  en: "Rope-team self-rescue"
 summary:
   es: "Sistemas de polipasto, rescate en grieta, maniobras con cuerda fija. Para escaladores que buscan autonomía y seguridad."
   en: "Haul systems, crevasse rescue, fixed-rope maneuvers. For climbers seeking autonomy and safety."
@@ -34,7 +34,7 @@ includes:
   en:
     - "Certified mountain guide"
     - "Group technical gear (ropes, pulleys, cords)"
-    - "Support educational material"
+    - "Supporting course materials"
 excludes:
   es:
     - "Transporte"
@@ -55,7 +55,7 @@ itinerary:
   - day: 2
     title:
       es: "Rescate en Grietas y Auto-rescate"
-      en: "Crevasse and Self-Rescue"
+      en: "Crevasse rescue and self-rescue"
     body:
       es: "Maniobras de ascenso por cuerda fija y protocolos de rescate en grietas en terreno real."
       en: "Fixed-rope ascent maneuvers and crevasse rescue protocols on real terrain."

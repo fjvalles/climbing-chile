@@ -10,32 +10,43 @@ const hero = await getEntry('site', 'hero');
 const s = site?.data;
 const h = hero?.data;
 const waHref = s ? `https://wa.me/${s.whatsapp.replace(/\D/g, '')}` : '#';
+const summitFrames = h?.backgroundFrames ?? [];
+const heroHighlightFallback = {
+  es: 'con tus sueños',
+  en: 'to your mountain',
+} as const;
+const heroHighlight = (h?.titleHighlight?.[lang] ?? heroHighlightFallback[lang]).trim();
 ---
 <section class="relative overflow-hidden bg-[var(--color-ink)] text-[var(--color-bone)]">
   <div class="absolute inset-0" aria-hidden="true">
-    <video
-      autoplay
-      loop
-      muted
-      playsinline
-      preload="auto"
-      data-hero-video
-      class="w-full h-full object-cover"
-    >
-      <source src="/hero-bg.mp4" type="video/mp4" />
-    </video>
+    <div class="hero-film absolute inset-0">
+      {summitFrames.map((frame, index) => (
+        <div
+          class="hero-film__frame"
+          style={`background-image: url(${frame.image.src}); background-position: ${frame.position}; animation-delay: ${index * (18 / summitFrames.length)}s;`}
+        ></div>
+      ))}
+    </div>
     <div class="absolute inset-0 bg-black/50 mix-blend-multiply"></div>
     <div class="absolute inset-0 bg-[var(--color-ink)] opacity-40"></div>
+    <div class="absolute inset-0 hero-film__glow"></div>
   </div>
   <div class="relative max-w-7xl mx-auto px-5 md:px-8 pt-20 md:pt-32 pb-24 md:pb-40">
     <p class="eyebrow text-[var(--color-brand-yellow)]">{h?.eyebrow[lang]}</p>
     <h1 class="display text-4xl md:text-7xl mt-6 md:whitespace-pre-line max-w-4xl">
       {h?.title[lang].split('\n').map((line: string) => {
-        const highlights = ["con tus sueños", "vertical dreams", "your vertical"];
-        const needsHighlight = highlights.some(h => line.toLowerCase().includes(h.toLowerCase()));
+        const escapedHeroHighlight = heroHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         return (
-          <span class={`block ${needsHighlight ? 'text-[var(--color-brand-yellow)]' : ''}`}>
-            {line}
+          <span class="block">
+            {line
+              .split(new RegExp(`(${escapedHeroHighlight})`, 'gi'))
+              .map((part) =>
+                heroHighlight.length > 0 && part.toLowerCase() === heroHighlight.toLowerCase() ? (
+                  <span class="text-[var(--color-brand-yellow)]">{part}</span>
+                ) : (
+                  part
+                )
+              )}
           </span>
         );
       })}
@@ -53,3 +64,64 @@ const waHref = s ? `https://wa.me/${s.whatsapp.replace(/\D/g, '')}` : '#';
   </div>
   <div class="divider-ticks absolute bottom-0 inset-x-0" style="background-image: repeating-linear-gradient(90deg, var(--color-brand-yellow) 0 12px, transparent 12px 24px);"></div>
 </section>
+
+<style>
+  .hero-film {
+    overflow: hidden;
+  }
+
+  .hero-film__frame {
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0;
+    transform: scale(1.02);
+    animation: hero-film-cycle 18s infinite ease-in-out;
+    will-change: transform, opacity;
+  }
+
+  .hero-film__glow {
+    background:
+      radial-gradient(circle at 18% 30%, rgb(247 193 68 / 0.22), transparent 28%),
+      linear-gradient(180deg, rgb(12 18 25 / 0.05) 0%, rgb(12 18 25 / 0.35) 100%);
+  }
+
+  @keyframes hero-film-cycle {
+    0% {
+      opacity: 0;
+      transform: scale(1.02);
+    }
+
+    8% {
+      opacity: 1;
+    }
+
+    28% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    36% {
+      opacity: 0;
+      transform: scale(1.14);
+    }
+
+    100% {
+      opacity: 0;
+      transform: scale(1.14);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-film__frame {
+      animation: none;
+      opacity: 0;
+      transform: none;
+    }
+
+    .hero-film__frame:first-child {
+      opacity: 1;
+    }
+  }
+</style>

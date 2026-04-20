@@ -13,6 +13,8 @@ export const ui = {
     'nav.expeditions': 'Expediciones',
     'nav.training': 'Formación',
     'nav.about': 'Nosotros',
+    'nav.testimonials': 'Testimonios',
+    'nav.custom_plan': 'Plan a medida',
     'nav.contact': 'Contacto',
     'nav.book': 'Hablar con un guía',
     'nav.terms': 'Términos y Condiciones',
