@@ -42,6 +42,7 @@ const expeditions = defineCollection({
           })
         )
         .default([]),
+      details: localized.optional(),
       order: z.number().default(100),
     }),
 });
@@ -71,6 +72,7 @@ const courses = defineCollection({
           })
         )
         .default([]),
+      details: localized.optional(),
       cover: image(),
       gallery: z.array(image()).default([]),
       dates: z

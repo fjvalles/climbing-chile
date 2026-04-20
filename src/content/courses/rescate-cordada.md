@@ -61,7 +61,18 @@ itinerary:
       en: "Fixed-rope ascent maneuvers and crevasse rescue protocols on real terrain."
 featured: false
 cover: "../assets/roca.webp"
+details:
+  es: |
+    El curso de Rescate en Cordada es fundamental para quienes quieren dejar de depender del guía y empezar a gestionar sus propios riesgos en montaña. Nos enfocamos en maniobras eficientes con el mínimo equipo necesario, priorizando la resolución de problemas en situaciones críticas.
+
+    Trabajamos en Farellones, sector que ofrece anclajes naturales y artificiales ideales para practicar los sistemas de polipasto en condiciones cercanas a la realidad. Cada maniobra se practica primero en estático y luego con carga real, para que el músculo retenga el procedimiento correcto.
+
+    Es el curso que distingue al escalador recreativo del montañista comprometido. Si ya llevas al menos una temporada escalando y quieres dar el salto a la autonomía real, este es tu siguiente paso.
+  en: |
+    The Rope-Team Self-Rescue course is essential for climbers who want to stop depending entirely on a guide and start managing mountain risk on their own. We focus on efficient systems using minimal gear, always prioritizing problem-solving in critical situations.
+
+    We work in Farellones, a sector with both natural and artificial anchors ideal for practicing haul systems in near-real conditions. Every maneuver is drilled first on static loads, then on live weight, so the right procedure becomes muscle memory.
+
+    This is the course that separates the recreational climber from the committed mountaineer. If you have at least one full season of climbing behind you and want to take the leap to real autonomy, this is your next step.
 order: 3
 ---
-
-El curso de Rescate en Cordada es fundamental para quienes quieren dejar de depender del guía y empezar a gestionar sus propios riesgos en montaña. Nos enfocamos en maniobras eficientes con el mínimo equipo necesario, priorizando la resolución de problemas en situaciones críticas.

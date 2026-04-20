@@ -1,20 +1,24 @@
 ---
 import { getEntry } from 'astro:content';
+import type { Lang } from '../i18n/ui';
 
 interface Props {
   variant?: 'dark' | 'light';
   class?: string;
+  lang?: Lang;
 }
-const { variant = 'dark', class: className = '' } = Astro.props;
+const { variant = 'dark', class: className = '', lang = 'es' } = Astro.props;
 const header = await getEntry('site', 'header');
 
 const textColor = variant === 'dark' ? '#0B0B0B' : '#F7F5F0';
 const accent = '#F2C200';
+const homeHref = lang === 'en' ? '/en' : '/';
+const homeLabel = lang === 'en' ? 'Climbing Chile - Home' : 'Climbing Chile - Inicio';
 
 if (!header || header.data.type !== 'header') return null;
 const { logo, logoText } = header.data;
 ---
-<a href="/" aria-label="Climbing Chile — Inicio" class={`inline-flex items-center gap-3 ${className}`}>
+<a href={homeHref} aria-label={homeLabel} class={`inline-flex items-center gap-3 ${className}`}>
   <img
     src={logo}
     alt="Climbing Chile logo"

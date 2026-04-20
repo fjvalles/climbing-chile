@@ -47,7 +47,10 @@ excludes:
   en:
     - "Personal harness, climbing shoes and helmet"
     - "Meals"
+details:
+  es: |
+    Alfalfal es uno de los sectores de escalada trad más completos cerca de Santiago. Granito sólido, rutas de todos los grados y la posibilidad de hacer desde monolargo hasta proyectos multilargo en un mismo día. Ideal para quienes quieren iniciarse en la escalada tradicional o perfeccionar sus habilidades en roca natural.
+  en: |
+    Alfalfal is one of the most complete trad climbing sectors near Santiago. Expect solid granite, routes across a wide range of grades, and the chance to move from single-pitch climbing to longer multi-pitch objectives in the same day. It is ideal for climbers who want to start trad climbing or sharpen their skills on natural rock.
 order: 5
 ---
-
-Alfalfal es uno de los sectores de escalada trad más completos cerca de Santiago. Granito sólido, rutas de todos los grados y la posibilidad de hacer desde monolargo hasta proyectos multilargo en un mismo día. Ideal para quienes quieren iniciarse en la escalada tradicional o perfeccionar sus habilidades en roca natural.

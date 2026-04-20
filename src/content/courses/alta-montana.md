@@ -79,7 +79,18 @@ itinerary:
       en: "Application of all skills during a technical ascent to a summit in the area. Final assessment, camp teardown, and return to Santiago."
 featured: true
 cover: "../assets/frio.webp"
+details:
+  es: |
+    El programa **Aptitud en Condiciones de Frío (ACF)**, desarrollado en alianza con **@andesrope**, es el estándar para quienes buscan autonomía real en los Andes. No solo aprenderás a usar el equipo —piolet, crampones, cuerda glaciar— sino a leer el terreno y tomar decisiones de seguridad críticas en ambientes de alta montaña.
+
+    Trabajamos en el glaciar Loma Larga del Cajón del Maipo, a menos de dos horas de Santiago. El terreno mixto de nieve y hielo es ideal para practicar todas las técnicas en condiciones reales sin necesidad de desplazarse al extranjero.
+
+    El ratio máximo de 1 guía por 6 estudiantes y los 4 días de terreno permiten una progresión real: al finalizar tendrás los fundamentos para encordarte con autonomía y planificar travesías en glaciar con seguridad.
+  en: |
+    The **Cold Conditions Readiness (ACF)** program, developed together with **@andesrope**, is built for climbers who want real autonomy in the Andes. You will not only learn to use the gear — ice axe, crampons, glacier rope — but also how to read terrain and make critical safety decisions in high-mountain environments.
+
+    We work on the Loma Larga glacier in Cajón del Maipo, less than two hours from Santiago. The mixed snow and ice terrain is ideal for practicing every technique in real conditions without leaving the country.
+
+    A maximum ratio of 1 guide per 6 students and 4 full days in the field allow genuine progression: by the end you will have the foundation to rope up autonomously and plan glacier crossings safely.
 order: 2
 ---
-
-El programa **Aptitud en Condiciones de Frío (ACF)**, desarrollado en alianza con **@andesrope**, es el estándar para quienes buscan autonomía en los Andes. No solo aprenderás a usar el equipo, sino a entender el terreno y tomar decisiones de seguridad críticas en ambientes de alta montaña.

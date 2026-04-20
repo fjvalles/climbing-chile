@@ -70,7 +70,10 @@ excludes:
     - Personal technical clothing (base layer, softshell, gloves)
     - Meals on route
     - Mountain insurance
+details:
+  es: |
+    El Paso Los Libertadores concentra algunas de las mejores cascadas de hielo de Chile, accesibles desde Santiago en pocas horas. Las cascadas Mantito y Manto de Hielo ofrecen rutas para todos los niveles, guiadas por instructores UIAGM/ANGM certificados. Temporada de operación: junio y julio.
+  en: |
+    Paso Los Libertadores concentrates some of Chile's best icefalls, all reachable from Santiago within a few hours. Mantito and Manto de Hielo offer lines for a range of levels, guided by UIAGM/ANGM-certified instructors. Operating season: June and July.
 order: 4
 ---
-
-El Paso Los Libertadores concentra algunas de las mejores cascadas de hielo de Chile, accesibles desde Santiago en pocas horas. Las cascadas Mantito y Manto de Hielo ofrecen rutas para todos los niveles, guiadas por instructores UIAGM/ANGM certificados. Temporada de operación: junio y julio.

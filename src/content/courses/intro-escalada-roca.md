@@ -63,7 +63,18 @@ itinerary:
       en: "Refined footwork, rope-team communication, and the critical cleaning and lowering sequence at the anchor. Intensive supervised practice."
 featured: true
 cover: "../assets/roca.webp"
+details:
+  es: |
+    Este curso está diseñado para que pierdas el miedo y ganes confianza en el mundo vertical. Salimos a sectores icónicos de Santiago como Las Chilcas o El Arrayán, donde la roca es generosa y perfecta para dar los primeros pasos.
+
+    La proporción máxima de 1 guía por cada 6 estudiantes garantiza atención personalizada desde el primer momento. No nos quedamos en la sala de reuniones: el aprendizaje ocurre directamente en la roca, con las manos en el granito y los pies en pequeñas presas reales.
+
+    Entregamos todo el equipo de seguridad necesario: cuerda, arnés, casco y sistema de freno. Solo tienes que llegar con ropa cómoda y ganas de escalar.
+  en: |
+    This course is designed to replace fear with confidence in the vertical world. We head to iconic climbing areas near Santiago such as Las Chilcas or El Arrayán, where the rock is friendly and perfect for your first steps outdoors.
+
+    A maximum ratio of 1 guide per 6 students ensures personalized attention from the very start. We skip the classroom and go straight to the rock — learning happens with your hands on granite and your feet on real holds.
+
+    We provide all the safety gear you need: rope, harness, helmet, and belay device. Just show up with comfortable clothes and a willingness to climb.
 order: 1
 ---
-
-Este curso está diseñado para que pierdas el miedo y ganes confianza. Salimos a sectores icónicos de Santiago como Las Chilcas o El Arrayán, donde la roca es generosa y perfecta para dar los primeros pasos. Entregamos todo el equipo de seguridad necesario.

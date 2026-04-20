@@ -94,7 +94,10 @@ excludes:
     - "Transfers Santiago ↔ Cochamó"
     - "Personal harness, climbing shoes and pack"
     - "Mountain insurance"
+details:
+  es: |
+    Cochamó es el destino de big wall más espectacular de Sudamérica. Paredes de granito de hasta 1.000 m, bosques de alerce milenario y rutas que van desde el monolargo hasta proyectos de varios días. Reservas para enero-febrero 2027 ya disponibles.
+  en: |
+    Cochamo is South America's most spectacular big-wall destination. Expect granite walls up to 1,000 meters high, ancient alerce forests, and climbing that ranges from single-pitch routes to multi-day objectives. Bookings for January-February 2027 are already open.
 order: 3
 ---
-
-Cochamó es el destino de big wall más espectacular de Sudamérica. Paredes de granito de hasta 1.000 m, bosques de alerce milenario y rutas que van desde el monolargo hasta proyectos de varios días. Reservas para enero–febrero 2027 ya disponibles.

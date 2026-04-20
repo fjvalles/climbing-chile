@@ -106,7 +106,10 @@ excludes:
     - "Personal high-altitude gear"
     - "Mountain / rescue insurance"
     - "Gratuities"
+details:
+  es: |
+    Una expedición clásica y progresiva por cuatro nevados de la Cordillera Blanca: Urus Este (5.450 m), Vallunaraju (5.686 m), Yanapaccha (5.460 m) y el objetivo principal, Tocllaraju (6.034 m). Aclimatación bien planificada, guía UIAGM certificado y pequeños grupos para maximizar tu probabilidad de cumbre.
+  en: |
+    This is a classic progressive expedition across four Cordillera Blanca peaks: Urus Este (5,450 m), Vallunaraju (5,686 m), Yanapaccha (5,460 m), and the main objective, Tocllaraju (6,034 m). With a well-planned acclimatization strategy, an IFMGA/UIAGM guide, and small groups, the program is designed to maximize your summit chances.
 order: 1
 ---
-
-Una expedición clásica y progresiva por cuatro nevados de la Cordillera Blanca: Urus Este (5.450 m), Vallunaraju (5.686 m), Yanapaccha (5.460 m) y el objetivo principal, Tocllaraju (6.034 m). Aclimatación bien planificada, guía UIAGM certificado y pequeños grupos para maximizar tu probabilidad de cumbre.

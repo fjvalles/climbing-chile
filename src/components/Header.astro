@@ -1,7 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { useTranslations, type Lang } from '../i18n/ui';
-import { r, altLang, getAltPath } from '../i18n/routes';
+import { r, getAltPath } from '../i18n/routes';
 import { getEntry } from 'astro:content';
 
 interface Props {
@@ -9,21 +9,13 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const alt = altLang(lang);
+
 const current = Astro.url.pathname;
 const site = await getEntry('site', 'footer');
 const header = await getEntry('site', 'header');
 const s = site?.data;
 const h = header?.data;
 const waHref = s ? `https://wa.me/${s.whatsapp.replace(/\D/g, '')}` : '#';
-const langLabels = {
-  es: 'Español',
-  en: 'English',
-} as const;
-const langShortLabels = {
-  es: 'ES',
-  en: 'EN',
-} as const;
 
 const nav = [
   { label: h?.nav.expeditions[lang] ?? t('nav.expeditions'), href: r(lang, 'expeditions'), isPill: false },
@@ -36,7 +28,7 @@ const langAltHref = getAltPath(current, lang);
 ---
 <header class="sticky top-0 z-40 bg-[var(--color-bone)]/90 backdrop-blur border-b border-[var(--color-line)]">
   <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 md:h-20 flex items-center justify-between">
-    <Logo />
+    <Logo lang={lang} />
     <nav class="hidden md:flex items-center gap-8 h-full" aria-label="Primary">
       {nav.map(({ label, href, isPill }) => (
         isPill ? (
@@ -65,17 +57,18 @@ const langAltHref = getAltPath(current, lang);
       ))}
     </nav>
     <div class="flex items-center gap-3">
-      <div class="inline-flex md:hidden lang-toggle lang-toggle--compact" aria-label={lang === 'es' ? 'Selector de idioma' : 'Language selector'}>
-        <span class="lang-toggle__active eyebrow" aria-current="true">{langShortLabels[lang]}</span>
-        <a href={langAltHref} data-lang-switch class="lang-toggle__option eyebrow" aria-label={t('lang.switch')}>
-          {langShortLabels[alt]}
-        </a>
-      </div>
-      <div class="hidden md:inline-flex lang-toggle" aria-label={lang === 'es' ? 'Selector de idioma' : 'Language selector'}>
-        <span class="lang-toggle__active eyebrow" aria-current="true">{langLabels[lang]}</span>
-        <a href={langAltHref} data-lang-switch class="lang-toggle__option eyebrow" aria-label={t('lang.switch')}>
-          {langLabels[alt]}
-        </a>
+      <div class="inline-flex lang-toggle" aria-label={lang === 'es' ? 'Selector de idioma' : 'Language selector'}>
+        {lang === 'es' ? (
+          <>
+            <span class="lang-toggle__active eyebrow" aria-current="true">ES</span>
+            <a href={langAltHref} data-lang-switch class="lang-toggle__option eyebrow" aria-label={t('lang.switch')}>EN</a>
+          </>
+        ) : (
+          <>
+            <a href={langAltHref} data-lang-switch class="lang-toggle__option eyebrow" aria-label={t('lang.switch')}>ES</a>
+            <span class="lang-toggle__active eyebrow" aria-current="true">EN</span>
+          </>
+        )}
       </div>
       <div class="hidden md:flex">
         <a href={waHref} target="_blank" rel="noopener" class="btn btn-shimmer bg-[#25D366] hover:bg-[#1ea855] border-transparent text-white flex items-center gap-2">

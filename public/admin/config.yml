@@ -30,6 +30,14 @@ collections:
         fields:
           - { label: "Español", name: "es", widget: "text" }
           - { label: "English", name: "en", widget: "text" }
+      - label: "Descripción (párrafos debajo del resumen)"
+        name: "details"
+        widget: "object"
+        required: false
+        hint: "Texto largo con párrafos que aparece debajo del resumen. Admite markdown."
+        fields:
+          - { label: "Español", name: "es", widget: "markdown", required: false }
+          - { label: "English", name: "en", widget: "markdown", required: false }
       - label: "Ubicación"
         name: "location"
         widget: "object"
@@ -117,6 +125,14 @@ collections:
         fields:
           - { label: "Español", name: "es", widget: "text" }
           - { label: "English", name: "en", widget: "text" }
+      - label: "Descripción (párrafos debajo del resumen)"
+        name: "details"
+        widget: "object"
+        required: false
+        hint: "Texto largo con párrafos que aparece debajo del resumen. Admite markdown."
+        fields:
+          - { label: "Español", name: "es", widget: "markdown", required: false }
+          - { label: "English", name: "en", widget: "markdown", required: false }
       - { label: "Nivel", name: "level", widget: "select", options: ["intro","intermediate","advanced"] }
       - { label: "Duración (días)", name: "durationDays", widget: "number", value_type: "int", min: 1 }
       - label: "Ubicación"

@@ -29,7 +29,6 @@ Sitio web oficial de [Climbing Chile](https://www.instagram.com/climbingchile_cl
 
 ```
 src/
-├── assets/            # Assets UI fuera del content pipeline (ej: logo)
 ├── components/        # Header (sticky), Footer, Hero, cards y secciones
 ├── content/
 │   ├── assets/        # Imágenes usadas por expediciones, cursos y equipo
@@ -51,7 +50,6 @@ src/
 public/
 ├── admin/             # Decap CMS — accesible en /admin
 ├── uploads/           # Imágenes subidas desde el CMS
-├── hero-bg.mp4        # Video local del hero
 └── robots.txt
 ```
 
@@ -257,4 +255,3 @@ npm run build
 - **Contenido y Marca:** Todos los textos, itinerarios, logotipos, activos multimedia y la marca **Climbing Chile** son propiedad exclusiva de la empresa.
 
 Queda estrictamente prohibida la reproducción, distribución, modificación o transmisión de cualquier parte de este proyecto sin el consentimiento previo y por escrito de los titulares correspondientes.
-

@@ -14,12 +14,13 @@ if (!entry) throw new Error(`${type} content not found`);
 
 const { title, content } = entry.data;
 const htmlContent = marked.parse(content[lang]);
+const legalLabel = lang === 'es' ? 'Legal' : 'Legal';
 ---
 <Base lang={lang} title={title[lang]}>
   <!-- Simple Header with background -->
   <header class="bg-[var(--color-ink)] text-[var(--color-bone)] pt-32 pb-20 md:pt-44 md:pb-28">
     <div class="max-w-4xl mx-auto px-5 md:px-8">
-      <div class="tape mb-6">Legal</div>
+      <div class="tape mb-6">{legalLabel}</div>
       <h1 class="display text-5xl md:text-8xl">{title[lang]}</h1>
     </div>
   </header>

@@ -1,9 +1,9 @@
-export const languages = {
+const languages = {
   es: 'ES',
   en: 'EN',
 } as const;
 
-export const defaultLang = 'es' as const;
+const defaultLang = 'es' as const;
 
 export type Lang = keyof typeof languages;
 
@@ -65,13 +65,6 @@ export const ui = {
     'contact.form.sending': 'Enviando…',
     'contact.form.success': 'Gracias. Te responderemos pronto.',
     'contact.form.error': 'Algo salió mal. Inténtalo de nuevo o escríbenos por WhatsApp.',
-
-    'footer.tagline': 'Climbing & Mountain Guides.\nBased in Santiago de Chile.',
-    'footer.nav': 'Navegación',
-    'footer.contact': 'Contacto',
-    'footer.follow': 'Síguenos',
-    'footer.rights': 'Todos los derechos reservados.',
-    'footer.designedBy': 'Diseñado por',
 
     'about.values.title': 'Lo que nos mueve',
     'about.value1.title': 'Seguridad',
@@ -139,13 +132,6 @@ export const ui = {
     'contact.form.success': "Thanks. We'll be in touch soon.",
     'contact.form.error': 'Something went wrong. Try again or WhatsApp us.',
 
-    'footer.tagline': 'Climbing & Mountain Guides.\nBased in Santiago de Chile.',
-    'footer.nav': 'Navigation',
-    'footer.contact': 'Contact',
-    'footer.follow': 'Follow',
-    'footer.rights': 'All rights reserved.',
-    'footer.designedBy': 'Designed by',
-
     'about.values.title': 'What drives us',
     'about.value1.title': 'Safety',
     'about.value1.body': "We can't promise summits; we promise you get home. Safety is non-negotiable.",
@@ -158,7 +144,7 @@ export const ui = {
   },
 } as const;
 
-export type UIKey = keyof (typeof ui)['es'];
+type UIKey = keyof (typeof ui)['es'];
 
 export function useTranslations(lang: Lang) {
   return function t(key: UIKey): string {
