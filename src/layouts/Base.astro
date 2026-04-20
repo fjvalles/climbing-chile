@@ -5,6 +5,8 @@ import Footer from '../components/Footer.astro';
 import type { Lang } from '../i18n/ui';
 import { ClientRouter } from 'astro:transitions';
 
+import { getAltPath } from '../i18n/routes';
+
 interface Props {
   lang: Lang;
   title: string;
@@ -13,16 +15,35 @@ interface Props {
 }
 const { lang, title, description, ogImage } = Astro.props;
 const siteName = 'Climbing Chile';
+const currentPath = Astro.url.pathname;
+const altPath = getAltPath(currentPath, lang);
+const siteUrl = Astro.site || 'https://climbingchile_cl.netlify.app'; // Fallback if Astro.site is not set
+
 const fullTitle = title.includes(siteName) ? title : `${title} · ${siteName}`;
-const desc = description ?? 'Climbing & Mountain Guides. Expediciones, escalada y formación técnica en los Andes. Based in Santiago de Chile.';
+
+const defaultDesc = lang === 'es' 
+  ? 'Expediciones, escalada y formación técnica en los Andes de Chile. Guías certificados UIAGM/ANGM.' 
+  : 'Expeditions, climbing and technical training in the Chilean Andes. Certified UIAGM/ANGM guides.';
+const desc = description ?? defaultDesc;
+
 const og = ogImage ?? '/og.jpg';
-const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const canonical = new URL(currentPath, siteUrl).toString();
+const alternate = new URL(altPath, siteUrl).toString();
+
+const esPath = lang === 'es' ? canonical : alternate;
+const enPath = lang === 'en' ? canonical : alternate;
 ---
 <!doctype html>
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- International SEO (hreflang) -->
+    <link rel="alternate" hreflang="es" href={esPath} />
+    <link rel="alternate" hreflang="en" href={enPath} />
+    <link rel="alternate" hreflang="x-default" href={esPath} />
+
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="512x512" />
     <link rel="shortcut icon" href="/favicon.ico" sizes="any" />
@@ -40,17 +61,16 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://identity.netlify.com" />
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <ClientRouter />
     <!-- Google Analytics 4: reemplaza G-XXXXXXXXXX con tu Measurement ID -->
     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script> -->
-    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body class="min-h-screen flex flex-col">
+    <a href="#main-content" class="skip-link">{lang === 'es' ? 'Saltar al contenido principal' : 'Skip to main content'}</a>
     <Header lang={lang} />
-    <main class="flex-1">
+    <main id="main-content" class="flex-1" tabindex="-1">
       <slot />
     </main>
     <Footer lang={lang} />

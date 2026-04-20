@@ -35,7 +35,11 @@ const allActivitiesRaw = [
     categoryKey: isCourse ? 'course' : 'expedition',
     duration: entry.data.durationDays,
     cover: entry.data.cover,
-    price: `${entry.data.currency} $${entry.data.priceFrom?.toLocaleString()}`,
+    price: new Intl.NumberFormat(lang === 'es' ? 'es-CL' : 'en-US', {
+      style: 'currency',
+      currency: entry.data.currency || 'USD',
+      maximumFractionDigits: 0
+    }).format(entry.data.priceFrom || 0),
     available: date.spots !== undefined ? date.spots : (isCourse ? (entry.data as any).maxStudents : (entry.data as any).maxSpots) || 0,
     href: lang === 'es' 
       ? `/${isCourse ? 'formacion' : 'expediciones'}/${entry.data.slug || entry.id}`
@@ -60,7 +64,7 @@ allActivities.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTi
 // Group by Month Year
 const groupedActivities = allActivities.reduce((acc, curr) => {
   const dateObj = new Date(curr.date);
-  let monthYear = dateObj.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { month: 'long', year: 'numeric' });
+  let monthYear = dateObj.toLocaleDateString(lang === 'es' ? 'es-CL' : 'en-US', { month: 'long', year: 'numeric' });
   monthYear = monthYear.charAt(0).toUpperCase() + monthYear.slice(1);
   if (!acc[monthYear]) {
     acc[monthYear] = [];
@@ -77,7 +81,7 @@ const parseDate = (dateStr: string) => {
 const formatDateRange = (startStr: string, endStr: string) => {
   const start = parseDate(startStr);
   const end = parseDate(endStr);
-  const locale = lang === 'es' ? 'es-ES' : 'en-US';
+  const locale = lang === 'es' ? 'es-CL' : 'en-US';
   const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit' };
 
   if (startStr === endStr) {
