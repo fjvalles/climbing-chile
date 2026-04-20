@@ -13,8 +13,7 @@ Sitio web oficial de [Climbing Chile](https://www.instagram.com/climbingchile_cl
 | UX | Navegación fluida, CTAs pegajosos en móvil y filtrado dinámico |
 | Idiomas | i18n ES / EN — español en `/`, inglés en `/en/*` |
 | CMS | [Decap CMS](https://decapcms.org) vía Netlify Identity + Git Gateway |
-| Hosting | [Netlify](https://netlify.com) — hosting, formularios y gestión de identidad |
-| Formularios | Netlify Forms (integrado, sin dependencias externas) |
+| Hosting | [Netlify](https://netlify.com) — hosting y gestión de identidad para CMS |
 | Seguridad | Security headers en `netlify.toml` (CSP, HSTS, X-Frame-Options…) |
 
 ## Características destacadas
@@ -23,6 +22,7 @@ Sitio web oficial de [Climbing Chile](https://www.instagram.com/climbingchile_cl
 - **Optimización Móvil:** Menú colapsable persistente, CTAs "sticky" en las vistas de detalle y tarjetas interactivas en el calendario.
 - **Calendario Dinámico:** Filtrado instantáneo por tipo de actividad (Expedición o Formación) con actualización en tiempo real.
 - **Booking Unificado:** Integración directa con WhatsApp para reservas, con mensajes preconfigurados según la actividad y el idioma.
+- **Prueba Social & Conversión:** Sección de testimonios dinámicos y acceso directo a planes a medida desde el footer para aumentar la confianza y las ventas.
 - **SEO & Performance:** Generación estática completa, imágenes optimizadas y cabeceras de seguridad rigurosas.
 
 ## Estructura
@@ -45,7 +45,8 @@ src/
 │   ├── expediciones/[slug].astro
 │   ├── formacion/[slug].astro
 │   ├── terminos-y-condiciones.astro
-│   └── en/            # Home EN, calendario EN, detail pages EN, terms EN
+│   ├── privacidad.astro
+│   └── en/            # Home EN, calendario EN, detail pages EN, terms EN, privacy EN
 └── styles/global.css  # Tokens de diseño + utilidades globales
 public/
 ├── admin/             # Decap CMS — accesible en /admin
@@ -57,11 +58,12 @@ public/
 
 - `/` home en español
 - `/en` home en inglés
-- `/#expeditions`, `/#training`, `/#about` navegación por anclas en home
+- `/#expeditions`, `/#training`, `/#about`, `/#testimonials`, `/#custom-plan` navegación por anclas en home
 - `/calendario` y `/en/calendar`
 - `/expediciones/[slug]` y `/en/expeditions/[slug]`
 - `/formacion/[slug]` y `/en/training/[slug]`
 - `/terminos-y-condiciones` y `/en/terms-and-conditions`
+- `/privacidad` y `/en/privacy`
 
 ## Desarrollo local
 
