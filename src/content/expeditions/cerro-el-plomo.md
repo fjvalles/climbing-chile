@@ -71,6 +71,6 @@ details:
     El Cerro El Plomo es la cumbre de 5.000 metros más accesible desde Santiago, pero no por ello exenta de desafíos. Requiere una buena planificación de aclimatación y una excelente condición física. Una experiencia clásica de los Andes Centrales.
   en: |
     Mount El Plomo is the most accessible 5,000-meter summit from Santiago, but that does not make it easy. It still demands solid acclimatization planning and strong fitness. This is one of the classic objectives of the Central Andes.
-order: 1
+order: 4
 video: "https://www.youtube.com/watch?v=sbIAIJOZgoA"
 ---

@@ -73,5 +73,5 @@ details:
     El Puntiagudo es uno de los volcanes más bellos y técnicamente exigentes de la Patagonia chilena. Su característica aguja de roca y hielo lo convierte en un objetivo codiciado. Ruta corta pero intensa, con pendientes de hielo de hasta 50 grados. Salida agosto-septiembre 2026, con base en Puerto Varas.
   en: |
     Puntiagudo is one of the most beautiful and technically demanding volcanoes in Chilean Patagonia. Its sharp rock-and-ice spire makes it a coveted objective. The route is short but intense, with ice slopes up to 50 degrees. Departure window: August-September 2026, based out of Puerto Varas.
-order: 2
+order: 1
 ---
