@@ -80,7 +80,7 @@
     # - images: same origin + uploaded assets + placeholder SVGs
     # - scripts: same origin + Netlify Identity widget + Google Fonts
     # - frames: Netlify Identity needs it for the login popup
-    Content-Security-Policy = "default-src 'self'; script-src 'self' https://identity.netlify.com https://unpkg.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://res.cloudinary.com; connect-src 'self' https://*.netlify.com https://*.netlify.app; frame-src https://identity.netlify.com; object-src 'none'; base-uri 'self'; form-action 'none'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://identity.netlify.com https://unpkg.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://res.cloudinary.com; connect-src 'self' https://*.netlify.com https://*.netlify.app; frame-src https://identity.netlify.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'none'"
 
 # ─── Admin: no indexing & relaxed CSP for Decap CMS ──────────────────────────
 [[headers]]
