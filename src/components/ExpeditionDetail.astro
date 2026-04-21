@@ -23,6 +23,12 @@ const wa = footerEntry && footerEntry.data.type === 'footer'
   : '#';
 const detailParagraphs = d.details ? d.details[lang].split(/\n\n+/).map(p => p.trim()).filter(Boolean) : [];
 
+function getYouTubeId(url: string): string | null {
+  const m = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([^&\n?#]+)/);
+  return m ? m[1] : null;
+}
+const videoId = d.video ? getYouTubeId(d.video) : null;
+
 const difficultyLabel = {
   es: { easy: 'Fácil', moderate: 'Moderada', demanding: 'Exigente', difficult: 'Difícil', expedition: 'Expedición' },
   en: { easy: 'Easy', moderate: 'Moderate', demanding: 'Demanding', difficult: 'Difficult', expedition: 'Expedition' },
@@ -86,6 +92,22 @@ const fromLabel = lang === 'es' ? 'Desde' : 'From';
           {detailParagraphs.length > 0 && (
             <div class="mt-8 space-y-4">
               {detailParagraphs.map(p => <p class="text-base leading-relaxed text-[var(--color-stone)]">{p}</p>)}
+            </div>
+          )}
+
+          {videoId && (
+            <div class="mt-12">
+              <p class="eyebrow text-[var(--color-brand-yellow-dark)] mb-4">{lang === 'es' ? 'Video' : 'Video'}</p>
+              <div class="relative w-full aspect-video bg-black">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+                  title={d.title[lang]}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                  class="absolute inset-0 w-full h-full"
+                ></iframe>
+              </div>
             </div>
           )}
 

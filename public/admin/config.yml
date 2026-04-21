@@ -5,6 +5,8 @@ backend:
 media_folder: "public/uploads"
 public_folder: "/uploads"
 locale: "es"
+editor:
+  preview: false
 
 collections:
   - name: "expeditions"
@@ -101,6 +103,7 @@ collections:
               - { label: "English", name: "en", widget: "text" }
       - { label: "Orden", name: "order", widget: "number", value_type: "int", default: 100 }
       - { label: "Contenido", name: "body", widget: "markdown", required: false }
+      - { label: "Video (URL YouTube / Vimeo)", name: "video", widget: "string", required: false, hint: "URL completa del video. Ej: https://youtu.be/abc123 o https://www.youtube.com/watch?v=abc123" }
 
   - name: "courses"
     label: "Cursos"
@@ -195,6 +198,7 @@ collections:
           - { label: "Cupos", name: "spots", widget: "number", required: false, value_type: "int" }
       - { label: "Orden", name: "order", widget: "number", value_type: "int", default: 100 }
       - { label: "Contenido", name: "body", widget: "markdown", required: false }
+      - { label: "Video (URL YouTube / Vimeo)", name: "video", widget: "string", required: false, hint: "URL completa del video. Ej: https://youtu.be/abc123 o https://www.youtube.com/watch?v=abc123" }
 
   - name: "team"
     label: "Equipo"

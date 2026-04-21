@@ -72,4 +72,5 @@ details:
   en: |
     Mount El Plomo is the most accessible 5,000-meter summit from Santiago, but that does not make it easy. It still demands solid acclimatization planning and strong fitness. This is one of the classic objectives of the Central Andes.
 order: 1
+video: "https://www.youtube.com/watch?v=sbIAIJOZgoA"
 ---

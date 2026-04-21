@@ -76,4 +76,5 @@ details:
   en: |
     Paso Los Libertadores concentrates some of Chile's best icefalls, all reachable from Santiago within a few hours. Mantito and Manto de Hielo offer lines for a range of levels, guided by UIAGM/ANGM-certified instructors. Operating season: June and July.
 order: 4
+video: "https://www.youtube.com/watch?v=URhDrtOqiHY"
 ---

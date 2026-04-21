@@ -100,4 +100,5 @@ details:
   en: |
     Cochamo is South America's most spectacular big-wall destination. Expect granite walls up to 1,000 meters high, ancient alerce forests, and climbing that ranges from single-pitch routes to multi-day objectives. Bookings for January-February 2027 are already open.
 order: 3
+video: "https://www.youtube.com/watch?v=TNzIiCqLJd0"
 ---

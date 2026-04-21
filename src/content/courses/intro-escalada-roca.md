@@ -77,4 +77,5 @@ details:
 
     We provide all the safety gear you need: rope, harness, helmet, and belay device. Just show up with comfortable clothes and a willingness to climb.
 order: 1
+video: "https://www.youtube.com/watch?v=K7u_m9Kf5A"
 ---

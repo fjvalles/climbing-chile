@@ -75,4 +75,5 @@ details:
 
     This is the course that separates the recreational climber from the committed mountaineer. If you have at least one full season of climbing behind you and want to take the leap to real autonomy, this is your next step.
 order: 3
+video: "https://www.youtube.com/watch?v=M1ar4Wy_ROs"
 ---

@@ -44,6 +44,7 @@ const expeditions = defineCollection({
         .default([]),
       details: localized.optional(),
       order: z.number().default(100),
+      video: z.string().url().optional(),
     }),
 });
 
@@ -86,6 +87,7 @@ const courses = defineCollection({
         .default([]),
       featured: z.boolean().default(false),
       order: z.number().default(100),
+      video: z.string().url().optional(),
     }),
 });
 
